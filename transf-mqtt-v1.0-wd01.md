@@ -216,6 +216,9 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 ## 2.2 Default Topic Structure
 
+> NOTE: a brief Slack discussion on this proposed topic structure can be found 
+[here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
+
 The following MQTT topic structure is used to exchange 
 OpenC2 messages. The "oc2" prefix on the topic names 
 segregates OpenC2-related topics from other topics that 
