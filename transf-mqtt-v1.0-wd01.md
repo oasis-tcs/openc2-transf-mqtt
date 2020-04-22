@@ -210,6 +210,47 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 * **Abstract:**  OpenC2 commands and responses are defined abstractly and can be encoded and transferred via multiple schemes as dictated by the needs of different implementation environments
 * **Extensible:**  While OpenC2 defines a core set of actions and targets for cyber defense, the language is expected to evolve with cyber defense technologies, and permits extensions to accommodate new cyber defense technologies.
 
+# 2 Operating Model
+
+## 2.1 Publishers, Subscribers, and Brokers
+
+## 2.2 Default Topic Structure
+
+The following MQTT topic structure is used to exchange OpenC2 messages. The "oc2" prefix on the topic names segregates OpenC2-related topics from other topics that might exist on the same broker. Text in _italics_ in the topic names is a wildcard placeholder.
+
+> NOTE: Spaces are used around the slash in the topic names for readability, and would not be present in an operating instance.
+
+* oc2cmd / _AP_ -- This channel is used to send OpenC2 commands to all instances of specified Actuator Profile.
+* oc2cmd / _deviceType_ -- This channel is used to send OpenC2 commands to all instances of a particular device type. It is assumed that a device of a given type may support multiple APs.
+* oc2cmd / _deviceID_ -- This channel is used to send OpenC2 commands to all APs within a specific device.
+* oc2cmd / _action_ -- This channel is used to send OpenC2 commands to all devices and/or actuators that implement the specified action.
+* oc2rsp -- This channel is used to return OpenC2 response messages.
+
+In order to receive commands intended for its security functions, a Consumer device registering with the broker would subscribe to:
+* oc2cmd / _AP_ for all APs the device implements
+* oc2cmd / _deviceType_ for that device's TYPE
+* oc2cmd / _deviceID_ for that device's ID
+* oc2cmd / _action_ for the union set of actions supported by the set of APs the device implements
+
+In order to receive responses to the commands is sends, a  Producer registering with the broker would subscribe to:
+* oc2rsp
+
+
+> NOTE (from Duncan Sparrell on Slack):  I think a lot of 
+this depends on our model of APs within a ‘device’ (which 
+may be in a ‘device’) and what operates at which level (AP/
+inner device/outer device) which we haven’t discussed much. 
+And I think that discussion depend on the ‘lots of little 
+atomic APs’ or ‘fewer compound APs with optional pieceparts’ 
+(which BTW I’ll argue is just the lots of little atomic with 
+an added layer). I think the pub/sub discussion “informs” 
+the atomic/compound AP discussion but I also think reality 
+of todays tech informs the discussion and we should look 
+at how real world products work today
+
+
+
+
 # 3 Security Considerations
 (Note: OASIS strongly recommends that Technical Committees consider issues that could affect security when implementing their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
 
