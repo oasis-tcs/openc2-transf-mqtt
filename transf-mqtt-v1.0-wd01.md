@@ -212,7 +212,7 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
-> NOTE:  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / someone else's problem is welcome. 
+> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / someone else's problem is welcome. 
 > - what is the required minimum interoperable topic structure?
 > - What is the OpenC2 message format over MQTT?
 > - how does a Producer discover the active consumers in a pub/subs space?
@@ -228,7 +228,7 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 ## 2.2 Default Topic Structure
 
-> NOTE: a brief Slack discussion on this proposed topic structure can be found 
+> **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
 [here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
 
 The following MQTT topic structure is used to exchange 
@@ -237,7 +237,7 @@ segregates OpenC2-related topics from other topics that
 might exist on the same broker. Text in _italics_ in 
 the topic names is a wildcard placeholder.
 
-> NOTE: Spaces are used around the slash in the topic 
+> **NOTE:** Spaces are used around the slash in the topic 
 names for readability, and would not be present in an operating instance.
 
 * oc2cmd / _AP_ -- This channel is used to send 
@@ -267,7 +267,7 @@ a Producer registering with the broker would subscribe to:
 * oc2rsp
 
 
-> NOTE (from Duncan Sparrell on Slack):  I think a lot of 
+> **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
 this depends on our model of APs within a ‘device’ (which 
 may be in a ‘device’) and what operates at which level (AP/
 inner device/outer device) which we haven’t discussed much. 
