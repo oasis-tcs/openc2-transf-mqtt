@@ -212,6 +212,18 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
+> NOTE:  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / someone else's problem is welcome. 
+> - what is the required minimum interoperable topic structure?
+> - What is the OpenC2 message format over MQTT?
+> - how does a Producer discover the active consumers in a pub/subs space?
+> - how does a Producer discover the capabilities of active consumers in a pub/subs space?
+> - What is the appropriate QoS for MQTT messaging for OpenC2?
+> - Should Consumers publish any kind of birth and/or death messages?
+> - Should we recommend a maximum keep-alive interval?
+> - Do we need to describe the nature / structure of the Consumer Device / Actuator(s)?
+> - Is there a need to describe a state model for the Producer or Consumer?
+
+
 ## 2.1 Publishers, Subscribers, and Brokers
 
 ## 2.2 Default Topic Structure
