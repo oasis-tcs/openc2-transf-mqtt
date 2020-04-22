@@ -107,7 +107,9 @@ MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OAS
 ###### [RFC3552]
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 ###### [IACD]
-M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br><br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+###### [Sparkplug-B]
+Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
 ## 1.4 Terminology
 * **Action**: The task or activity to be performed (e.g., 'deny').
@@ -232,14 +234,15 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 ## 2.1 Publishers, Subscribers, and Brokers
 
 When transferring OpenC2 Command and Response messages via MQTT,
-both Producers and Consumers are both publishers and subscribers:
+both Producers and Consumers act as both publishers and subscribers:
 
 * Producers publish Commands and subscribe to receive Responses
 * Consumers subscriber to receive Commands and publish Responses
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
-are assumed to be conformant with the MQTT v3.1.1 specification.
+are assumed to be conformant with the MQTT v3.1.1 specification 
+[[MQTT-V3.1.1](#mqtt-v3.1.1)].
 
 ## 2.2 Default Topic Structure
 
@@ -294,10 +297,15 @@ the atomic/compound AP discussion but I also think reality
 of todays tech informs the discussion and we should look 
 at how real world products work today
 
+## 2.3 Message Format
 
+# 3 Protocol Mappings
 
+# 4 Security Considerations
 
-# 3 Security Considerations
+* Bare minimum requirement for operational instance should be
+use of TLS 1.2 or higher for client-broker connections.
+
 (Note: OASIS strongly recommends that Technical Committees consider issues that could affect security when implementing their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
 
 While it may not be immediately obvious how your specification might make systems vulnerable to attack, most specifications, because they involve communications between systems, message formats, or system settings, open potential channels for exploit. For example, IETF [[RFC3552](#rfc3552)] lists “eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle” as well as potential denial of service attacks as threats that must be considered and, if appropriate, addressed in IETF RFCs. 
@@ -308,7 +316,7 @@ We encourage editors and TC members concerned with this subject to read _Guideli
 
 Remove this note before submitting for publication.)
 
-# 4 Conformance
+# 5 Conformance
 (Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
 For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
 
