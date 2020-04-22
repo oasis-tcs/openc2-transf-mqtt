@@ -6,6 +6,7 @@
 <p>OASIS TC GitHub repositories, as described in <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">GitHub Repositories for OASIS TC Members' Chartered Work</a>, are governed by the OASIS <a href="https://www.oasis-open.org/policies-guidelines/tc-process">TC Process</a>, <a href="https://www.oasis-open.org/policies-guidelines/ipr">IPR Policy</a>, and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc.  While they make use of public GitHub repositories, these TC GitHub repositories are distinct from <a href="https://www.oasis-open.org/resources/open-repositories">OASIS Open Repositories</a>, which are used for development of open source <a href="https://www.oasis-open.org/resources/open-repositories/licenses">licensed</a> content.</p>
 </div>
 
+
 <div>
 <h3>Description</h3>
 
@@ -15,6 +16,30 @@ The repository is designed to support TC members' work on a formal specification
 
 The provisional Work Product title for the work is: "Specification for Transfer of OpenC2 Messages via MQTT, Version 1.0", edited by Danny Martinez (G2) and Joseph Brule (NSA). The specification explains the transfer of OpenC2 command and response messages using MQTT.
 </div>
+
+### Branching Strategy
+
+This repository is organized with three branches:
+
+ * The *_Working_* branch contains work product 
+ material that is actively being developed, and 
+ subject to potentially frequent and significant 
+ change. Contributors to the work product should 
+ target their inputs to the Working branch.
+
+ * The *_Releases_* branch contains incremental 
+ releases (i.e., Working Drafts [WDs]) of the work 
+ product. The current contents of the Working 
+ branch are merged into the Releases branch to 
+ create a WD. 
+
+ * The *_Master_* branch contains TC-approved 
+[Committee Specification](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dCommitteeSpec) (CS) or [OASIS Standard](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dOASISstandard) 
+versions of the work product. Until the first CS 
+is approved, the Master branch will not contain 
+a complete version of the work product.
+
+![Branching /  Versioning Strategy](images/versioning-concept.png)
 
 <div>
 <h3>Contributions</h3>
