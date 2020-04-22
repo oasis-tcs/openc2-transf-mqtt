@@ -216,23 +216,39 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 ## 2.2 Default Topic Structure
 
-The following MQTT topic structure is used to exchange OpenC2 messages. The "oc2" prefix on the topic names segregates OpenC2-related topics from other topics that might exist on the same broker. Text in _italics_ in the topic names is a wildcard placeholder.
+The following MQTT topic structure is used to exchange 
+OpenC2 messages. The "oc2" prefix on the topic names 
+segregates OpenC2-related topics from other topics that 
+might exist on the same broker. Text in _italics_ in 
+the topic names is a wildcard placeholder.
 
-> NOTE: Spaces are used around the slash in the topic names for readability, and would not be present in an operating instance.
+> NOTE: Spaces are used around the slash in the topic 
+names for readability, and would not be present in an operating instance.
 
-* oc2cmd / _AP_ -- This channel is used to send OpenC2 commands to all instances of specified Actuator Profile.
-* oc2cmd / _deviceType_ -- This channel is used to send OpenC2 commands to all instances of a particular device type. It is assumed that a device of a given type may support multiple APs.
-* oc2cmd / _deviceID_ -- This channel is used to send OpenC2 commands to all APs within a specific device.
-* oc2cmd / _action_ -- This channel is used to send OpenC2 commands to all devices and/or actuators that implement the specified action.
+* oc2cmd / _AP_ -- This channel is used to send 
+OpenC2 commands to all instances of specified Actuator Profile.
+* oc2cmd / _deviceType_ -- This channel is used 
+to send OpenC2 commands to all instances of a 
+particular device type. It is assumed that a 
+device of a given type may support multiple APs.
+* oc2cmd / _deviceID_ -- This channel is used to 
+send OpenC2 commands to all APs within a specific device.
+* oc2cmd / _action_ -- This channel is used to send 
+OpenC2 commands to all devices and/or actuators that
+ implement the specified action.
 * oc2rsp -- This channel is used to return OpenC2 response messages.
 
-In order to receive commands intended for its security functions, a Consumer device registering with the broker would subscribe to:
+In order to receive commands intended for its security 
+functions, a Consumer device registering with the broker 
+would subscribe to:
 * oc2cmd / _AP_ for all APs the device implements
 * oc2cmd / _deviceType_ for that device's TYPE
 * oc2cmd / _deviceID_ for that device's ID
-* oc2cmd / _action_ for the union set of actions supported by the set of APs the device implements
+* oc2cmd / _action_ for the union set of actions 
+supported by the set of APs the device implements
 
-In order to receive responses to the commands is sends, a  Producer registering with the broker would subscribe to:
+In order to receive responses to the commands is sends, 
+a Producer registering with the broker would subscribe to:
 * oc2rsp
 
 
