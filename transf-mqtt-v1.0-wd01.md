@@ -219,6 +219,7 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 > **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / someone else's problem is welcome. 
 > - what is the required minimum interoperable topic structure?
 > - What is the OpenC2 message format over MQTT?
+> - Are there any special requirements for the MQTT Client ID?
 > - how does a Producer discover the active consumers in a pub/subs space?
 > - how does a Producer discover the capabilities of active consumers in a pub/subs space?
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
@@ -236,15 +237,16 @@ both Producers and Consumers are both publishers and subscribers:
 * Producers publish Commands and subscribe to receive Responses
 * Consumers subscriber to receive Commands and publish Responses
 
-The MQTT broker is beyond the scope of this specification, but
-is assumed to be conforming with the MQTT v3.1.1 specification.
+The MQTT broker and MQTT client software used by Producers 
+and Consumers are beyond the scope of this specification, but
+are assumed to be conformant with the MQTT v3.1.1 specification.
 
 ## 2.2 Default Topic Structure
 
 > **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
 [here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
 
-The following MQTT topic structure is used to exchange 
+The MQTT topic structure below is used to exchange 
 OpenC2 messages. The "oc2" prefix on the topic names 
 segregates OpenC2-related topics from other topics that 
 might exist on the same broker. Text in _italics_ in 
