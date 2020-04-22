@@ -98,6 +98,10 @@ Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", 
 ###### [OpenC2-Lang-v1.0]
 _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
 
+###### [mqtt-v3.1.1]
+
+MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
+
 ## 1.3 Non-Normative References
 
 ###### [RFC3552]
@@ -225,6 +229,15 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 
 ## 2.1 Publishers, Subscribers, and Brokers
+
+When transferring OpenC2 Command and Response messages via MQTT,
+both Producers and Consumers are both publishers and subscribers:
+
+* Producers publish Commands and subscribe to receive Responses
+* Consumers subscriber to receive Commands and publish Responses
+
+The MQTT broker is beyond the scope of this specification, but
+is assumed to be conforming with the MQTT v3.1.1 specification.
 
 ## 2.2 Default Topic Structure
 
