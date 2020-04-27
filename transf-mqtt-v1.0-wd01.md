@@ -307,7 +307,7 @@ at how real world products work today
 # 4 Security Considerations
 
 * Bare minimum requirement for operational instance should be
-use of TLS 1.2 or higher for client-broker connections.
+use of TLS 1.2 or higher for client-broker connections. Basically, extract and use the TLS guidance from the v1.0 HTTPS Transfer CS.
 
 (Note: OASIS strongly recommends that Technical Committees consider issues that could affect security when implementing their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
 
