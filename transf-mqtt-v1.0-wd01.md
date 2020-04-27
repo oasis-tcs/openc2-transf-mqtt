@@ -267,21 +267,25 @@ segregates OpenC2-related topics from other topics that
 might exist on the same broker. Text in _italics_ in 
 the topic names is a wildcard placeholder.
 
-> **NOTE:** Spaces are used around the slash in the topic 
-names for readability, and would not be present in an operating instance.
+> **NOTE:** Spaces are used around the slash in
+the topic names for readability, and would not be
+present in an operating instance.
 
-* oc2cmd / _AP_ -- This channel is used to send 
-OpenC2 commands to all instances of specified Actuator Profile.
-* oc2cmd / _deviceType_ -- This channel is used 
-to send OpenC2 commands to all instances of a 
-particular device type. It is assumed that a 
-device of a given type may support multiple APs.
-* oc2cmd / _deviceID_ -- This channel is used to 
-send OpenC2 commands to all APs within a specific device.
-* oc2cmd / _action_ -- This channel is used to send 
-OpenC2 commands to all devices and/or actuators that
- implement the specified action.
-* oc2rsp -- This channel is used to return OpenC2 response messages.
+* oc2cmd / _AP_ -- This channel is used to send
+  OpenC2 commands to all instances of specified
+  Actuator Profile.
+* oc2cmd / _deviceType_ -- This channel is used to
+  send OpenC2 commands to all instances of a
+  particular device type. It is assumed that a
+  device of a given type may support multiple APs.
+* oc2cmd / _deviceID_ -- This channel is used to
+  send OpenC2 commands to all APs within a
+  specific device.
+* oc2cmd / _action_ -- This channel is used to
+  send OpenC2 commands to all devices and/or
+  actuators that implement the specified action.
+* oc2rsp -- This channel is used to return OpenC2
+  response messages.
 
 In order to receive commands intended for its security 
 functions, a Consumer device registering with the broker 
@@ -311,7 +315,12 @@ at how real world products work today
 
 ## 2.3 Message Format
 
-> The format proposed by Dave Kemp in [Language Spec issue #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353), or similar, seems appropriate for use with pub/sub protocols. It encapsulates all of the needed information.
+> The format proposed by Dave Kemp in [Language
+> Spec issue
+> #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
+> or similar, seems appropriate for use with
+> pub/sub protocols. It encapsulates all of the
+> needed information.
 
 ## 2.4 Quality of Service
 
@@ -323,31 +332,60 @@ at how real world products work today
 
 ## 2.5 MQTT Client Identifier
 
-As described in [mqtt-v3.1.1](#mqtt-v311) Section 3.1, _CONNECT – Client requests 
-a connection to a Server_, the Client Identifier (ClientId) is a 
-required field in the CONNECT control packet. Further requirements are 
-contained in Section 3.1.3.1, _Client Identifier_, which defines the 
-ClientId as a UTF-8 string containing only letters and numbers of 
-between 1 and 23 bytes (MQTT servers may accept longer ClientIds). 
-[mqtt-v3.1.1](#mqtt-v311) provides no further definition regarding 
-the format or assignment of ClientIds. 
+As described in [mqtt-v3.1.1](#mqtt-v311) Section
+3.1, _CONNECT – Client requests a connection to a
+Server_, the Client Identifier (ClientId) is a
+required field in the CONNECT control packet.
+Further requirements are contained in Section
+3.1.3.1, _Client Identifier_, which defines the
+ClientId as a UTF-8 string containing only letters
+and numbers of between 1 and 23 bytes (MQTT
+servers may accept longer ClientIds).
+[mqtt-v3.1.1](#mqtt-v311) provides no further
+definition regarding the format or assignment of
+ClientIds. 
 
-> **NOTE**: the approach for creating ClientIds for OpenC2 MQTT clients is TBD.
+> **NOTE**: the approach for creating ClientIds
+> for OpenC2 MQTT clients is TBD.
 
 # 3 Protocol Mappings
 
 # 4 Security Considerations
 
-* Bare minimum requirement for operational instance should be
-use of TLS 1.2 or higher for client-broker connections. Basically, extract and use the TLS guidance from the v1.0 HTTPS Transfer CS.
+* Bare minimum requirement for operational
+  instance should be use of TLS 1.2 or higher for
+  client-broker connections. Basically, extract
+  and use the TLS guidance from the v1.0 HTTPS
+  Transfer CS.
 
-(Note: OASIS strongly recommends that Technical Committees consider issues that could affect security when implementing their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
+(Note: OASIS strongly recommends that Technical
+Committees consider issues that could affect
+security when implementing their specification and
+document them for implementers and adopters. For
+some purposes, you may find it required, e.g. if
+you apply for IANA registration.
 
-While it may not be immediately obvious how your specification might make systems vulnerable to attack, most specifications, because they involve communications between systems, message formats, or system settings, open potential channels for exploit. For example, IETF [[RFC3552](#rfc3552)] lists “eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle” as well as potential denial of service attacks as threats that must be considered and, if appropriate, addressed in IETF RFCs. 
+While it may not be immediately obvious how your
+specification might make systems vulnerable to
+attack, most specifications, because they involve
+communications between systems, message formats,
+or system settings, open potential channels for
+exploit. For example, IETF [[RFC3552](#rfc3552)]
+lists “eavesdropping, replay, message insertion,
+deletion, modification, and man-in-the-middle” as
+well as potential denial of service attacks as
+threats that must be considered and, if
+appropriate, addressed in IETF RFCs. 
 
-In addition to considering and describing foreseeable risks, this section should include guidance on how implementers and adopters can protect against these risks.
+In addition to considering and describing
+foreseeable risks, this section should include
+guidance on how implementers and adopters can
+protect against these risks.
 
-We encourage editors and TC members concerned with this subject to read _Guidelines for Writing RFC Text on Security Considerations_, IETF [[RFC3552](#rfc3552)], for more information.
+We encourage editors and TC members concerned with
+this subject to read _Guidelines for Writing RFC
+Text on Security Considerations_, IETF
+[[RFC3552](#rfc3552)], for more information.
 
 Remove this note before submitting for publication.)
 
