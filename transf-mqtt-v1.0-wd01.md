@@ -218,19 +218,26 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
-> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / SEP (someone else's problem) is welcome. 
+This section provides an overview of the approach to employing
+MQTT as a message transfer protocol for OpenC2 messages.
+
+> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec 
+should answer; feedback on additional questions or questions that 
+might be out-of-scope / SEP (someone else's problem) is welcome. 
 > - What is the required minimum interoperable topic structure?
 >   - A proposal is contained in [2.2 Default Topic Structure](#22-default-topic-structure).
 > - What is the OpenC2 message format over MQTT?
->   - The format proposed by Dave Kemp in [Language Spec issue #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353), or similar, seems appropriate for use with pub/sub protocols. It encapsulates all of the needed information.
-> - Are there any special requirements for the MQTT Client ID?
+>   - See [Section 2.3](#23-message-format)
+> - Are there any special requirements for the MQTT ClientId?
+>   - See [Section 2.5](#25-mqtt-client-identifier); a proposal for ClientId assignment is TBD.
 > - How does a Producer discover the active consumers in a pub/subs space?
 > - How does a Producer discover the capabilities of active consumers in a pub/subs space?
 >   - The above two questions have an element of _registration_ (making Consumers known to the Producer) vs. _discovery_ (enabling the Producer to know what Consumers are currently active in the Producer's sphere of control). 
 >   - _Proposed_: Discovery as defined above is an appropriate topic for a transfer specification, registration is outside the scope of a transfer specification
 >   - _Proposed_: Determination of actuator capabilities is outside the scope of a transfer specification, but a transfer specification might facilitate use of the OpenC2 Language's features to make such determination (details TBD)
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
->   - A proposal is contained in [2.4 Quality of Service](#24-quality-of-service).> - Should Consumers publish any kind of birth and/or death messages?
+>   - See  [Section 2.4](#24-quality-of-service).
+> - Should Consumers publish any kind of birth and/or death messages?
 > - Should we recommend a maximum keep-alive interval?
 > - Do we need to describe the nature / structure of the Consumer Device / Actuator(s)?
 > - Is there a need to describe a state model for the Producer or Consumer?
@@ -314,6 +321,18 @@ at how real world products work today
 >   - **QoS 2: "Exactly once"**, where message are assured to arrive exactly once. This level could be used, for example, with billing systems where duplicate or lost messages could lead to incorrect charges being applied.
 > - _Proposed_:  QoS 1 is appropriate for at least most OpenC2 applications and should be specified as the default.  In most cases the overhead of QoS 2 does not seem justified.
 
+## 2.5 MQTT Client Identifier
+
+As described in [mqtt-v3.1.1](#mqtt-v3.1.1) Section 3.1, _CONNECT – Client requests 
+a connection to a Server_, the Client Identifier (ClientId) is a 
+required field in the CONNECT control packet. Further requirements are 
+contained in Section 3.1.3.1, _Client Identifier_, which defines the 
+ClientId as a UTF-8 string containing only letters and numbers of 
+between 1 and 23 bytes (MQTT servers may accept longer ClientIds). 
+[mqtt-v3.1.1](#mqtt-v3.1.1) provides no further definition regarding 
+the format or assignment of ClientIds. 
+
+> **NOTE**: the approach for creating ClientIds for OpenC2 MQTT clients is TBD.
 
 # 3 Protocol Mappings
 
