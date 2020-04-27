@@ -218,12 +218,15 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
-> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / someone else's problem is welcome. 
-> - what is the required minimum interoperable topic structure?
+> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / SEP (someone else's problem) is welcome. 
+> - What is the required minimum interoperable topic structure?
 > - What is the OpenC2 message format over MQTT?
 > - Are there any special requirements for the MQTT Client ID?
-> - how does a Producer discover the active consumers in a pub/subs space?
-> - how does a Producer discover the capabilities of active consumers in a pub/subs space?
+> - How does a Producer discover the active consumers in a pub/subs space?
+> - How does a Producer discover the capabilities of active consumers in a pub/subs space?
+>   - The above two questions have an element of registration (making Consumers known to the Producer) vs. discovery (enabling the Producer to know what Consumers are currently active in the Producer's sphere of control). 
+>   - _Proposed_: discovery is an appropriate topic for a transfer specification, registration is outside the scope of a transfer specification
+>   - _Proposed_: determination of actuator capabilities is outside the scope of a transfer specification, but a transfer specification might facilitate use of the OpenC2 Language's features to make such determination (details TBD)
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
 > - Should Consumers publish any kind of birth and/or death messages?
 > - Should we recommend a maximum keep-alive interval?
