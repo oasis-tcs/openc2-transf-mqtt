@@ -220,7 +220,9 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 > **NOTE:**  Tentative list of Qs the MQTT Transfer Spec should answer; feedback on which might be out-of-scope / SEP (someone else's problem) is welcome. 
 > - What is the required minimum interoperable topic structure?
+>   - A proposal is contained in [2.2 Default Topic Structure](#22-default-topic-structure).
 > - What is the OpenC2 message format over MQTT?
+>   - The format proposed by Dave Kemp in [Language Spec issue #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353), or similar, seems appropriate for use with pub/sub protocols. It encapsulates all of the needed information.
 > - Are there any special requirements for the MQTT Client ID?
 > - How does a Producer discover the active consumers in a pub/subs space?
 > - How does a Producer discover the capabilities of active consumers in a pub/subs space?
@@ -301,6 +303,8 @@ of todays tech informs the discussion and we should look
 at how real world products work today
 
 ## 2.3 Message Format
+
+> The format proposed by Dave Kemp in [Language Spec issue #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353), or similar, seems appropriate for use with pub/sub protocols. It encapsulates all of the needed information.
 
 # 3 Protocol Mappings
 
