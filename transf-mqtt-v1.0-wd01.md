@@ -254,7 +254,7 @@ both Producers and Consumers act as both publishers and subscribers:
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
 are assumed to be conformant with the MQTT v3.1.1 specification 
-[[MQTT-V3.1.1](#mqtt-v3.1.1)].
+[[MQTT-V3.1.1](#mqtt-v311)].
 
 ## 2.2 Default Topic Structure
 
@@ -323,13 +323,13 @@ at how real world products work today
 
 ## 2.5 MQTT Client Identifier
 
-As described in [mqtt-v3.1.1](#mqtt-v3.1.1) Section 3.1, _CONNECT – Client requests 
+As described in [mqtt-v3.1.1](#mqtt-v311) Section 3.1, _CONNECT – Client requests 
 a connection to a Server_, the Client Identifier (ClientId) is a 
 required field in the CONNECT control packet. Further requirements are 
 contained in Section 3.1.3.1, _Client Identifier_, which defines the 
 ClientId as a UTF-8 string containing only letters and numbers of 
 between 1 and 23 bytes (MQTT servers may accept longer ClientIds). 
-[mqtt-v3.1.1](#mqtt-v3.1.1) provides no further definition regarding 
+[mqtt-v3.1.1](#mqtt-v311) provides no further definition regarding 
 the format or assignment of ClientIds. 
 
 > **NOTE**: the approach for creating ClientIds for OpenC2 MQTT clients is TBD.
