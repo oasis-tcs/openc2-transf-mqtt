@@ -265,41 +265,35 @@ are assumed to be conformant with the MQTT v3.1.1 specification
 The MQTT topic structure below is used to exchange 
 OpenC2 messages. The "oc2" prefix on the topic names 
 segregates OpenC2-related topics from other topics that 
-might exist on the same broker. Text in _italics_ in 
-the topic names is a wildcard placeholder.
+might exist on the same broker. Topic name components in
+brackets (e.g., `[actuator_profile]`) are placeholders for
+specific values that would be used in implementation.  For
+example, a device that includes a Stateless Packet Filter AP
+would subscribe to `oc2/cmd/ap/slpf`.
 
-> **NOTE:** Spaces are used around the slash in
-the topic names for readability, and would not be
-present in an operating instance.
+| Topic  | Purpose   | Producer | Consumer |
+|---|---|:---:|:---:|
+| `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
+|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs.  | Pub  | Sub   |
+| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a   specific device.  | Pub | Sub |
+| `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
+| `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
+| `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
 
-* oc2cmd / _AP_ -- This channel is used to send
-  OpenC2 commands to all instances of specified
-  Actuator Profile.
-* oc2cmd / _deviceType_ -- This channel is used to
-  send OpenC2 commands to all instances of a
-  particular device type. It is assumed that a
-  device of a given type may support multiple APs.
-* oc2cmd / _deviceID_ -- This channel is used to
-  send OpenC2 commands to all APs within a
-  specific device.
-* oc2cmd / _action_ -- This channel is used to
-  send OpenC2 commands to all devices and/or
-  actuators that implement the specified action.
-* oc2rsp -- This channel is used to return OpenC2
-  response messages.
 
 In order to receive commands intended for its security 
 functions, a Consumer device registering with the broker 
 would subscribe to:
-* oc2cmd / _AP_ for all APs the device implements
-* oc2cmd / _deviceType_ for that device's TYPE
-* oc2cmd / _deviceID_ for that device's ID
-* oc2cmd / _action_ for the union set of actions 
+* `oc2/cmd/actuator_profile` for all APs the device implements
+* `oc2/cmd/device_type` for that device's TYPE
+* `oc2/cmd/device_id` for that device's ID
+* `oc2/cmd/action_target` for the union set of commands supported by the set of APs the device implements
+* `oc2/cmd/action` for the union set of actions 
 supported by the set of APs the device implements
 
 In order to receive responses to the commands is sends, 
 a Producer registering with the broker would subscribe to:
-* oc2rsp
+* `oc2/rsp`
 
 
 > **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
