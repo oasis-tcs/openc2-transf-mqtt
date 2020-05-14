@@ -3,18 +3,22 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 01
-## 27 February 2019
+## 14 May 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
 
 ### Chairs:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Sounil Yu (sounil.yu@bankofamerica.com), [Bank of America](http://www.bankofamerica.com/)
+* Duncan Sparrell (duncan@sfractal.com), [sFractal
+  Consulting](http://www.sfractal.com/)
 
 ### Editors:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Danny Martinez (danny.martinez@g2-inc.com), [G2](http://www.g2-inc.com/)
+* Danny Martinez (danny.martinez@g2-inc.com),
+  [G2](http://www.g2-inc.com/)
+* David Lemire (david.lemire@hii-tsd.com),
+  [G2](http://www.g2-inc.com/)
 
 ### Related work:
 This specification is related to:
@@ -72,7 +76,29 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -------
 
 # Table of Contents
-[[TOC will be inserted here]]
+-   [1 Introduction](#1-introduction)
+    -   [1.1 IPR Policy](#11-ipr-policy)
+    -   [1.2 Normative References](#12-normative-references)
+    -   [1.3 Non-Normative References](#13-non-normative-references)
+    -   [1.4 Terminology](#14-terminology)
+    -   [1.5 Document Conventions](#15-document-conventions)
+        -   [1.5.1 Naming Conventions](#151-naming-conventions)
+        -   [1.5.2 Font Colors and Style](#152-font-colors-and-style)
+    -   [1.6 Overview](#16-overview)
+    -   [1.7 Goal](#17-goal)
+-   [2 Operating Model](#2-operating-model)
+    -   [2.1 Publishers, Subscribers, and
+        Brokers](#21-publishers-subscribers-and-brokers)
+    -   [2.2 Default Topic Structure](#22-default-topic-structure)
+    -   [2.3 Message Format](#23-message-format)
+    -   [2.4 Quality of Service](#24-quality-of-service)
+    -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
+-   [3 Protocol Mappings](#3-protocol-mappings)
+-   [4 Security Considerations](#4-security-considerations)
+-   [5 Conformance](#5-conformance)
+-   [Appendix A. Acknowledgments](#appendix-a-acknowledgments)
+-   [Appendix B. Revision History](#appendix-b-revision-history)
+
 
 -------
 
@@ -98,12 +124,18 @@ Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", 
 ###### [OpenC2-Lang-v1.0]
 _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
 
+###### [mqtt-v3.1.1]
+
+MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
+
 ## 1.3 Non-Normative References
 
 ###### [RFC3552]
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 ###### [IACD]
-M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br><br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+###### [Sparkplug-B]
+Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
 ## 1.4 Terminology
 * **Action**: The task or activity to be performed (e.g., 'deny').
@@ -210,18 +242,173 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 * **Abstract:**  OpenC2 commands and responses are defined abstractly and can be encoded and transferred via multiple schemes as dictated by the needs of different implementation environments
 * **Extensible:**  While OpenC2 defines a core set of actions and targets for cyber defense, the language is expected to evolve with cyber defense technologies, and permits extensions to accommodate new cyber defense technologies.
 
-# 3 Security Considerations
-(Note: OASIS strongly recommends that Technical Committees consider issues that could affect security when implementing their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
+# 2 Operating Model
 
-While it may not be immediately obvious how your specification might make systems vulnerable to attack, most specifications, because they involve communications between systems, message formats, or system settings, open potential channels for exploit. For example, IETF [[RFC3552](#rfc3552)] lists “eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle” as well as potential denial of service attacks as threats that must be considered and, if appropriate, addressed in IETF RFCs. 
+This section provides an overview of the approach to employing
+MQTT as a message transfer protocol for OpenC2 messages.
 
-In addition to considering and describing foreseeable risks, this section should include guidance on how implementers and adopters can protect against these risks.
+> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec 
+should answer; feedback on additional questions or questions that 
+might be out-of-scope / SEP (someone else's problem) is welcome. 
+> - What is the required minimum interoperable topic structure?
+>   - A proposal is contained in [2.2 Default Topic Structure](#22-default-topic-structure).
+> - What is the OpenC2 message format over MQTT?
+>   - See [Section 2.3](#23-message-format)
+> - Are there any special requirements for the MQTT ClientId?
+>   - See [Section 2.5](#25-mqtt-client-identifier); a proposal for ClientId assignment is TBD.
+> - How does a Producer discover the active consumers in a pub/subs space?
+> - How does a Producer discover the capabilities of active consumers in a pub/subs space?
+>   - The above two questions have an element of _registration_ (making Consumers known to the Producer) vs. _discovery_ (enabling the Producer to know what Consumers are currently active in the Producer's sphere of control). 
+>   - _Proposed_: Discovery as defined above is an appropriate topic for a transfer specification, registration is outside the scope of a transfer specification
+>   - _Proposed_: Determination of actuator capabilities is outside the scope of a transfer specification, but a transfer specification might facilitate use of the OpenC2 Language's features to make such determination (details TBD)
+> - What is the appropriate QoS for MQTT messaging for OpenC2?
+>   - See  [Section 2.4](#24-quality-of-service).
+> - Should Consumers publish any kind of birth and/or death messages?
+> - Should we recommend a maximum keep-alive interval?
+> - Do we need to describe the nature / structure of the Consumer Device / Actuator(s)?
+> - Is there a need to describe a state model for the Producer or Consumer?
 
-We encourage editors and TC members concerned with this subject to read _Guidelines for Writing RFC Text on Security Considerations_, IETF [[RFC3552](#rfc3552)], for more information.
+
+## 2.1 Publishers, Subscribers, and Brokers
+
+When transferring OpenC2 Command and Response messages via MQTT,
+both Producers and Consumers act as both publishers and subscribers:
+
+* Producers publish Commands and subscribe to receive Responses
+* Consumers subscriber to receive Commands and publish Responses
+
+The MQTT broker and MQTT client software used by Producers 
+and Consumers are beyond the scope of this specification, but
+are assumed to be conformant with the MQTT v3.1.1 specification 
+[[MQTT-V3.1.1](#mqtt-v311)].
+
+## 2.2 Default Topic Structure
+
+> **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
+[here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
+
+The MQTT topic structure below is used to exchange 
+OpenC2 messages. The "oc2" prefix on the topic names 
+segregates OpenC2-related topics from other topics that 
+might exist on the same broker. Topic name components in
+brackets (e.g., `[actuator_profile]`) are placeholders for
+specific values that would be used in implementation.  For
+example, a device that includes a Stateless Packet Filter AP
+would subscribe to `oc2/cmd/ap/slpf`.
+
+| Topic  | Purpose   | Producer | Consumer |
+|---|---|:---:|:---:|
+| `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
+|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs.  | Pub  | Sub   |
+| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a   specific device.  | Pub | Sub |
+| `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
+| `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
+| `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
+
+
+In order to receive commands intended for its security 
+functions, a Consumer device registering with the broker 
+would subscribe to:
+* `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
+* `oc2/cmd/device_type/[device_type]` for that device's TYPE
+* `oc2/cmd/device_id/[device_type]` for that device's ID
+* `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
+* `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
+
+In order to receive responses to the commands is sends, 
+a Producer registering with the broker would subscribe to:
+* `oc2/rsp`
+
+
+> **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
+this depends on our model of APs within a ‘device’ (which 
+may be in a ‘device’) and what operates at which level (AP/
+inner device/outer device) which we haven’t discussed much. 
+And I think that discussion depend on the ‘lots of little 
+atomic APs’ or ‘fewer compound APs with optional pieceparts’ 
+(which BTW I’ll argue is just the lots of little atomic with 
+an added layer). I think the pub/sub discussion “informs” 
+the atomic/compound AP discussion but I also think reality 
+of todays tech informs the discussion and we should look 
+at how real world products work today
+
+## 2.3 Message Format
+
+> The format proposed by Dave Kemp in [Language
+> Spec issue
+> #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
+> or similar, seems appropriate for use with
+> pub/sub protocols. It encapsulates all of the
+> needed information.
+
+## 2.4 Quality of Service
+
+> - MQTT defines three quality of service (QoS) levels:
+>   - **QoS 0: "At most once"**, where messages are delivered according to the best efforts of the operating environment. Message loss can occur. This level could be used, for example, with ambient sensor data where it does not matter if an individual reading is lost as the next one will be published soon after.
+>   - **QoS 1: "At least once"**, where messages are assured to arrive but duplicates can occur.
+>   - **QoS 2: "Exactly once"**, where message are assured to arrive exactly once. This level could be used, for example, with billing systems where duplicate or lost messages could lead to incorrect charges being applied.
+> - _Proposed_:  QoS 1 is appropriate for at least most OpenC2 applications and should be specified as the default.  In most cases the overhead of QoS 2 does not seem justified.
+
+## 2.5 MQTT Client Identifier
+
+As described in [mqtt-v3.1.1](#mqtt-v311) Section
+3.1, _CONNECT – Client requests a connection to a
+Server_, the Client Identifier (ClientId) is a
+required field in the CONNECT control packet.
+Further requirements are contained in Section
+3.1.3.1, _Client Identifier_, which defines the
+ClientId as a UTF-8 string containing only letters
+and numbers of between 1 and 23 bytes (MQTT
+servers may accept longer ClientIds).
+[mqtt-v3.1.1](#mqtt-v311) provides no further
+definition regarding the format or assignment of
+ClientIds. 
+
+> **NOTE**: the approach for creating ClientIds
+> for OpenC2 MQTT clients is TBD.
+
+# 3 Protocol Mappings
+
+# 4 Security Considerations
+
+* Bare minimum requirement for operational
+  instance should be use of TLS 1.2 or higher for
+  client-broker connections. Basically, extract
+  and use the TLS guidance from the v1.0 HTTPS
+  Transfer CS.
+
+(Note: OASIS strongly recommends that Technical
+Committees consider issues that could affect
+security when implementing their specification and
+document them for implementers and adopters. For
+some purposes, you may find it required, e.g. if
+you apply for IANA registration.
+
+While it may not be immediately obvious how your
+specification might make systems vulnerable to
+attack, most specifications, because they involve
+communications between systems, message formats,
+or system settings, open potential channels for
+exploit. For example, IETF [[RFC3552](#rfc3552)]
+lists “eavesdropping, replay, message insertion,
+deletion, modification, and man-in-the-middle” as
+well as potential denial of service attacks as
+threats that must be considered and, if
+appropriate, addressed in IETF RFCs. 
+
+In addition to considering and describing
+foreseeable risks, this section should include
+guidance on how implementers and adopters can
+protect against these risks.
+
+We encourage editors and TC members concerned with
+this subject to read _Guidelines for Writing RFC
+Text on Security Considerations_, IETF
+[[RFC3552](#rfc3552)], for more information.
 
 Remove this note before submitting for publication.)
 
-# 4 Conformance
+# 5 Conformance
 (Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
 For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
 
@@ -239,15 +426,12 @@ The following individuals have participated in the creation of this specificatio
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alcoy | Arbor Networks
-Alex | Amirnovin | Viasat
-Kris | Anderson | Trend Micro
-Darren | Anstee | Arbor Networks
+TBD | TBD | TBD
 
 -------
 
 # Appendix B. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| transf-mqtt-v1.0-wd01 | yyyy-mm-dd | Editor Name | Initial working draft |
+| transf-mqtt-v1.0-wd01 | 2020-05-14 | David Lemire | Initial working draft |
 
