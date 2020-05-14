@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 01
-## 27 February 2019
+## 14 May 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -15,7 +15,10 @@
 
 ### Editors:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Danny Martinez (danny.martinez@g2-inc.com), [G2](http://www.g2-inc.com/)
+* Danny Martinez (danny.martinez@g2-inc.com),
+  [G2](http://www.g2-inc.com/)
+* David Lemire (david.lemire@hii-tsd.com),
+  [G2](http://www.g2-inc.com/)
 
 ### Related work:
 This specification is related to:
@@ -73,7 +76,29 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -------
 
 # Table of Contents
-[[TOC will be inserted here]]
+-   [1 Introduction](#1-introduction)
+    -   [1.1 IPR Policy](#11-ipr-policy)
+    -   [1.2 Normative References](#12-normative-references)
+    -   [1.3 Non-Normative References](#13-non-normative-references)
+    -   [1.4 Terminology](#14-terminology)
+    -   [1.5 Document Conventions](#15-document-conventions)
+        -   [1.5.1 Naming Conventions](#151-naming-conventions)
+        -   [1.5.2 Font Colors and Style](#152-font-colors-and-style)
+    -   [1.6 Overview](#16-overview)
+    -   [1.7 Goal](#17-goal)
+-   [2 Operating Model](#2-operating-model)
+    -   [2.1 Publishers, Subscribers, and
+        Brokers](#21-publishers-subscribers-and-brokers)
+    -   [2.2 Default Topic Structure](#22-default-topic-structure)
+    -   [2.3 Message Format](#23-message-format)
+    -   [2.4 Quality of Service](#24-quality-of-service)
+    -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
+-   [3 Protocol Mappings](#3-protocol-mappings)
+-   [4 Security Considerations](#4-security-considerations)
+-   [5 Conformance](#5-conformance)
+-   [Appendix A. Acknowledgments](#appendix-a-acknowledgments)
+-   [Appendix B. Revision History](#appendix-b-revision-history)
+
 
 -------
 
@@ -401,15 +426,12 @@ The following individuals have participated in the creation of this specificatio
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-Philippe | Alcoy | Arbor Networks
-Alex | Amirnovin | Viasat
-Kris | Anderson | Trend Micro
-Darren | Anstee | Arbor Networks
+TBD | TBD | TBD
 
 -------
 
 # Appendix B. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| transf-mqtt-v1.0-wd01 | yyyy-mm-dd | Editor Name | Initial working draft |
+| transf-mqtt-v1.0-wd01 | 2020-05-14 | David Lemire | Initial working draft |
 
