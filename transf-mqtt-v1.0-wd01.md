@@ -311,7 +311,7 @@ functions, a Consumer device registering with the broker
 would subscribe to:
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
 * `oc2/cmd/device_type/[device_type]` for that device's TYPE
-* `oc2/cmd/device_id/[device_type]` for that device's ID
+* `oc2/cmd/device_id/[device_id]` for that device's ID
 * `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
 * `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
 
