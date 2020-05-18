@@ -275,7 +275,7 @@ When transferring OpenC2 Command and Response messages via MQTT,
 both Producers and Consumers act as both publishers and subscribers:
 
 * Producers publish Commands and subscribe to receive Responses
-* Consumers subscriber to receive Commands and publish Responses
+* Consumers subscribe to receive Commands and publish Responses
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
@@ -299,8 +299,8 @@ would subscribe to `oc2/cmd/ap/slpf`.
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs.  | Pub  | Sub   |
-| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a   specific device.  | Pub | Sub |
+|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs, and that all devices of the same type support the same set of APs.  | Pub  | Sub   |
+| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
 | `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
@@ -311,7 +311,7 @@ functions, a Consumer device registering with the broker
 would subscribe to:
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
 * `oc2/cmd/device_type/[device_type]` for that device's TYPE
-* `oc2/cmd/device_id/[device_type]` for that device's ID
+* `oc2/cmd/device_id/[device_id]` for that device's ID
 * `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
 * `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
 
