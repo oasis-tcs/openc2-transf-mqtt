@@ -299,8 +299,8 @@ would subscribe to `oc2/cmd/ap/slpf`.
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs.  | Pub  | Sub   |
-| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a   specific device.  | Pub | Sub |
+|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs, and that all devices of the same type support the same set of APs.  | Pub  | Sub   |
+| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
 | `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
