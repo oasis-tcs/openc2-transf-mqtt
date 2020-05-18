@@ -275,7 +275,7 @@ When transferring OpenC2 Command and Response messages via MQTT,
 both Producers and Consumers act as both publishers and subscribers:
 
 * Producers publish Commands and subscribe to receive Responses
-* Consumers subscriber to receive Commands and publish Responses
+* Consumers subscribe to receive Commands and publish Responses
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
