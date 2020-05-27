@@ -244,6 +244,8 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
+_This section is non-normative._
+
 This section provides an overview of the approach to employing
 MQTT as a message transfer protocol for OpenC2 messages.
 
@@ -257,7 +259,7 @@ might be out-of-scope / SEP (someone else's problem) is welcome.
 > - Are there any special requirements for the MQTT ClientId?
 >   - See [Section 2.5](#25-mqtt-client-identifier); a proposal for ClientId assignment is TBD.
 > - How does a Producer discover the active consumers in a pub/subs space?
-> - How does a Producer discover the capabilities of active consumers in a pub/subs space?
+> - How does a Producer discover the capabilities of active consumers in a pub/sub space?
 >   - The above two questions have an element of _registration_ (making Consumers known to the Producer) vs. _discovery_ (enabling the Producer to know what Consumers are currently active in the Producer's sphere of control). 
 >   - _Proposed_: Discovery as defined above is an appropriate topic for a transfer specification, registration is outside the scope of a transfer specification
 >   - _Proposed_: Determination of actuator capabilities is outside the scope of a transfer specification, but a transfer specification might facilitate use of the OpenC2 Language's features to make such determination (details TBD)
@@ -265,6 +267,7 @@ might be out-of-scope / SEP (someone else's problem) is welcome.
 >   - See  [Section 2.4](#24-quality-of-service).
 > - Should Consumers publish any kind of birth and/or death messages?
 > - Should we recommend a maximum keep-alive interval?
+>   - [Section 2.6](#26-keep-alive-interval) proposes an approach
 > - Do we need to describe the nature / structure of the Consumer Device / Actuator(s)?
 > - Is there a need to describe a state model for the Producer or Consumer?
 
@@ -366,6 +369,22 @@ ClientIds.
 
 > **NOTE**: the approach for creating ClientIds
 > for OpenC2 MQTT clients is TBD.
+
+## 2.6 Keep-Alive Interval
+
+[mqtt-v3.1.1](#mqtt-v311) section 3.1.2.10 provides a
+keep alive feature where a Client connected to a Broker must
+send either a Control Packet or a PINGREQ to the broker
+before a specified time interval has elapsed to prevent the
+Broker from disconnecting from the Client. The specification
+notes that "The actual value of the Keep Alive is
+application specific; typically this is a few minutes. The
+maximum value is 18 hours 12 minutes and 15 seconds."
+
+This transfer specification leaves the selection of a keep
+alive interval to the implementer but defines a
+value of 5 minutes (300 seconds) as the maximum value for
+conformant implementations.
 
 # 3 Protocol Mappings
 
