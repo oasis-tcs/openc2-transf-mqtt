@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 01
-## 14 May 2020
+## 02 June 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -15,10 +15,10 @@
 
 ### Editors:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Danny Martinez (danny.martinez@g2-inc.com),
-  [G2](http://www.g2-inc.com/)
-* David Lemire (david.lemire@hii-tsd.com),
-  [G2](http://www.g2-inc.com/)
+* Danny Martinez (danny.martinez@hii-tsd.com),
+  [G2, Inc.](http://www.g2-inc.com/)
+* David Lemire (david.lemire@hii-tsd.com), [National
+  Security Agency](https://www.nsa.gov/)
 
 ### Related work:
 This specification is related to:
@@ -50,7 +50,13 @@ When referencing this specification the following citation format should be used
 
 **[OpenC2-MQTT-v1.0]**
 
-_Specification for Transfer of OpenC2 Messages via MQTT Version 1.0_. Edited by Joe Brule and Danny Martinez. 27 February 2019. OASIS Committee Specification Draft 01. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd01/transf-mqtt-v1.0-csd01.html. Latest version: https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
+_Specification for Transfer of OpenC2 Messages via MQTT
+Version 1.0_. Edited by Joe Brule,David Lemire, and Danny
+Martinez. 27 February 2019. OASIS Committee Specification
+Draft 01.
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd01/transf-mqtt-v1.0-csd01.html.
+Latest version:
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
 
@@ -93,6 +99,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.3 Message Format](#23-message-format)
     -   [2.4 Quality of Service](#24-quality-of-service)
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
+    -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
 -   [3 Protocol Mappings](#3-protocol-mappings)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
@@ -244,29 +251,75 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
+_This section is non-normative._
+
 This section provides an overview of the approach to employing
 MQTT as a message transfer protocol for OpenC2 messages.
 
-> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec 
-should answer; feedback on additional questions or questions that 
-might be out-of-scope / SEP (someone else's problem) is welcome. 
-> - What is the required minimum interoperable topic structure?
->   - A proposal is contained in [2.2 Default Topic Structure](#22-default-topic-structure).
+> **NOTE:**  Tentative list of Qs the MQTT Transfer Spec
+should answer; feedback on additional questions or questions
+that might be out-of-scope / SEP (someone else's problem) is
+welcome. As consensus is developed on each aspect of the
+operating model, the corresponding question(s) should be deleted.
+
+> - What is the required interoperable topic
+  structure?
+>   - A proposal is contained in [2.2 Default Topic
+    Structure](#22-default-topic-structure).
+
 > - What is the OpenC2 message format over MQTT?
 >   - See [Section 2.3](#23-message-format)
-> - Are there any special requirements for the MQTT ClientId?
->   - See [Section 2.5](#25-mqtt-client-identifier); a proposal for ClientId assignment is TBD.
-> - How does a Producer discover the active consumers in a pub/subs space?
-> - How does a Producer discover the capabilities of active consumers in a pub/subs space?
->   - The above two questions have an element of _registration_ (making Consumers known to the Producer) vs. _discovery_ (enabling the Producer to know what Consumers are currently active in the Producer's sphere of control). 
->   - _Proposed_: Discovery as defined above is an appropriate topic for a transfer specification, registration is outside the scope of a transfer specification
->   - _Proposed_: Determination of actuator capabilities is outside the scope of a transfer specification, but a transfer specification might facilitate use of the OpenC2 Language's features to make such determination (details TBD)
+
+>- Are there any special requirements for the MQTT ClientId?
+>   - See [Section 2.5](#25-mqtt-client-identifier); a
+    proposal for ClientId assignment is TBD.
+
+>- How does a Producer discover the active consumers in a
+  pub/subs space?
+
+>- How does a Producer discover the capabilities of active
+  consumers in a pub/sub space?
+>   - The above two questions have an element of
+    _registration_ (making Consumers known to the Producer)
+    vs. _discovery_ (enabling the Producer to know what
+    Consumers are currently active in the Producer's sphere
+    of control). 
+>   - _Proposed_: Discovery as defined above is an appropriate
+    topic for a transfer specification, registration is
+    outside the scope of a transfer specification
+>   - _Proposed_: Determination of actuator capabilities is
+    outside the scope of a transfer specification, but a
+    transfer specification might facilitate use of the
+    OpenC2 Language's features to make such determination
+    (details TBD)
+
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
->   - See  [Section 2.4](#24-quality-of-service).
-> - Should Consumers publish any kind of birth and/or death messages?
-> - Should we recommend a maximum keep-alive interval?
-> - Do we need to describe the nature / structure of the Consumer Device / Actuator(s)?
-> - Is there a need to describe a state model for the Producer or Consumer?
+>   - See [Section 2.4](#24-quality-of-service).
+
+> - Should Consumers publish any kind of birth and/or death
+  messages?
+>   - MQTT includes a "last will" mechanism to provide
+  information when a device is disconnected
+>   - The [Sparkplug B specification](sparkplug-b) defines a
+  birth certificate mechanism to provide information when
+  devices become connected.
+>   - The operating model should address whether and how OpenC2
+  should leverage either of those capabilities.
+
+>- Should we recommend a maximum keep-alive interval?
+>   - [Section 2.6](#26-keep-alive-interval) proposes an
+    approach
+
+> - Do we need to describe the nature / structure of the
+  Consumer Device / Actuator(s)?
+>   - The in-development [Architecture
+  Specification](https://github.com/oasis-tcs/oc2arch/tree/working)
+  is the appropriate location for this information; transfer
+  specifications should reference the architecture, once
+  it's published.
+
+> - Is there a need to describe a state model for the Producer
+  or Consumer?
 
 
 ## 2.1 Publishers, Subscribers, and Brokers
@@ -275,7 +328,7 @@ When transferring OpenC2 Command and Response messages via MQTT,
 both Producers and Consumers act as both publishers and subscribers:
 
 * Producers publish Commands and subscribe to receive Responses
-* Consumers subscriber to receive Commands and publish Responses
+* Consumers subscribe to receive Commands and publish Responses
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
@@ -296,11 +349,16 @@ specific values that would be used in implementation.  For
 example, a device that includes a Stateless Packet Filter AP
 would subscribe to `oc2/cmd/ap/slpf`.
 
+> **NOTE:** a point for consideration is whether to use
+> abbreviations (e.g., `dt` for `device_type`) to shorten
+> the topic names. If we adopt v5.0 instead of v3.1.1, the
+> option to use integer "topic aliases" is also available.
+
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs.  | Pub  | Sub   |
-| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a   specific device.  | Pub | Sub |
+|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs, and that all devices of the same type support the same set of APs.  | Pub  | Sub   |
+| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
 | `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
@@ -311,7 +369,7 @@ functions, a Consumer device registering with the broker
 would subscribe to:
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
 * `oc2/cmd/device_type/[device_type]` for that device's TYPE
-* `oc2/cmd/device_id/[device_type]` for that device's ID
+* `oc2/cmd/device_id/[device_id]` for that device's ID
 * `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
 * `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
 
@@ -343,11 +401,27 @@ at how real world products work today
 
 ## 2.4 Quality of Service
 
-> - MQTT defines three quality of service (QoS) levels:
->   - **QoS 0: "At most once"**, where messages are delivered according to the best efforts of the operating environment. Message loss can occur. This level could be used, for example, with ambient sensor data where it does not matter if an individual reading is lost as the next one will be published soon after.
->   - **QoS 1: "At least once"**, where messages are assured to arrive but duplicates can occur.
->   - **QoS 2: "Exactly once"**, where message are assured to arrive exactly once. This level could be used, for example, with billing systems where duplicate or lost messages could lead to incorrect charges being applied.
-> - _Proposed_:  QoS 1 is appropriate for at least most OpenC2 applications and should be specified as the default.  In most cases the overhead of QoS 2 does not seem justified.
+[mqtt-v3.1.1](#mqtt-v311) Section 4.3, _Quality of Service
+levels and protocol flows_defines three quality of service
+(QoS) levels:
+
+- **QoS 0: "At most once"**, where messages are delivered
+  according to the best efforts of the operating
+  environment. Message loss can occur. This level could be
+  used, for example, with ambient sensor data where it does
+  not matter if an individual reading is lost as the next
+  one will be published soon after.
+- **QoS 1: "At least once"**, where messages are assured to
+  arrive but duplicates can occur.
+- **QoS 2: "Exactly once"**, where message are assured to
+  arrive exactly once. This level could be used, for
+  example, with billing systems where duplicate or lost
+  messages could lead to incorrect charges being applied.
+
+QoS 1 is appropriate for most OpenC2 applications and should
+be specified as the default.  Implementers have the option
+of electing to use QoS 2 where the additional overhead is
+justified by application requirements.
 
 ## 2.5 MQTT Client Identifier
 
@@ -367,7 +441,26 @@ ClientIds.
 > **NOTE**: the approach for creating ClientIds
 > for OpenC2 MQTT clients is TBD.
 
+## 2.6 Keep-Alive Interval
+
+[mqtt-v3.1.1](#mqtt-v311) section 3.1.2.10 provides a
+keep alive feature where a Client connected to a Broker must
+send either a Control Packet or a PINGREQ to the broker
+before a specified time interval has elapsed to prevent the
+Broker from disconnecting from the Client. The specification
+notes that "The actual value of the Keep Alive is
+application specific; typically this is a few minutes. The
+maximum value is 18 hours 12 minutes and 15 seconds."
+
+This transfer specification leaves the selection of a keep
+alive interval to the implementer but defines a
+value of 5 minutes (300 seconds) as the maximum value for
+conformant implementations.
+
 # 3 Protocol Mappings
+
+> **TBSL**  The protocol mappings will be specified once
+> consensus has been achieved on the operating model.
 
 # 4 Security Considerations
 
@@ -409,6 +502,11 @@ Text on Security Considerations_, IETF
 Remove this note before submitting for publication.)
 
 # 5 Conformance
+
+> **TBSL**  Conformance requirements will be developed once
+> the protocol mappings have been developed.
+
+
 (Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
 For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
 
@@ -433,5 +531,5 @@ TBD | TBD | TBD
 # Appendix B. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| transf-mqtt-v1.0-wd01 | 2020-05-14 | David Lemire | Initial working draft |
+| transf-mqtt-v1.0-wd01 | 2020-xx-xx | David Lemire | Initial working draft |
 
