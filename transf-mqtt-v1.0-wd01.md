@@ -259,11 +259,12 @@ MQTT as a message transfer protocol for OpenC2 messages.
 > **NOTE:**  Tentative list of Qs the MQTT Transfer Spec
 should answer; feedback on additional questions or questions
 that might be out-of-scope / SEP (someone else's problem) is
-welcome. 
+welcome. As consensus is developed on each aspect of the
+operating model, the corresponding question(s) should be deleted.
 
 > - What is the required interoperable topic
   structure?
->  - A proposal is contained in [2.2 Default Topic
+>   - A proposal is contained in [2.2 Default Topic
     Structure](#22-default-topic-structure).
 
 > - What is the OpenC2 message format over MQTT?
