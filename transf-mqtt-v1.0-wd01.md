@@ -259,65 +259,66 @@ MQTT as a message transfer protocol for OpenC2 messages.
 > **NOTE:**  Tentative list of Qs the MQTT Transfer Spec
 should answer; feedback on additional questions or questions
 that might be out-of-scope / SEP (someone else's problem) is
-welcome. 
+welcome. As consensus is developed on each aspect of the
+operating model, the corresponding question(s) should be deleted.
 
-- What is the required interoperable topic
+> - What is the required interoperable topic
   structure?
-  - A proposal is contained in [2.2 Default Topic
+>   - A proposal is contained in [2.2 Default Topic
     Structure](#22-default-topic-structure).
 
-- What is the OpenC2 message format over MQTT?
-  - See [Section 2.3](#23-message-format)
+> - What is the OpenC2 message format over MQTT?
+>   - See [Section 2.3](#23-message-format)
 
-- Are there any special requirements for the MQTT ClientId?
-  - See [Section 2.5](#25-mqtt-client-identifier); a
+>- Are there any special requirements for the MQTT ClientId?
+>   - See [Section 2.5](#25-mqtt-client-identifier); a
     proposal for ClientId assignment is TBD.
 
-- How does a Producer discover the active consumers in a
+>- How does a Producer discover the active consumers in a
   pub/subs space?
 
-- How does a Producer discover the capabilities of active
+>- How does a Producer discover the capabilities of active
   consumers in a pub/sub space?
-  - The above two questions have an element of
+>   - The above two questions have an element of
     _registration_ (making Consumers known to the Producer)
     vs. _discovery_ (enabling the Producer to know what
     Consumers are currently active in the Producer's sphere
     of control). 
-  - _Proposed_: Discovery as defined above is an appropriate
+>   - _Proposed_: Discovery as defined above is an appropriate
     topic for a transfer specification, registration is
     outside the scope of a transfer specification
-  - _Proposed_: Determination of actuator capabilities is
+>   - _Proposed_: Determination of actuator capabilities is
     outside the scope of a transfer specification, but a
     transfer specification might facilitate use of the
     OpenC2 Language's features to make such determination
     (details TBD)
 
-- What is the appropriate QoS for MQTT messaging for OpenC2?
-  - See [Section 2.4](#24-quality-of-service).
+> - What is the appropriate QoS for MQTT messaging for OpenC2?
+>   - See [Section 2.4](#24-quality-of-service).
 
-- Should Consumers publish any kind of birth and/or death
+> - Should Consumers publish any kind of birth and/or death
   messages?
-  - MQTT includes a "last will" mechanism to provide
+>   - MQTT includes a "last will" mechanism to provide
   information when a device is disconnected
-  - The [Sparkplug B specification](sparkplug-b) defines a
+>   - The [Sparkplug B specification](sparkplug-b) defines a
   birth certificate mechanism to provide information when
   devices become connected.
-  - The operating model should address whether and how OpenC2
+>   - The operating model should address whether and how OpenC2
   should leverage either of those capabilities.
 
-- Should we recommend a maximum keep-alive interval?
-  - [Section 2.6](#26-keep-alive-interval) proposes an
+>- Should we recommend a maximum keep-alive interval?
+>   - [Section 2.6](#26-keep-alive-interval) proposes an
     approach
 
-- Do we need to describe the nature / structure of the
+> - Do we need to describe the nature / structure of the
   Consumer Device / Actuator(s)?
-  - The in-development [Architecture
+>   - The in-development [Architecture
   Specification](https://github.com/oasis-tcs/oc2arch/tree/working)
   is the appropriate location for this information; transfer
   specifications should reference the architecture, once
   it's published.
 
-- Is there a need to describe a state model for the Producer
+> - Is there a need to describe a state model for the Producer
   or Consumer?
 
 
