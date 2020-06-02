@@ -15,10 +15,10 @@
 
 ### Editors:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Danny Martinez (danny.martinez@g2-inc.com),
-  [G2](http://www.g2-inc.com/)
-* David Lemire (david.lemire@hii-tsd.com),
-  [G2](http://www.g2-inc.com/)
+* Danny Martinez (danny.martinez@hii-tsd.com),
+  [G2, Inc.](http://www.g2-inc.com/)
+* David Lemire (david.lemire@hii-tsd.com), [National
+  Security Agency](https://www.nsa.gov/)
 
 ### Related work:
 This specification is related to:
