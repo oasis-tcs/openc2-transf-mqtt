@@ -333,7 +333,11 @@ both Producers and Consumers act as both publishers and subscribers:
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
 are assumed to be conformant with the MQTT v3.1.1 specification 
-[[MQTT-V3.1.1](#mqtt-v311)].
+[[MQTT-V3.1.1](#mqtt-v311)]. In the content of OpenC2, and
+in accordance with the Terminology section (1.2) of [[MQTT-V3.1.1](#mqtt-v311)]:
+
+* MQTT Brokers are Servers
+* OpenC2 Producers and Consumer are Clients
 
 ## 2.2 Default Topic Structure
 
