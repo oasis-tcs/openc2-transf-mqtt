@@ -471,10 +471,11 @@ Alive has expired without any other control packets being exchanged.
 # 4 Security Considerations
 
 * Bare minimum requirement for operational
-  instance should be use of TLS 1.2 or higher for
+  instance should be use of TLS 1.2 or higher for operational
   client-broker connections. Basically, extract
   and use the TLS guidance from the v1.0 HTTPS
   Transfer CS.
+* Unsecured MQTT should only be used for testing purposes.
 
 (Note: OASIS strongly recommends that Technical
 Committees consider issues that could affect
