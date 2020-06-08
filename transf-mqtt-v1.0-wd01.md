@@ -425,14 +425,23 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
  ```
  
 A Producer sending an OpenC2 Command includes its identifier
-in the message "from" field, allowing Consumers receiving
+in the message `from` field, allowing Consumers receiving
 the command to know its origin.  A Consumer sending a
 response to an OpenC2 command includes its identifier in the
-message "from" field, allowing responses from different
+message `from` field, allowing responses from different
 actuators to be identified. 
  
- The "to" field is not utilized, as the MQTT Topic Structure
+ The `to` field is not utilized, as the MQTT Topic Structure
  regulates which recipients receive each individual message.
+
+ The `request_id` field can contain any string; UUIDv4 format
+ is recommended for request IDs. 
+
+ The `created` field is populated with the date/time when
+ the message was created, in the preferred IMF-fixdate
+ format as defined by Section 7.1.1.1 of RFC 7231; the
+ conditions for populating the Date: header specified in
+ Section 7.1.1.2 of RFC 7231 SHALL be followed.
 
 
 ## 2.4 Quality of Service
@@ -556,7 +565,96 @@ Remove this note before submitting for publication.)
 
 -------
 
-# Appendix A. Acknowledgments
+# Appendix A: Message Examples
+
+PlantUML Code to generate sequence diagram
+```
+@startuml
+Title Connect, Subscribe, Request, and Response
+actor Orch
+participant Broker
+actor Consumer
+note over Consumer: Alpha-type Device
+group Orchestrator Connect & Subscribe
+Orch -> Broker : CONNECT
+Broker -> Orch : CONNACK
+Orch -> Broker : SUBSCRIBE (oc2/rsp)
+Broker -> Orch : SUBACK
+end
+group Consumer Connect & Subscribe
+Consumer -> Broker : CONNECT
+Broker -> Consumer : CONNACK
+Consumer -> Broker : SUBSCRIBE (oc2/cmd/devce_type/alpha)
+Broker -> Consumer : SUBACK
+end
+group Publish Command to Alpha-Type Devices
+Orch -> Broker : PUBLISH (oc2/cmd/device_type/alpha, Request)
+Broker -> Orch : PUBACK
+Broker -> Consumer : PUBLISH (oc2/cmd/device_type/alpha, Request)
+Consumer -> Broker: PUBACK
+end
+group Publish Alpha-type Device Response
+Consumer -> Broker : PUBLISH (oc2/rsp, Response)
+Broker -> Consumer : PUBACK
+Broker -> Orch : PUBLISH (oc2/rsp, Response)
+Orch -> Broker : PUBACK
+end
+@enduml
+```
+
+![Basic Interaction Sequence](./images/CSRR_Sequence.png)
+
+## A.1  Command / Response Exchange
+
+### A.1.a: Publish a command to all devices of a particular notional type "alpha":
+
+> **NOTE:** This example shows the required information for the MQTT
+PUBLISH message, but the presentation needs fine tuning /
+verification.
+
+**Fixed Header**
+*  Type: PUBLISH
+*  Dup: 0
+*  QoS: 1
+*  Retain: 0
+* Remaining Length:  [computed]
+
+**Variable Header**
+*   Topic Name: oc2/cmd/device_type/alpha
+*  Packet Identifier:  1234
+
+**Payload**
+* Content: request (JSON-encoded OpenC2 command)
+```
+{
+    "action": "contain",
+    "target": {
+        "device": {
+            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
+        }
+    }
+}
+```
+* request_id:  d1ac0489-ed51-4345-9175-f3078f30afe5
+* created:  Wed, 19 Dec 2018 22:15:00 GMT
+* from: producer_one
+
+### A.1.b: The Broker acknowledges the command from Example 1a
+
+> **NOTE:** This example shows the required information for the MQTT
+PUBLISH message, but the presentation needs fine tuning /
+verification.
+
+**Fixed Header**
+* Type: PUBACK
+* Remaining Length: 2
+
+**Variable Header**
+*  Packet Identifier:  1234
+
+### A.1.c:  A Device publishes an response to the command
+
+# Appendix B. Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
 **OpenC2 TC Members:**
@@ -567,8 +665,9 @@ TBD | TBD | TBD
 
 -------
 
-# Appendix B. Revision History
+# Appendix C. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 | transf-mqtt-v1.0-wd01 | 2020-xx-xx | David Lemire | Initial working draft |
+
 
