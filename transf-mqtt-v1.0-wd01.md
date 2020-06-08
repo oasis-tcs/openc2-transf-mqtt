@@ -401,7 +401,39 @@ at how real world products work today
 > #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
 > or similar, seems appropriate for use with
 > pub/sub protocols. It encapsulates all of the
-> needed information.
+> needed information. This draft MQTT Transfer Specification
+> anticipates the adoption of this message format and
+> utilizes its structure. 
+
+OpenC2 messages transferred using MQTT utilize the
+`OpenC2-Message` structure containing the message elements
+listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
+ ```
+ OpenC2-Message = Record {
+     1 content         Content,                  // Message body as specified by msg_type (the ID/Name of Content)
+     2 request_id      String optional,          // A unique identifier created by Producer and copied by Consumer into responses
+     3 created         Date-Time optional,       // Creation date/time of the content
+     4 from            String optional,          // Authenticated identifier of the creator of / authority for a request
+     5 to              ArrayOf(String) optional  // Authenticated identifier(s) of the authorized recipient(s) of a message
+ }
+ 
+ Content = Choice {
+     1 request         OpenC2-Command,           // The initiator of a two-way message exchange.
+     2 response        OpenC2-Response,          // A response linked to a request in a two-way message exchange.
+     3 notification    OpenC2-Notification       // A (one-way) message that is not a request or response.  (Placeholder)
+ }
+ ```
+ 
+A Producer sending an OpenC2 Command includes its identifier
+in the message "from" field, allowing Consumers receiving
+the command to know its origin.  A Consumer sending a
+response to an OpenC2 command includes its identifier in the
+message "from" field, allowing responses from different
+actuators to be identified. 
+ 
+ The "to" field is not utilized, as the MQTT Topic Structure
+ regulates which recipients receive each individual message.
+
 
 ## 2.4 Quality of Service
 
