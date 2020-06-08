@@ -567,7 +567,7 @@ Remove this note before submitting for publication.)
 
 # Appendix A: Message Examples
 
-PlantUML Code to generate sequence diagram
+PlantUML Code to generate sequence diagram, use with planuml.com
 ```
 @startuml
 Title Connect, Subscribe, Request, and Response
