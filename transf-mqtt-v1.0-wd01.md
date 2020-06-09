@@ -396,14 +396,14 @@ at how real world products work today
 
 ## 2.3 Message Format
 
-> The format proposed by Dave Kemp in [Language
+>  **NOTE**: The format proposed by Dave Kemp in [Language
 > Spec issue
 > #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
-> or similar, seems appropriate for use with
-> pub/sub protocols. It encapsulates all of the
-> needed information. This draft MQTT Transfer Specification
-> anticipates the adoption of this message format and
-> utilizes its structure. 
+> or similar, seems appropriate for use with pub/sub
+> protocols. It encapsulates all of the needed information.
+> This draft MQTT Transfer Specification anticipates the
+> adoption of this message format and utilizes its
+> structure. 
 
 OpenC2 messages transferred using MQTT utilize the
 `OpenC2-Message` structure containing the message elements
