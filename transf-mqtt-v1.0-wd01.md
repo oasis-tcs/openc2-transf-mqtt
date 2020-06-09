@@ -471,7 +471,8 @@ Levels and Protocol Flows_ defines three quality of service
 QoS 1 is appropriate for most OpenC2 applications and should
 be specified as the default.  Implementers have the option
 of electing to use QoS 2 where the additional overhead is
-justified by application requirements.
+justified by application requirements. QoS 0 is not
+recommended for use in OpenC2 messaging.
 
 ## 2.5 MQTT Client Identifier
 
