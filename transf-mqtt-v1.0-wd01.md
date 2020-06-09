@@ -429,7 +429,7 @@ in the message `from` field, allowing Consumers receiving
 the command to know its origin.  A Consumer sending a
 response to an OpenC2 command includes its identifier in the
 message `from` field, allowing responses from different
-actuators to be identified. 
+actuators to be identified by the Producer receiving the response. 
  
 The `to` field is not utilized, as the MQTT Topic Structure
 and Client subscriptions regulate which recipients receive
