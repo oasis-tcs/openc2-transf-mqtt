@@ -437,6 +437,10 @@ actuators to be identified.
  The `request_id` field can contain any string; UUIDv4 format
  is recommended for request IDs. 
 
+> **Note**: The selection of the IMF-fixdate format is a carryover
+> from the HTTPS Transfer Spec. There may be date formats
+> more suitable for use with MQTT.
+
  The `created` field is populated with the date/time when
  the message was created, in the preferred IMF-fixdate
  format as defined by Section 7.1.1.1 of RFC 7231; the
