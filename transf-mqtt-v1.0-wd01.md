@@ -576,6 +576,8 @@ Remove this note before submitting for publication.)
 PlantUML Code to generate sequence diagram, use with planuml.com
 ```
 @startuml
+hide footbox
+skinparam sequenceMessageAlign direction
 Title Connect, Subscribe, Request, and Response
 actor Orch
 participant Broker
