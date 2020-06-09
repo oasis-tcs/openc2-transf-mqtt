@@ -431,8 +431,9 @@ response to an OpenC2 command includes its identifier in the
 message `from` field, allowing responses from different
 actuators to be identified. 
  
- The `to` field is not utilized, as the MQTT Topic Structure
- regulates which recipients receive each individual message.
+The `to` field is not utilized, as the MQTT Topic Structure
+and Client subscriptions regulate which recipients receive
+each individual message.
 
  The `request_id` field can contain any string; UUIDv4 format
  is recommended for request IDs. 
