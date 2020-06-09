@@ -504,11 +504,11 @@ application specific; typically this is a few minutes. The
 maximum value is 18 hours 12 minutes and 15 seconds."
 
 This transfer specification leaves the selection of a keep
-alive interval to the implementer but defines a
-value of 5 minutes (300 seconds) as the maximum value for
-conformant implementations. For reliability, an OpenC2
-client should send an MQTT PINGREQ when 95% of the Keep
-Alive has expired without any other control packets being exchanged.
+alive interval to the implementer but defines a value of 5
+minutes (300 seconds) as the maximum value for conformant
+implementations. For reliability, an OpenC2 client should
+send an MQTT PINGREQ when 95% of the Keep Alive interval has
+expired without any other control packets being exchanged.
 
 # 3 Protocol Mappings
 
