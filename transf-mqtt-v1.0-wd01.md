@@ -447,7 +447,7 @@ actuators to be identified.
 ## 2.4 Quality of Service
 
 [mqtt-v3.1.1](#mqtt-v311) Section 4.3, _Quality of Service
-levels and protocol flows_defines three quality of service
+Levels and Protocol Flows_ defines three quality of service
 (QoS) levels:
 
 - **QoS 0: "At most once"**, where messages are delivered
