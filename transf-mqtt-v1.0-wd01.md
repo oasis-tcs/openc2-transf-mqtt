@@ -573,48 +573,23 @@ Remove this note before submitting for publication.)
 
 # Appendix A: Message Examples
 
-PlantUML Code to generate sequence diagram, use with planuml.com
-```
-@startuml
-hide footbox
-skinparam sequenceMessageAlign direction
-Title Connect, Subscribe, Request, and Response
-actor Orch
-participant Broker
-actor Consumer
-note over Consumer: Alpha-type Device
-group Orchestrator Connect & Subscribe
-Orch -> Broker : CONNECT
-Broker -> Orch : CONNACK
-Orch -> Broker : SUBSCRIBE (oc2/rsp)
-Broker -> Orch : SUBACK
-end
-group Consumer Connect & Subscribe
-Consumer -> Broker : CONNECT
-Broker -> Consumer : CONNACK
-Consumer -> Broker : SUBSCRIBE (oc2/cmd/devce_type/alpha)
-Broker -> Consumer : SUBACK
-end
-group Publish Command to Alpha-Type Devices
-Orch -> Broker : PUBLISH (oc2/cmd/device_type/alpha, Request)
-Broker -> Orch : PUBACK
-Broker -> Consumer : PUBLISH (oc2/cmd/device_type/alpha, Request)
-Consumer -> Broker: PUBACK
-end
-group Publish Alpha-type Device Response
-Consumer -> Broker : PUBLISH (oc2/rsp, Response)
-Broker -> Consumer : PUBACK
-Broker -> Orch : PUBLISH (oc2/rsp, Response)
-Orch -> Broker : PUBACK
-end
-@enduml
-```
+> **NOTE:** Example message creation and presentation format
+> are work-in-progress. The editors would welcome
+> suggestions for the most useful presentation format.
 
-![Basic Interaction Sequence](./images/CSRR_Sequence.png)
+## A.1 Example 1: Connect and Subscribe
 
-## A.1  Command / Response Exchange
+![Connect and Subscribe Sequence](./images/con_sub.png)
 
-### A.1.a: Publish a command to all devices of a particular notional type "alpha":
+
+
+
+
+![Basic Interaction Sequence](./images/req_rsp.png)
+
+## A.2  Example 2:  Command / Response Exchange
+
+### A.2.a: Publish a command to all devices of a particular notional type "alpha":
 
 > **NOTE:** This example shows the required information for the MQTT
 PUBLISH message, but the presentation needs fine tuning /
@@ -628,7 +603,7 @@ verification.
 * Remaining Length:  [computed]
 
 **Variable Header**
-*   Topic Name: oc2/cmd/device_type/alpha
+*  Topic Name: oc2/cmd/device_type/alpha
 *  Packet Identifier:  1234
 
 **Payload**
@@ -647,7 +622,7 @@ verification.
 * created:  Wed, 19 Dec 2018 22:15:00 GMT
 * from: producer_one
 
-### A.1.b: The Broker acknowledges the command from Example 1a
+### A.2.b: The Broker acknowledges the command from A.2.a
 
 > **NOTE:** This example shows the required information for the MQTT
 PUBLISH message, but the presentation needs fine tuning /
@@ -660,7 +635,8 @@ verification.
 **Variable Header**
 *  Packet Identifier:  1234
 
-### A.1.c:  A Device publishes an response to the command
+
+
 
 # Appendix B. Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
