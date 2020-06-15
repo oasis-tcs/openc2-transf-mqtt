@@ -103,8 +103,9 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -   [3 Protocol Mappings](#3-protocol-mappings)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
--   [Appendix A. Acknowledgments](#appendix-a-acknowledgments)
--   [Appendix B. Revision History](#appendix-b-revision-history)
+-   [Appendix A. Message Examples](#appendix-a-message-examples)
+-   [Appendix B. Acknowledgments](#appendix-b-acknowledgments)
+-   [Appendix C. Revision History](#appendix-c-revision-history)
 
 
 -------
