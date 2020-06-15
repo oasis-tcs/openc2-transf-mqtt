@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 02
-## 02 June 2020
+## Working Draft 03
+## 15 June 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -605,8 +605,10 @@ that types are subscribed to the appropriate `device_type` channel.
 
 > **NOTE:** This example shows the required information for the MQTT
 PUBLISH message, but the presentation needs fine tuning /
-verification.
+verification. Two different approaches are shown for the
+first example MQTT Control Packet (PUBLISH). 
 
+> **Bullet-list representation of control packet**
 
 **Fixed Header**
 *  Type: PUBLISH
@@ -635,6 +637,44 @@ verification.
 * created:  Wed, 19 Dec 2018 22:15:00 GMT
 * from: producer_one
 
+> **Tabular representation of control packet**
+
+
+| Region | Field | Value |
+|:-:|:-:|-|
+| FH | Type | PUBLISH |
+| FH | Dup | 0|
+| FH | QoS | 1|
+| FH | Retain  |0  |
+| FH | Remaining Length  | `<computed>` |
+| VH  | Topic Name  | oc2/cmd/device_type/alpha |
+| VH  | Packet Identifier  | 1234  |
+| PL | Content | request (JSON-encoded OpenC2 command) |
+| PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
+| PL | created | Wed, 19 Dec 2018 22:15:00 GMT |
+| PL | from  | producer_one |
+
+The JSON-encoded command in the PL:Content field is:
+
+| Region | Field | Value |
+|:-:|:-:|-|
+| FH | Type | PUBLISH |
+| FH | Dup | 0|
+| FH | QoS | 1|
+| FH | Retain  |0  |
+| FH | Remaining Length  | `<computed>` |
+| VH  | Topic Name  | oc2/cmd/device_type/alpha |
+| VH  | Packet Identifier  | 1234  |
+| PL | Content | request (JSON-encoded OpenC2 command) |
+| PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
+| PL | created | Wed, 19 Dec 2018 22:15:00 GMT |
+| PL | from  | producer_one |
+
+
+
+
+
+
 ### A.2.b: Broker Acknowledges the PUBLISH Control Packet
 
 > **NOTE:** This example shows the required information for the MQTT
@@ -648,7 +688,11 @@ verification.
 **Variable Header**
 *  Packet Identifier:  1234
 
-
+| Region |       Field       | Value  |
+|:------:|:-----------------:|--------|
+|   FH   |        Type       | PUBACK |
+|   FH   |  Remaining Length | 2      |
+|   VH   | Packet Identifier | 1234   |
 
 
 # Appendix B. Acknowledgments
