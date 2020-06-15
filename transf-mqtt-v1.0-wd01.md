@@ -275,6 +275,10 @@ operating model, the corresponding question(s) should be deleted.
 >   - A proposal is contained in [2.2 Default Topic
     Structure](#22-default-topic-structure).
 
+> - Is OpenC2 going to use the MQTT Will feature? If so,
+>  what should be used for the will topic(s)?
+>   - Should be addressed in Section 2.2 once resolved.
+
 > - What is the OpenC2 message format over MQTT?
 >   - See [Section 2.3](#23-message-format)
 
@@ -595,8 +599,31 @@ broker and subscribing to a relevant channel.
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
 
+Example CONNECT packed fields and values.
 
-> **NOTE:** Example messages  to-be-supplied
+| Region | Field | Value |
+|:-:|:-:|:-:|
+| FH | Type | CONNECT |
+| FH | Remaining Length | <computed> |
+| VH | Protocol Name - Length |4|
+| VH | Protocol Name - Value | MQTT |
+| VH | Protocol Level |4|
+| VH | Connect Flags (bitmap) |  |
+|  | Clean Session | TBD |
+|  | Will Flag | TBD |
+|  | Will QoS | TBD |
+|  | Will Retain | TBD |
+|  | User Name Flag | TBD |
+|  | Password Flag | TBD |
+| VH | Keep Alive  | Number < 300 (seconds) |
+| PL | Client Identifier |  |
+| PL | Will Topic | TBD string  |
+| PL | Will Message  | TBD string  |
+| PL | Username | TBD  |
+| PL | Password | TBDS |
+
+
+> **NOTE:** Further example messages to-be-supplied
 
 
 ## A.2  Example 2:  <u>Command / Response Exchange</u>
