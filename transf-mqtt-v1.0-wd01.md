@@ -118,7 +118,7 @@ _This section is non-normative._
 > anticipated that this section will be greatly abbreviated
 > once the relevant material is captured in the _OpenC2
 > Architecture Specification_. Relevant content for
-> reviewer is currently in Section 2 and Appendix A.
+> reviewer is currently in [Section 2](#2-operating-model) and [Appendix A](#appendix-a-message-examples).
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
 
