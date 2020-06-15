@@ -639,6 +639,8 @@ first example MQTT Control Packet (PUBLISH).
 
 > **Tabular representation of control packet**
 
+The values FH, VH, and PL represent the Fixed Header,
+Variable Header, and Payload portions, respectively, of the MQTT Control Packet.
 
 | Region | Field | Value |
 |:-:|:-:|-|
@@ -674,9 +676,8 @@ The JSON-encoded command in the PL:Content field is:
 
 ### A.2.b: Broker Acknowledges the PUBLISH Control Packet
 
-> **NOTE:** This example shows the required information for the MQTT
-PUBLISH message, but the presentation needs fine tuning /
-verification.
+
+> **Bullet-list representation of control packet**
 
 **Fixed Header**
 * Type: PUBACK
@@ -684,6 +685,9 @@ verification.
 
 **Variable Header**
 *  Packet Identifier:  1234
+
+> **Tabular representation of control packet**
+
 
 | Region |       Field       | Value  |
 |:------:|:-----------------:|--------|
