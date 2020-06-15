@@ -593,19 +593,26 @@ broker and subscribing to a relevant channel.
 
 ## A.2  Example 2:  <u>Command / Response Exchange</u>
 
-This example (in A.2.a and A.2.b) illustrates the process of an OpenC2 Producer
-publishing a command to a channel for a specific device
-type, `oc2/cmd/device_type/alpha`, with Quality of Service
-level 1.  A similar exchange would then occur between the
-broker and every device subscribed to
+This example (in A.2.1 and A.2.2) illustrates the process of
+an OpenC2 Producer publishing a command to a channel for a
+specific device type, `oc2/cmd/device_type/alpha`, with
+Quality of Service level 1.  A similar exchange would then
+occur between the broker and every device subscribed to
 `oc2/cmd/device_type/alpha`to distribute the command to the
 intended recipients. The examples assume a notional device
 type named "Alpha" exists and that one or more devices of
-that types are subscribed to the appropriate `device_type` channel.
+that types are subscribed to the appropriate `device_type`
+channel.
+
+The response message in the sequence below is published with
+a QoS of 1, which requires the broker to respond to the
+PUBLISH packet with a PUBACK packet. If response messages
+are sent with QoS of 0 no reply from the broker would be
+required.
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-### A.2.a: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
+### A.2.1: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
 
 
 > **NOTE:** This example shows the required information for the MQTT
@@ -679,7 +686,7 @@ The JSON-encoded command in the PL:Content field is:
 
 
 
-### A.2.b: Broker Acknowledges the PUBLISH Control Packet
+### A.2.2: Broker Acknowledges the PUBLISH Control Packet
 
 
 > **Bullet-list representation of control packet**
