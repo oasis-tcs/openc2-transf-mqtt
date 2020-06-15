@@ -577,7 +577,7 @@ Remove this note before submitting for publication.)
 > are work-in-progress. The editors would welcome
 > suggestions for the most useful presentation format.
 
-## A.1 Example 1: Connect and Subscribe
+## A.1 Example 1: <u>Connect and Subscribe</u>
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
@@ -585,15 +585,28 @@ Remove this note before submitting for publication.)
 
 
 
+
+## A.2  Example 2:  <u>Command / Response Exchange</u>
+
+This example (in A.2.a and A.2.b) illustrates the process of an OpenC2 Producer
+publishing a command to a channel for a specific device
+type, `oc2/cmd/device_type/alpha`, with Quality of Service
+level 1.  A similar exchange would then occur between the
+broker and every device subscribes to
+`oc2/cmd/device_type/alpha`to distribute the command to the
+intended recipients. The examples assume a notional device
+type named "Alpha" exists and that one or more devices of
+that types are subscribed to the appropriate `device_type` channel.
+
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-## A.2  Example 2:  Command / Response Exchange
+### A.2.a: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
 
-### A.2.a: Publish a command to all devices of a particular notional type "alpha":
 
 > **NOTE:** This example shows the required information for the MQTT
 PUBLISH message, but the presentation needs fine tuning /
 verification.
+
 
 **Fixed Header**
 *  Type: PUBLISH
@@ -622,7 +635,7 @@ verification.
 * created:  Wed, 19 Dec 2018 22:15:00 GMT
 * from: producer_one
 
-### A.2.b: The Broker acknowledges the command from A.2.a
+### A.2.b: Broker Acknowledges the PUBLISH Control Packet
 
 > **NOTE:** This example shows the required information for the MQTT
 PUBLISH message, but the presentation needs fine tuning /
