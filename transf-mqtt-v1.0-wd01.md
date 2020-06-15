@@ -656,19 +656,16 @@ first example MQTT Control Packet (PUBLISH).
 
 The JSON-encoded command in the PL:Content field is:
 
-| Region | Field | Value |
-|:-:|:-:|-|
-| FH | Type | PUBLISH |
-| FH | Dup | 0|
-| FH | QoS | 1|
-| FH | Retain  |0  |
-| FH | Remaining Length  | `<computed>` |
-| VH  | Topic Name  | oc2/cmd/device_type/alpha |
-| VH  | Packet Identifier  | 1234  |
-| PL | Content | request (JSON-encoded OpenC2 command) |
-| PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
-| PL | created | Wed, 19 Dec 2018 22:15:00 GMT |
-| PL | from  | producer_one |
+```
+{
+    "action": "contain",
+    "target": {
+        "device": {
+            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
+        }
+    }
+}
+```
 
 
 
