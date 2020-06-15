@@ -574,10 +574,15 @@ Remove this note before submitting for publication.)
 # Appendix A: Message Examples
 
 > **NOTE:** Example message creation and presentation format
-> are work-in-progress. The editors would welcome
+> are work-in-progress and two alternative representations
+> as currently provided. The editors would welcome
 > suggestions for the most useful presentation format.
 
 ## A.1 Example 1: <u>Connect and Subscribe</u>
+
+The following diagram illustrates the process of the
+Orchestrator and a Consumer each connecting to the MQTT
+broker and subscribing to a relevant channel.
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
@@ -592,7 +597,7 @@ This example (in A.2.a and A.2.b) illustrates the process of an OpenC2 Producer
 publishing a command to a channel for a specific device
 type, `oc2/cmd/device_type/alpha`, with Quality of Service
 level 1.  A similar exchange would then occur between the
-broker and every device subscribes to
+broker and every device subscribed to
 `oc2/cmd/device_type/alpha`to distribute the command to the
 intended recipients. The examples assume a notional device
 type named "Alpha" exists and that one or more devices of
