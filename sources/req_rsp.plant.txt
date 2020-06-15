@@ -1,0 +1,33 @@
+@startuml
+' PlantUML source to generate sequence diagram:
+' *************************
+' Request and Response
+' *************************
+' Use with PlantUML.com's online server
+' http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+' Paste this code in and use submit button to 
+' regenerate the diagram
+' PlantUML help for sequence diagram formatting is at 
+' https://plantuml.com/sequence-diagram
+
+hide footbox
+skinparam sequenceMessageAlign direction
+Title Request, and Response
+actor Orchestrator as O
+participant Broker as B
+actor Consumer as C
+note over C: Alpha-type Device
+
+group Publish Command to Alpha-Type Devices
+O -> B : PUBLISH (oc2/cmd/device_type/alpha, Request)
+B -> O : PUBACK
+B -> C : PUBLISH (oc2/cmd/device_type/alpha, Request)
+C -> B: PUBACK
+end
+group Publish Alpha-type Device Response
+C -> B : PUBLISH (oc2/rsp, Response)
+B -> C : PUBACK
+B -> O : PUBLISH (oc2/rsp, Response)
+O -> B : PUBACK
+end
+@enduml

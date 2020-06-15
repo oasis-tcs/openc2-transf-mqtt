@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 02
-## 02 June 2020
+## Working Draft 03
+## 15 June 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -103,14 +103,22 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -   [3 Protocol Mappings](#3-protocol-mappings)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
--   [Appendix A. Acknowledgments](#appendix-a-acknowledgments)
--   [Appendix B. Revision History](#appendix-b-revision-history)
+-   [Appendix A. Message Examples](#appendix-a-message-examples)
+-   [Appendix B. Acknowledgments](#appendix-b-acknowledgments)
+-   [Appendix C. Revision History](#appendix-c-revision-history)
 
 
 -------
 
 # 1 Introduction
 _This section is non-normative._
+
+> **NOTE:**  The content of Section 1 is currently a direct
+> copy-and-paste from previous OpenC2 specifications. It is
+> anticipated that this section will be greatly abbreviated
+> once the relevant material is captured in the _OpenC2
+> Architecture Specification_. Relevant content for
+> reviewer is currently in [Section 2](#2-operating-model) and [Appendix A](#appendix-a-message-examples).
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
 
@@ -267,6 +275,10 @@ operating model, the corresponding question(s) should be deleted.
 >   - A proposal is contained in [2.2 Default Topic
     Structure](#22-default-topic-structure).
 
+> - Is OpenC2 going to use the MQTT Will feature? If so,
+>  what should be used for the will topic(s)?
+>   - Should be addressed in Section 2.2 once resolved.
+
 > - What is the OpenC2 message format over MQTT?
 >   - See [Section 2.3](#23-message-format)
 
@@ -333,7 +345,11 @@ both Producers and Consumers act as both publishers and subscribers:
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
 are assumed to be conformant with the MQTT v3.1.1 specification 
-[[MQTT-V3.1.1](#mqtt-v311)].
+[[MQTT-V3.1.1](#mqtt-v311)]. In the content of OpenC2, and
+in accordance with the Terminology section (1.2) of [[MQTT-V3.1.1](#mqtt-v311)]:
+
+* MQTT Brokers are Servers
+* OpenC2 Producers and Consumer are Clients
 
 ## 2.2 Default Topic Structure
 
@@ -392,17 +408,63 @@ at how real world products work today
 
 ## 2.3 Message Format
 
-> The format proposed by Dave Kemp in [Language
+>  **NOTE**: The format proposed by Dave Kemp in [Language
 > Spec issue
 > #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
-> or similar, seems appropriate for use with
-> pub/sub protocols. It encapsulates all of the
-> needed information.
+> or similar, seems appropriate for use with pub/sub
+> protocols. It encapsulates all of the needed information.
+> This draft MQTT Transfer Specification anticipates the
+> adoption of this message format and utilizes its
+> structure. 
+
+OpenC2 messages transferred using MQTT utilize the
+`OpenC2-Message` structure containing the message elements
+listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
+ ```
+ OpenC2-Message = Record {
+     1 content         Content,                  // Message body as specified by msg_type (the ID/Name of Content)
+     2 request_id      String optional,          // A unique identifier created by Producer and copied by Consumer into responses
+     3 created         Date-Time optional,       // Creation date/time of the content
+     4 from            String optional,          // Authenticated identifier of the creator of / authority for a request
+     5 to              ArrayOf(String) optional  // Authenticated identifier(s) of the authorized recipient(s) of a message
+ }
+ 
+ Content = Choice {
+     1 request         OpenC2-Command,           // The initiator of a two-way message exchange.
+     2 response        OpenC2-Response,          // A response linked to a request in a two-way message exchange.
+     3 notification    OpenC2-Notification       // A (one-way) message that is not a request or response.  (Placeholder)
+ }
+ ```
+ 
+A Producer sending an OpenC2 Command includes its identifier
+in the message `from` field, allowing Consumers receiving
+the command to know its origin.  A Consumer sending a
+response to an OpenC2 command includes its identifier in the
+message `from` field, allowing responses from different
+actuators to be identified by the Producer receiving the response. 
+ 
+The `to` field is not utilized, as the MQTT Topic Structure
+and Client subscriptions regulate which recipients receive
+each individual message.
+
+ The `request_id` field can contain any string; UUIDv4 format
+ is recommended for request IDs. 
+
+> **Note**: The selection of the IMF-fixdate format is a carryover
+> from the HTTPS Transfer Spec. There may be date formats
+> more suitable for use with MQTT.
+
+ The `created` field is populated with the date/time when
+ the message was created, in the preferred IMF-fixdate
+ format as defined by Section 7.1.1.1 of RFC 7231; the
+ conditions for populating the Date: header specified in
+ Section 7.1.1.2 of RFC 7231 SHALL be followed.
+
 
 ## 2.4 Quality of Service
 
 [mqtt-v3.1.1](#mqtt-v311) Section 4.3, _Quality of Service
-levels and protocol flows_defines three quality of service
+Levels and Protocol Flows_ defines three quality of service
 (QoS) levels:
 
 - **QoS 0: "At most once"**, where messages are delivered
@@ -421,7 +483,8 @@ levels and protocol flows_defines three quality of service
 QoS 1 is appropriate for most OpenC2 applications and should
 be specified as the default.  Implementers have the option
 of electing to use QoS 2 where the additional overhead is
-justified by application requirements.
+justified by application requirements. QoS 0 is not
+recommended for use in OpenC2 messaging.
 
 ## 2.5 MQTT Client Identifier
 
@@ -453,9 +516,11 @@ application specific; typically this is a few minutes. The
 maximum value is 18 hours 12 minutes and 15 seconds."
 
 This transfer specification leaves the selection of a keep
-alive interval to the implementer but defines a
-value of 5 minutes (300 seconds) as the maximum value for
-conformant implementations.
+alive interval to the implementer but defines a value of 5
+minutes (300 seconds) as the maximum value for conformant
+implementations. For reliability, an OpenC2 client should
+send an MQTT PINGREQ when 95% of the Keep Alive interval has
+expired without any other control packets being exchanged.
 
 # 3 Protocol Mappings
 
@@ -465,10 +530,11 @@ conformant implementations.
 # 4 Security Considerations
 
 * Bare minimum requirement for operational
-  instance should be use of TLS 1.2 or higher for
+  instance should be use of TLS 1.2 or higher for operational
   client-broker connections. Basically, extract
   and use the TLS guidance from the v1.0 HTTPS
   Transfer CS.
+* Unsecured MQTT should only be used for testing purposes.
 
 (Note: OASIS strongly recommends that Technical
 Committees consider issues that could affect
@@ -517,7 +583,168 @@ Remove this note before submitting for publication.)
 
 -------
 
-# Appendix A. Acknowledgments
+# Appendix A: Message Examples
+
+> **NOTE:** Example message creation and presentation format
+> are work-in-progress and two alternative representations
+> as currently provided. The editors would welcome
+> suggestions for the most useful presentation format.
+
+## A.1 Example 1: <u>Connect and Subscribe</u>
+
+The following diagram illustrates the process of the
+Orchestrator and a Consumer each connecting to the MQTT
+broker and subscribing to a relevant channel.
+
+![Connect and Subscribe Sequence](./images/con_sub.png)
+
+
+Example CONNECT packed fields and values.
+
+| Region | Field | Value |
+|:-:|:-:|:-:|
+| FH | Type | CONNECT |
+| FH | Remaining Length | <computed> |
+| VH | Protocol Name - Length |4|
+| VH | Protocol Name - Value | MQTT |
+| VH | Protocol Level |4|
+| VH | Connect Flags (bitmap) |  |
+|  | Clean Session | TBD |
+|  | Will Flag | TBD |
+|  | Will QoS | TBD |
+|  | Will Retain | TBD |
+|  | User Name Flag | TBD |
+|  | Password Flag | TBD |
+| VH | Keep Alive  | Number < 300 (seconds) |
+| PL | Client Identifier |  |
+| PL | Will Topic | TBD string  |
+| PL | Will Message  | TBD string  |
+| PL | Username | TBD  |
+| PL | Password | TBDS |
+
+
+> **NOTE:** Further example messages to-be-supplied
+
+
+## A.2  Example 2:  <u>Command / Response Exchange</u>
+
+The example  messages in A.2.1 and A.2.2 illustrate the
+process of an OpenC2 Producer publishing a command to a
+channel for a specific device type,
+`oc2/cmd/device_type/alpha`, with
+Quality of Service level 1.  A similar exchange would 
+then occur between the broker
+and every device subscribed to `oc2/cmd/device_type/alpha`to
+distribute the command to the intended recipients. The
+examples assume a notional device type named "Alpha" exists
+and that one or more devices of that types are subscribed to
+the appropriate `device_type` channel.
+
+The response message in the sequence diagram below is
+published with a QoS of 1, which requires the broker to
+respond to the PUBLISH packet with a PUBACK packet. If
+response messages are sent with QoS of 0 no reply from the
+broker would be required.
+
+![Basic Interaction Sequence](./images/req_rsp.png)
+
+### A.2.1: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
+
+
+> **NOTE:** This example shows the required information for the MQTT
+PUBLISH message, but the presentation needs fine tuning /
+verification. Two different approaches are shown for the
+first example MQTT Control Packet (PUBLISH). 
+
+> **Bullet-list representation of control packet**
+
+**Fixed Header**
+*  Type: PUBLISH
+*  Dup: 0
+*  QoS: 1
+*  Retain: 0
+* Remaining Length:  [computed]
+
+**Variable Header**
+*  Topic Name: oc2/cmd/device_type/alpha
+*  Packet Identifier:  1234
+
+**Payload**
+* Content: request (JSON-encoded OpenC2 command)
+```
+{
+    "action": "contain",
+    "target": {
+        "device": {
+            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
+        }
+    }
+}
+```
+* request_id:  d1ac0489-ed51-4345-9175-f3078f30afe5
+* created:  Wed, 19 Dec 2018 22:15:00 GMT
+* from: producer_one
+
+> **Tabular representation of control packet**
+
+The values FH, VH, and PL represent the Fixed Header,
+Variable Header, and Payload portions, respectively, of the MQTT Control Packet.
+
+| Region | Field | Value |
+|:-:|:-:|-|
+| FH | Type | PUBLISH |
+| FH | Dup | 0|
+| FH | QoS | 1|
+| FH | Retain  |0  |
+| FH | Remaining Length  | `<computed>` |
+| VH  | Topic Name  | oc2/cmd/device_type/alpha |
+| VH  | Packet Identifier  | 1234  |
+| PL | Content | request (JSON-encoded OpenC2 command) |
+| PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
+| PL | created | Wed, 19 Dec 2018 22:15:00 GMT |
+| PL | from  | producer_one |
+
+The JSON-encoded command in the PL:Content field is:
+
+```
+{
+    "action": "contain",
+    "target": {
+        "device": {
+            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
+        }
+    }
+}
+```
+
+
+
+
+
+
+### A.2.2: Broker Acknowledges the PUBLISH Control Packet
+
+
+> **Bullet-list representation of control packet**
+
+**Fixed Header**
+* Type: PUBACK
+* Remaining Length: 2
+
+**Variable Header**
+*  Packet Identifier:  1234
+
+> **Tabular representation of control packet**
+
+
+| Region |       Field       | Value  |
+|:------:|:-----------------:|--------|
+|   FH   |        Type       | PUBACK |
+|   FH   |  Remaining Length | 2      |
+|   VH   | Packet Identifier | 1234   |
+
+
+# Appendix B. Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
 **OpenC2 TC Members:**
@@ -528,8 +755,9 @@ TBD | TBD | TBD
 
 -------
 
-# Appendix B. Revision History
+# Appendix C. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 | transf-mqtt-v1.0-wd01 | 2020-xx-xx | David Lemire | Initial working draft |
+
 
