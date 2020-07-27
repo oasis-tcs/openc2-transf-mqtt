@@ -573,16 +573,28 @@ the PUBCOMP packet as specified in the
 
 ### 3.1.10 UNSUBSCRIBE
 
+Under normal operating circumstances OpenC2 Producers and
+Consumers are not expected to unsubscribe from their
+respective default topic selections, as described in [Section
+2.2](#22-default-topic-structure). If a reason arises to
+unsubscribe from one or more topics, the OpenC2 Producer or
+Consumer shall use the UNSUBSUBSCRIBE control packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.10.
+
 ### 3.1.11 UNSUBACK
+
+MQTT brokers receiving an UNSUBSCRIBE control packet from an
+OpenC2 Producer or Consumer shall send an UNSUBACK packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.11.
 
 ### 3.1.12 PINGREQ
 
 OpenC2 Producers and Consumers MUST send a PINGREQ control
 packet to all MQTT brokers with which they are connected if
-they have not processed any other control packets with 90%
+they have not processed any other control packets with 95%
 of the keep-alive interval defined by the implementer.  If
 the implementer has not otherwise specified a keep-alive
-interval, 90% of the value specified in [Section
+interval, 95% of the value specified in [Section
 2.6](#26-keep-alive-interval) shall be used.
 
 ### 3.1.13 PINGRESP
@@ -601,6 +613,9 @@ specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.13.
   and use the TLS guidance from the v1.0 HTTPS
   Transfer CS.
 * Unsecured MQTT should only be used for testing purposes.
+* Consider whether information leakage (commands reaching
+  devices not intended to process those commands) is worth
+  taking into account.
 
 (Note: OASIS strongly recommends that Technical
 Committees consider issues that could affect
