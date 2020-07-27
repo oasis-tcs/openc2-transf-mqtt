@@ -522,10 +522,76 @@ implementations. For reliability, an OpenC2 client should
 send an MQTT PINGREQ when 95% of the Keep Alive interval has
 expired without any other control packets being exchanged.
 
-# 3 Protocol Mappings
+# 3 Protocol Mapping
 
-> **TBSL**  The protocol mappings will be specified once
-> consensus has been achieved on the operating model.
+> **TBSL**  The protocol mapping should be considered
+> tentative until consensus has been achieved on the
+> operating model.
+
+## 3.1 MQTT Control Packet Usage
+
+### 3.1.1 CONNECT
+
+
+
+### 3.1.2 CONNACK
+
+### 3.1.3 PUBLISH
+
+### 3.1.4 PUBACK
+
+### 3.1.5 PUBREC
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBREC control packet is not utilized.
+Implementers who elect to use QoS Level 2 should implement
+the PUBREC packet as specified in the
+[mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.6 PUBREL
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBREL control packet is not utilized.
+Implementers who elect to use QoS Level 2 should implement
+the PUBREL packet as specified in the
+[mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.7 PUBCOMP
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBCOMP control packet is not utilized.
+Implementers who elect to use QoS Level 2 should implement
+the PUBCOMP packet as specified in the
+[mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.8 SUBSCRIBE
+
+### 3.1.9 SUBACK
+
+### 3.1.10 UNSUBSCRIBE
+
+### 3.1.11 UNSUBACK
+
+### 3.1.12 PINGREQ
+
+OpenC2 Producers and Consumers MUST send a PINGREQ control
+packet to all MQTT brokers with which they are connected if
+they have not processed any other control packets with 90%
+of the keep-alive interval defined by the implementer.  If
+the implementer has not otherwise specified a keep-alive
+interval, 90% of the value specified in [Section
+2.6](#26-keep-alive-interval) shall be used.
+
+### 3.1.13 PINGRESP
+
+MQTT brokers receiving a PINGREQ control packet from an
+OpenC2 Producer or Consumer shall send a PINGRESP packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.13.
+
+### 3.1.14 DISCONNECT
 
 # 4 Security Considerations
 
