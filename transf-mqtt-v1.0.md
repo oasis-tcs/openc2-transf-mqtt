@@ -370,6 +370,7 @@ would subscribe to `oc2/cmd/ap/slpf`.
 > the topic names. If we adopt v5.0 instead of v3.1.1, the
 > option to use integer "topic aliases" is also available.
 
+
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
