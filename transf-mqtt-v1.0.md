@@ -569,9 +569,10 @@ message feature.
 
 ### 3.1.1 CONNECT
 
-Producers and Consumers MUST use the CONNECT control
-packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
-specification to establish a connection to the MQTT Broker.
+OpenC2 Producers and Consumers MUST create and transmit the
+CONNECT control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, to establish a
+connection to the MQTT Broker.
 
 The fields of the CONNECT control packet SHALL be populated
 as follows:
@@ -603,9 +604,36 @@ In the above table:
 
 ### 3.1.2 CONNACK
 
+OpenC2 Producers and Consumers MUST receive and process  the
+CONNACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after requesting  a
+connection to the MQTT Broker.
+
+
 ### 3.1.3 PUBLISH
 
+OpenC2 Producers and Consumers MUST create and transmit the
+PUBLISH control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, to publish messages
+using the MQTT broker.  Topic selection for publishing
+OpenC2 request and response messages MUST apply the default
+topic structure principles described in [Section
+2.2](##22-default-topic-structure).
+
+The PUBLISH packet parameters SHALL be set as follows:
+
+* DUP: MUST be set to 1 when publishing a duplicate message,
+  and set to 0 otherwise.
+* QoS: 1, unless the implementer has elected to use QoS
+  level 2 for this environment.  QoS MUST NOT be set to 0.
+* RETAIN:  MUST always be set to 0.
+
 ### 3.1.4 PUBACK
+
+OpenC2 Producers and Consumers MUST receive and process  the
+PUBACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after publishing a
+message to the MQTT Broker.
 
 ### 3.1.5 PUBREC
 
