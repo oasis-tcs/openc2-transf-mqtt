@@ -569,9 +569,36 @@ message feature.
 
 ### 3.1.1 CONNECT
 
-Producers and Consumers MUST use the SUBSCRIBE control
+Producers and Consumers MUST use the CONNECT control
 packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
 specification to establish a connection to the MQTT Broker.
+
+The fields of the CONNECT control packet SHALL be populated
+as follows:
+
+| Region | Field | Value |
+|:-:|:-:|:-:|
+| FH | Type | CONNECT |
+| FH | Remaining Length | `<computed>` |
+| VH | Protocol Name - Length |4|
+| VH | Protocol Name - Value | MQTT |
+| VH | Protocol Level |4|
+| VH | Connect Flags (bitmap) |  |
+|  | Clean Session | 0 |
+|  | Will Flag | 0 |
+|  | Will QoS | 0 |
+|  | Will Retain | 0 |
+|  | User Name Flag | TBD |
+|  | Password Flag | TBD |
+| VH | Keep Alive  | Number < 300 (seconds) |
+| PL | Client Identifier | TBD |
+| PL | Username | TBD  |
+| PL | Password | TBD |
+
+In the above table:
+* FH = Fixed Header
+* VH = Variable Heather
+* PL = Payload
 
 
 ### 3.1.2 CONNACK
