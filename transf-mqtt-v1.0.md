@@ -799,27 +799,28 @@ Example CONNECT packed fields and values.
 
 ## A.2  Example 2:  <u>Command / Response Exchange</u>
 
-The example  messages in A.2.1 and A.2.2 illustrate the
-process of an OpenC2 Producer publishing a command to a
-channel for a specific device type,
-`oc2/cmd/device_type/alpha`, with
-Quality of Service level 1.  A similar exchange would 
-then occur between the broker
-and every device subscribed to `oc2/cmd/device_type/alpha`to
-distribute the command to the intended recipients. The
-examples assume a notional device type named "Alpha" exists
-and that one or more devices of that types are subscribed to
-the appropriate `device_type` channel.
+The example messages in A.2.1 and A.2.2 illustrate the
+process of an OpenC2 Producer publishing a command to the
+channel for a specific actuator profile. The examples assume
+the existence of a notional device identified as `abc123`
+that implements the `iota` AP, and that one or more such
+devices are subscribed to the corresponding command topic
+`oc2/cmd/ap/iota`. The example messages show the exchange
+between the Orchestrator publishing the command and the MQTT
+broker.  A similar exchange then occurs between the
+broker and every Consumer device subscribed to
+`oc2/cmd/ap/iota` to distribute the command to the intended
+recipients. 
 
-The response message in the sequence diagram below is
-published with a QoS of 1, which requires the broker to
-respond to the PUBLISH packet with a PUBACK packet. If
-response messages are sent with QoS of 0 no reply from the
-broker would be required.
+The command and response messages in the sequence diagram
+below are published with a QoS of 1, which requires the
+recipient to respond to the PUBLISH packet with a PUBACK
+packet. If the  messages were sent with QoS of 0 no reply
+from the recipient would be required.
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-### A.2.1: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
+### A.2.1: Orchestrator PUBLISHes a Command to All Devices Implementing AP `iota`
 
 
 > **NOTE:** This example shows the required information for the MQTT
@@ -837,7 +838,7 @@ first example MQTT Control Packet (PUBLISH).
 * Remaining Length:  [computed]
 
 **Variable Header**
-*  Topic Name: oc2/cmd/device_type/alpha
+*  Topic Name: oc2/cmd/ap/iota
 *  Packet Identifier:  1234
 
 **Payload**
@@ -868,7 +869,7 @@ Variable Header, and Payload portions, respectively, of the MQTT Control Packet.
 | FH | QoS | 1|
 | FH | Retain  |0  |
 | FH | Remaining Length  | `<computed>` |
-| VH  | Topic Name  | oc2/cmd/device_type/alpha |
+| VH  | Topic Name  | oc2/cmd/ap/iota |
 | VH  | Packet Identifier  | 1234  |
 | PL | Content | request (JSON-encoded OpenC2 command) |
 | PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
