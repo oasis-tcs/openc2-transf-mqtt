@@ -689,6 +689,11 @@ level 2 if appropriate for their implementation.
 
 ### 3.1.9 SUBACK
 
+OpenC2 Producers and Consumers MUST receive and process the
+SUBACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after transmitting
+a SUBSCRIBE control packet to the MQTT Broker.
+
 ### 3.1.10 UNSUBSCRIBE
 
 Under normal operating circumstances OpenC2 Producers and
