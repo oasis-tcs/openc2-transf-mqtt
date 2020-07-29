@@ -514,6 +514,11 @@ of electing to use QoS 2 where the additional overhead is
 justified by application requirements. QoS 0 is not
 recommended for use in OpenC2 messaging.
 
+In accordance with the above, the requirements of
+[mqtt-v3.1.1](#mqtt-v311) Section 4.3.2, _QoS1: At least
+once delivery_ apply to OpenC2 Producers and Consumers when
+publishing messages to the MQTT broker.
+
 ## 2.5 MQTT Client Identifier
 
 As described in [mqtt-v3.1.1](#mqtt-v311) Section
