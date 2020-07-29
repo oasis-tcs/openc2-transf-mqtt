@@ -370,28 +370,52 @@ would subscribe to `oc2/cmd/ap/slpf`.
 > the topic names. If we adopt v5.0 instead of v3.1.1, the
 > option to use integer "topic aliases" is also available.
 
+
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
+| `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs, and that all devices of the same type support the same set of APs.  | Pub  | Sub   |
-| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
-| `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
-| `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
+| `oc2/cmd/device/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
 
 
 In order to receive commands intended for its security 
 functions, a Consumer device registering with the broker 
 would subscribe to:
+* `oc2/cmd/all` to receive commands intended for all devices
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
-* `oc2/cmd/device_type/[device_type]` for that device's TYPE
-* `oc2/cmd/device_id/[device_id]` for that device's ID
-* `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
-* `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
+* `oc2/cmd/device/[device_id]` for that device's ID
+
 
 In order to receive responses to the commands is sends, 
 a Producer registering with the broker would subscribe to:
 * `oc2/rsp`
+
+**Non-normative Subscription Example**
+
+A notional OpenC2 Consumer that implemented actuator
+profiles `alpha` and `iota` and had a device identifier of
+`zulu` would subscribe to the following channels:
+
+* `oc2/cmd/all`
+* `oc2/cmd/ap/alpha`
+* `oc2/cmd/ap/iota`
+* `oc2/cmd/device/zulu`
+
+**Non-normative Publishing Examples**
+
+A notional OpenC2 Producer wishing to command all Consumers
+that implement actuator profile `iota` would publish the
+command to: 
+
+* `oc2/cmd/ap/iota`
+
+A notional OpenC2 Producer wishing to command the individual
+Consumer with identity `zulu` would publish the
+command to: 
+
+* `oc2/cmd/device/zulu`
+
 
 
 > **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
