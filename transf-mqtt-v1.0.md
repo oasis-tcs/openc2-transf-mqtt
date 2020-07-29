@@ -766,7 +766,8 @@ Remove this note before submitting for publication.)
 The following diagram illustrates the process of the
 Orchestrator and a Consumer each connecting to the MQTT
 broker and subscribing to relevant channels.  The Consumer
-supports the notional actuator profiles `alpha` and `iota`.
+supports the notional actuator profiles `alpha` and `iota`,
+and is assigned the identifier `abc123`.
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
