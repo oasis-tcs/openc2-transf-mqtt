@@ -100,6 +100,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.4 Quality of Service](#24-quality-of-service)
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
+    -   [2.7 Will Message](#27-will-message)
 -   [3 Protocol Mapping](#3-protocol-mapping)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
@@ -277,7 +278,8 @@ operating model, the corresponding question(s) should be deleted.
 
 > - Is OpenC2 going to use the MQTT Will feature? If so,
 >  what should be used for the will topic(s)?
->   - Should be addressed in Section 2.2 once resolved.
+>   - A proposal not to use this feature is contained in
+>     [Section 2.7](#27-will-message).
 
 > - What is the OpenC2 message format over MQTT?
 >   - See [Section 2.3](#23-message-format)
@@ -546,6 +548,15 @@ implementations. For reliability, an OpenC2 client should
 send an MQTT PINGREQ when 95% of the Keep Alive interval has
 expired without any other control packets being exchanged.
 
+## 2.7  Will Message
+
+The CONNECT control packet, described in
+[mqtt-v3.1.1](#mqtt-v311), Section 3.1, provides a last will
+feature that enables connected clients to store a message on
+the broker to be published when the client's network
+connection is closed. OpenC2 does not use the MQTT will
+message feature.
+
 # 3 Protocol Mapping
 
 > **TBSL**  The protocol mapping should be considered
@@ -556,6 +567,9 @@ expired without any other control packets being exchanged.
 
 ### 3.1.1 CONNECT
 
+Producers and Consumers MUST use the SUBSCRIBE control
+packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
+specification to establish a connection to the MQTT Broker.
 
 
 ### 3.1.2 CONNACK
@@ -568,30 +582,53 @@ expired without any other control packets being exchanged.
 
 Consistent with the guidance in [Section
 2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBREC control packet is not utilized.
-Implementers who elect to use QoS Level 2 should implement
-the PUBREC packet as specified in the
+QoS Level 1, the PUBREC control packet is not normally
+utilized for OpenC2. Implementers who elect to use QoS Level
+2 should implement the PUBREC packet as specified in the
 [mqtt-v3.1.1](#mqtt-v311) specification.
 
 ### 3.1.6 PUBREL
 
 Consistent with the guidance in [Section
 2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBREL control packet is not utilized.
-Implementers who elect to use QoS Level 2 should implement
-the PUBREL packet as specified in the
-[mqtt-v3.1.1](#mqtt-v311) specification.
+QoS Level 1, the PUBREL control packet is not normally
+utilized for OpenC2 . Implementers who elect to use QoS
+Level 2 should implement the PUBREL packet as specified in
+the [mqtt-v3.1.1](#mqtt-v311) specification.
 
 ### 3.1.7 PUBCOMP
 
 Consistent with the guidance in [Section
 2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBCOMP control packet is not utilized.
-Implementers who elect to use QoS Level 2 should implement
-the PUBCOMP packet as specified in the
+QoS Level 1, the PUBCOMP control packet is not normally
+utilized for OpenC2. Implementers who elect to use QoS Level
+2 should implement the PUBCOMP packet as specified in the
 [mqtt-v3.1.1](#mqtt-v311) specification.
 
 ### 3.1.8 SUBSCRIBE
+
+Producers and Consumers MUST use the SUBSCRIBE control
+packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
+specification to subscribe to a set of topics consistent
+with the default topic structure defined in [Section
+2.2](#22-default-topic-structure). This means that:
+
+* Consumers subscribe to topics for all actuator profiles
+  the Consumer implements, the all commands topic
+  (`oc2/cmd/all`), and an individual topic for that Consumer
+  device.
+* Producers subscribe to the response topic (`oc2/rsp`).
+
+Topic wildcards are not normally utilized for OpenC2.
+However, implementers of OpenC2 Consumers MAY elect to use a
+wildcard to subscribe to the command topics for all actuator
+profiles (`oc2/cmd/ap/#) and filter received messages at the
+Consumer to identify relevant messages.
+
+As defined in [Section 2.4](#24-quality-of-service),
+subscribers MUST specify at least QoS level 1 when
+subscribing to topics. Implementers MAY elect to use QoS
+level 2 if appropriate for their implementation.
 
 ### 3.1.9 SUBACK
 
