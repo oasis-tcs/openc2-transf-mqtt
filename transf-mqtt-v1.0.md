@@ -313,7 +313,9 @@ operating model, the corresponding question(s) should be deleted.
 > - Should Consumers publish any kind of birth and/or death
   messages?
 >   - MQTT includes a "last will" mechanism to provide
-  information when a device is disconnected
+      information when a device is disconnected; A proposal
+      not to use this feature is contained in [Section
+      2.7](#27-will-message).
 >   - The [Sparkplug B specification](sparkplug-b) defines a
   birth certificate mechanism to provide information when
   devices become connected.
