@@ -765,7 +765,8 @@ Remove this note before submitting for publication.)
 
 The following diagram illustrates the process of the
 Orchestrator and a Consumer each connecting to the MQTT
-broker and subscribing to a relevant channel.
+broker and subscribing to relevant channels.  The Consumer
+supports the notional actuator profiles `alpha` and `iota`.
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
@@ -780,16 +781,14 @@ Example CONNECT packed fields and values.
 | VH | Protocol Name - Value | MQTT |
 | VH | Protocol Level |4|
 | VH | Connect Flags (bitmap) |  |
-|  | Clean Session | TBD |
-|  | Will Flag | TBD |
-|  | Will QoS | TBD |
-|  | Will Retain | TBD |
+|  | Clean Session | 0 |
+|  | Will Flag | 0 |
+|  | Will QoS | 0 |
+|  | Will Retain | 0 |
 |  | User Name Flag | TBD |
 |  | Password Flag | TBD |
 | VH | Keep Alive  | Number < 300 (seconds) |
 | PL | Client Identifier |  |
-| PL | Will Topic | TBD string  |
-| PL | Will Message  | TBD string  |
 | PL | Username | TBD  |
 | PL | Password | TBDS |
 

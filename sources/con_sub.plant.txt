@@ -17,7 +17,7 @@ skinparam sequenceMessageAlign direction
 actor Orchestrator as O
 participant Broker as B
 actor Consumer as C
-note over C: Alpha-type Device
+note over C: Consumer ID is abc123\nAPs: Alpha, Iota
 group Orchestrator Connect & Subscribe
 O -> B : CONNECT
 activate B
@@ -34,7 +34,7 @@ C -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
 return : CONNACK
-C -> B : SUBSCRIBE (oc2/cmd/devce_type/alpha)
+C -> B : SUBSCRIBE (oc2/cmd/ap/alpha,\noc2/cmd/ap/iota,\noc2/cmd/all,\noc2/device/abc123)
 activate B
 B -> B : validate\nsubscription\nparameters
 
