@@ -100,7 +100,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.4 Quality of Service](#24-quality-of-service)
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
--   [3 Protocol Mappings](#3-protocol-mappings)
+-   [3 Protocol Mapping](#3-protocol-mapping)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
 -   [Appendix A. Message Examples](#appendix-a-message-examples)
