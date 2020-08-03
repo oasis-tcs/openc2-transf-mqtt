@@ -102,9 +102,32 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
     -   [2.7 Will Message](#27-will-message)
 -   [3 Protocol Mapping](#3-protocol-mapping)
+    -   [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
+        -   [3.1.1 CONNECT](#311-connect)
+        -   [3.1.2 CONNACK](#312-connack)
+        -   [3.1.3 PUBLISH](#313-publish)
+        -   [3.1.4 PUBACK](#314-puback)
+        -   [3.1.5 PUBREC](#315-pubrec)
+        -   [3.1.6 PUBREL](#316-pubrel)
+        -   [3.1.7 PUBCOMP](#317-pubcomp)
+        -   [3.1.8 SUBSCRIBE](#318-subscribe)
+        -   [3.1.9 SUBACK](#319-suback)
+        -   [3.1.10 UNSUBSCRIBE](#3110-unsubscribe)
+        -   [3.1.11 UNSUBACK](#3111-unsuback)
+        -   [3.1.12 PINGREQ](#3112-pingreq)
+        -   [3.1.13 PINGRESP](#3113-pingresp)
+        -   [3.1.14 DISCONNECT](#3114-disconnect)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
--   [Appendix A. Message Examples](#appendix-a-message-examples)
+-   [Appendix A: Message Examples](#appendix-a-message-examples)
+    -   [A.1 Example 1: Connect and
+        Subscribe](#a1-example-1-connect-and-subscribe)
+    -   [A.2 Example 2: Command / Response
+        Exchange](#a2-example-2-command--response-exchange)
+        -   [A.2.1: Orchestrator PUBLISHes a Command to All
+            Devices Implementing AP `iota`](#a21-orchestrator-publishes-a-command-to-all-devices-implementing-ap-iota)
+        -   [A.2.2: Broker Acknowledges the PUBLISH Control
+            Packet](#a22-broker-acknowledges-the-publish-control-packet)
 -   [Appendix B. Acknowledgments](#appendix-b-acknowledgments)
 -   [Appendix C. Revision History](#appendix-c-revision-history)
 
