@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 03
-## 15 June 2020
+## Working Draft 04
+## xx August 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -100,10 +100,34 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.4 Quality of Service](#24-quality-of-service)
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
--   [3 Protocol Mappings](#3-protocol-mappings)
+    -   [2.7 Will Message](#27-will-message)
+-   [3 Protocol Mapping](#3-protocol-mapping)
+    -   [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
+        -   [3.1.1 CONNECT](#311-connect)
+        -   [3.1.2 CONNACK](#312-connack)
+        -   [3.1.3 PUBLISH](#313-publish)
+        -   [3.1.4 PUBACK](#314-puback)
+        -   [3.1.5 PUBREC](#315-pubrec)
+        -   [3.1.6 PUBREL](#316-pubrel)
+        -   [3.1.7 PUBCOMP](#317-pubcomp)
+        -   [3.1.8 SUBSCRIBE](#318-subscribe)
+        -   [3.1.9 SUBACK](#319-suback)
+        -   [3.1.10 UNSUBSCRIBE](#3110-unsubscribe)
+        -   [3.1.11 UNSUBACK](#3111-unsuback)
+        -   [3.1.12 PINGREQ](#3112-pingreq)
+        -   [3.1.13 PINGRESP](#3113-pingresp)
+        -   [3.1.14 DISCONNECT](#3114-disconnect)
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
--   [Appendix A. Message Examples](#appendix-a-message-examples)
+-   [Appendix A: Message Examples](#appendix-a-message-examples)
+    -   [A.1 Example 1: Connect and
+        Subscribe](#a1-example-1-connect-and-subscribe)
+    -   [A.2 Example 2: Command / Response
+        Exchange](#a2-example-2-command--response-exchange)
+        -   [A.2.1: Orchestrator PUBLISHes a Command to All
+            Devices Implementing AP `iota`](#a21-orchestrator-publishes-a-command-to-all-devices-implementing-ap-iota)
+        -   [A.2.2: Broker Acknowledges the PUBLISH Control
+            Packet](#a22-broker-acknowledges-the-publish-control-packet)
 -   [Appendix B. Acknowledgments](#appendix-b-acknowledgments)
 -   [Appendix C. Revision History](#appendix-c-revision-history)
 
@@ -277,7 +301,8 @@ operating model, the corresponding question(s) should be deleted.
 
 > - Is OpenC2 going to use the MQTT Will feature? If so,
 >  what should be used for the will topic(s)?
->   - Should be addressed in Section 2.2 once resolved.
+>   - A proposal not to use this feature is contained in
+>     [Section 2.7](#27-will-message).
 
 > - What is the OpenC2 message format over MQTT?
 >   - See [Section 2.3](#23-message-format)
@@ -311,7 +336,9 @@ operating model, the corresponding question(s) should be deleted.
 > - Should Consumers publish any kind of birth and/or death
   messages?
 >   - MQTT includes a "last will" mechanism to provide
-  information when a device is disconnected
+      information when a device is disconnected; A proposal
+      not to use this feature is contained in [Section
+      2.7](#27-will-message).
 >   - The [Sparkplug B specification](sparkplug-b) defines a
   birth certificate mechanism to provide information when
   devices become connected.
@@ -370,28 +397,52 @@ would subscribe to `oc2/cmd/ap/slpf`.
 > the topic names. If we adopt v5.0 instead of v3.1.1, the
 > option to use integer "topic aliases" is also available.
 
+
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
+| `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-|  `oc2/cmd/device_type/[device_type]` | Used to send OpenC2 commands to all instances of a   particular device type. It is assumed that a device of a given type may support multiple APs, and that all devices of the same type support the same set of APs.  | Pub  | Sub   |
-| `oc2/cmd/device_id/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
-| `oc2/cmd/action_target/[action_target]`  | Used to send commands to all devices and/or actuators that implement the specified command (i.e., action-target pair)  | Pub | Sub |
-| `oc2/cmd/action/[action]`  |Used to send OpenC2 commands to all devices and/or   actuators that implement the specified action.   | Pub | Sub |
+| `oc2/cmd/device/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
 
 
 In order to receive commands intended for its security 
 functions, a Consumer device registering with the broker 
 would subscribe to:
+* `oc2/cmd/all` to receive commands intended for all devices
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
-* `oc2/cmd/device_type/[device_type]` for that device's TYPE
-* `oc2/cmd/device_id/[device_id]` for that device's ID
-* `oc2/cmd/action_target/[action_target]` for all action-target pairs in the union set of actuator profiles the device implements
-* `oc2/cmd/action/[action]` for all actions in the union set of actuator profiles the device implements
+* `oc2/cmd/device/[device_id]` for that device's ID
+
 
 In order to receive responses to the commands is sends, 
 a Producer registering with the broker would subscribe to:
 * `oc2/rsp`
+
+**Non-normative Subscription Example**
+
+A notional OpenC2 Consumer that implemented actuator
+profiles `alpha` and `iota` and had a device identifier of
+`zulu` would subscribe to the following channels:
+
+* `oc2/cmd/all`
+* `oc2/cmd/ap/alpha`
+* `oc2/cmd/ap/iota`
+* `oc2/cmd/device/zulu`
+
+**Non-normative Publishing Examples**
+
+A notional OpenC2 Producer wishing to command all Consumers
+that implement actuator profile `iota` would publish the
+command to: 
+
+* `oc2/cmd/ap/iota`
+
+A notional OpenC2 Producer wishing to command the individual
+Consumer with identity `zulu` would publish the
+command to: 
+
+* `oc2/cmd/device/zulu`
+
 
 
 > **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
@@ -486,6 +537,11 @@ of electing to use QoS 2 where the additional overhead is
 justified by application requirements. QoS 0 is not
 recommended for use in OpenC2 messaging.
 
+In accordance with the above, the requirements of
+[mqtt-v3.1.1](#mqtt-v311) Section 4.3.2, _QoS1: At least
+once delivery_ apply to OpenC2 Producers and Consumers when
+publishing messages to the MQTT broker.
+
 ## 2.5 MQTT Client Identifier
 
 As described in [mqtt-v3.1.1](#mqtt-v311) Section
@@ -522,10 +578,183 @@ implementations. For reliability, an OpenC2 client should
 send an MQTT PINGREQ when 95% of the Keep Alive interval has
 expired without any other control packets being exchanged.
 
-# 3 Protocol Mappings
+## 2.7  Will Message
 
-> **TBSL**  The protocol mappings will be specified once
-> consensus has been achieved on the operating model.
+The CONNECT control packet, described in
+[mqtt-v3.1.1](#mqtt-v311), Section 3.1, provides a last will
+feature that enables connected clients to store a message on
+the broker to be published when the client's network
+connection is closed. OpenC2 does not use the MQTT will
+message feature.
+
+# 3 Protocol Mapping
+
+> **TBSL**  The protocol mapping should be considered
+> tentative until consensus has been achieved on the
+> operating model.
+
+## 3.1 MQTT Control Packet Usage
+
+### 3.1.1 CONNECT
+
+OpenC2 Producers and Consumers MUST create and transmit the
+CONNECT control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, to establish a
+connection to the MQTT Broker.
+
+The fields of the CONNECT control packet SHALL be populated
+as follows:
+
+| Region | Field | Value |
+|:-:|:-:|:-:|
+| FH | Type | CONNECT |
+| FH | Remaining Length | `<computed>` |
+| VH | Protocol Name - Length |4|
+| VH | Protocol Name - Value | MQTT |
+| VH | Protocol Level |4|
+| VH | Connect Flags (bitmap) |  |
+|  | Clean Session | 0 |
+|  | Will Flag | 0 |
+|  | Will QoS | 0 |
+|  | Will Retain | 0 |
+|  | User Name Flag | TBD |
+|  | Password Flag | TBD |
+| VH | Keep Alive  | Number < 300 (seconds) |
+| PL | Client Identifier | TBD |
+| PL | Username | TBD  |
+| PL | Password | TBD |
+
+In the above table:
+* FH = Fixed Header
+* VH = Variable Heather
+* PL = Payload
+
+
+### 3.1.2 CONNACK
+
+OpenC2 Producers and Consumers MUST receive and process  the
+CONNACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after requesting  a
+connection to the MQTT Broker.
+
+
+### 3.1.3 PUBLISH
+
+OpenC2 Producers and Consumers MUST create and transmit the
+PUBLISH control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, to publish messages
+using the MQTT broker.  Topic selection for publishing
+OpenC2 request and response messages MUST apply the default
+topic structure principles described in [Section
+2.2](##22-default-topic-structure).
+
+The PUBLISH packet parameters SHALL be set as follows:
+
+* DUP: MUST be set to 1 when publishing a duplicate message,
+  and set to 0 otherwise.
+* QoS: 1, unless the implementer has elected to use QoS
+  level 2 for this environment.  QoS MUST NOT be set to 0.
+* RETAIN:  MUST always be set to 0.
+
+### 3.1.4 PUBACK
+
+OpenC2 Producers and Consumers MUST receive and process  the
+PUBACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after publishing a
+message to the MQTT Broker.
+
+### 3.1.5 PUBREC
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBREC control packet is not normally
+utilized for OpenC2. Implementers who elect to use QoS Level
+2 should implement the PUBREC packet as specified in the
+[mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.6 PUBREL
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBREL control packet is not normally
+utilized for OpenC2 . Implementers who elect to use QoS
+Level 2 should implement the PUBREL packet as specified in
+the [mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.7 PUBCOMP
+
+Consistent with the guidance in [Section
+2.4](#24-quality-of-service) of this specification to use
+QoS Level 1, the PUBCOMP control packet is not normally
+utilized for OpenC2. Implementers who elect to use QoS Level
+2 should implement the PUBCOMP packet as specified in the
+[mqtt-v3.1.1](#mqtt-v311) specification.
+
+### 3.1.8 SUBSCRIBE
+
+Producers and Consumers MUST use the SUBSCRIBE control
+packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
+specification to subscribe to a set of topics consistent
+with the default topic structure defined in [Section
+2.2](#22-default-topic-structure). This means that:
+
+* Consumers subscribe to topics for all actuator profiles
+  the Consumer implements, the all commands topic
+  (`oc2/cmd/all`), and an individual topic for that Consumer
+  device.
+* Producers subscribe to the response topic (`oc2/rsp`).
+
+Topic wildcards are not normally utilized for OpenC2.
+However, implementers of OpenC2 Consumers MAY elect to use a
+wildcard to subscribe to the command topics for all actuator
+profiles (`oc2/cmd/ap/#) and filter received messages at the
+Consumer to identify relevant messages.
+
+As defined in [Section 2.4](#24-quality-of-service),
+subscribers MUST specify at least QoS level 1 when
+subscribing to topics. Implementers MAY elect to use QoS
+level 2 if appropriate for their implementation.
+
+### 3.1.9 SUBACK
+
+OpenC2 Producers and Consumers MUST receive and process the
+SUBACK control packet, as specified in in the
+[mqtt-v3.1.1](#mqtt-v311) specification, after transmitting
+a SUBSCRIBE control packet to the MQTT Broker.
+
+### 3.1.10 UNSUBSCRIBE
+
+Under normal operating circumstances OpenC2 Producers and
+Consumers are not expected to unsubscribe from their
+respective default topic selections, as described in [Section
+2.2](#22-default-topic-structure). If a reason arises to
+unsubscribe from one or more topics, the OpenC2 Producer or
+Consumer shall use the UNSUBSUBSCRIBE control packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.10.
+
+### 3.1.11 UNSUBACK
+
+MQTT brokers receiving an UNSUBSCRIBE control packet from an
+OpenC2 Producer or Consumer shall send an UNSUBACK packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.11.
+
+### 3.1.12 PINGREQ
+
+OpenC2 Producers and Consumers MUST send a PINGREQ control
+packet to all MQTT brokers with which they are connected if
+they have not processed any other control packets with 95%
+of the keep-alive interval defined by the implementer.  If
+the implementer has not otherwise specified a keep-alive
+interval, 95% of the value specified in [Section
+2.6](#26-keep-alive-interval) shall be used.
+
+### 3.1.13 PINGRESP
+
+MQTT brokers receiving a PINGREQ control packet from an
+OpenC2 Producer or Consumer shall send a PINGRESP packet as
+specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.13.
+
+### 3.1.14 DISCONNECT
 
 # 4 Security Considerations
 
@@ -535,6 +764,9 @@ expired without any other control packets being exchanged.
   and use the TLS guidance from the v1.0 HTTPS
   Transfer CS.
 * Unsecured MQTT should only be used for testing purposes.
+* Consider whether information leakage (commands reaching
+  devices not intended to process those commands) is worth
+  taking into account.
 
 (Note: OASIS strongly recommends that Technical
 Committees consider issues that could affect
@@ -594,7 +826,9 @@ Remove this note before submitting for publication.)
 
 The following diagram illustrates the process of the
 Orchestrator and a Consumer each connecting to the MQTT
-broker and subscribing to a relevant channel.
+broker and subscribing to relevant channels.  The Consumer
+supports the notional actuator profiles `alpha` and `iota`,
+and is assigned the identifier `abc123`.
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
@@ -609,16 +843,14 @@ Example CONNECT packed fields and values.
 | VH | Protocol Name - Value | MQTT |
 | VH | Protocol Level |4|
 | VH | Connect Flags (bitmap) |  |
-|  | Clean Session | TBD |
-|  | Will Flag | TBD |
-|  | Will QoS | TBD |
-|  | Will Retain | TBD |
+|  | Clean Session | 0 |
+|  | Will Flag | 0 |
+|  | Will QoS | 0 |
+|  | Will Retain | 0 |
 |  | User Name Flag | TBD |
 |  | Password Flag | TBD |
 | VH | Keep Alive  | Number < 300 (seconds) |
 | PL | Client Identifier |  |
-| PL | Will Topic | TBD string  |
-| PL | Will Message  | TBD string  |
 | PL | Username | TBD  |
 | PL | Password | TBDS |
 
@@ -628,27 +860,28 @@ Example CONNECT packed fields and values.
 
 ## A.2  Example 2:  <u>Command / Response Exchange</u>
 
-The example  messages in A.2.1 and A.2.2 illustrate the
-process of an OpenC2 Producer publishing a command to a
-channel for a specific device type,
-`oc2/cmd/device_type/alpha`, with
-Quality of Service level 1.  A similar exchange would 
-then occur between the broker
-and every device subscribed to `oc2/cmd/device_type/alpha`to
-distribute the command to the intended recipients. The
-examples assume a notional device type named "Alpha" exists
-and that one or more devices of that types are subscribed to
-the appropriate `device_type` channel.
+The example messages in A.2.1 and A.2.2 illustrate the
+process of an OpenC2 Producer publishing a command to the
+channel for a specific actuator profile. The examples assume
+the existence of a notional device identified as `abc123`
+that implements the `iota` AP, and that one or more such
+devices are subscribed to the corresponding command topic
+`oc2/cmd/ap/iota`. The example messages show the exchange
+between the Orchestrator publishing the command and the MQTT
+broker.  A similar exchange then occurs between the
+broker and every Consumer device subscribed to
+`oc2/cmd/ap/iota` to distribute the command to the intended
+recipients. 
 
-The response message in the sequence diagram below is
-published with a QoS of 1, which requires the broker to
-respond to the PUBLISH packet with a PUBACK packet. If
-response messages are sent with QoS of 0 no reply from the
-broker would be required.
+The command and response messages in the sequence diagram
+below are published with a QoS of 1, which requires the
+recipient to respond to the PUBLISH packet with a PUBACK
+packet. If the  messages were sent with QoS of 0 no reply
+from the recipient would be required.
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-### A.2.1: Orchestrator PUBLISHes a Command to All Devices of Type "alpha"
+### A.2.1: Orchestrator PUBLISHes a Command to All Devices Implementing AP `iota`
 
 
 > **NOTE:** This example shows the required information for the MQTT
@@ -666,7 +899,7 @@ first example MQTT Control Packet (PUBLISH).
 * Remaining Length:  [computed]
 
 **Variable Header**
-*  Topic Name: oc2/cmd/device_type/alpha
+*  Topic Name: oc2/cmd/ap/iota
 *  Packet Identifier:  1234
 
 **Payload**
@@ -697,7 +930,7 @@ Variable Header, and Payload portions, respectively, of the MQTT Control Packet.
 | FH | QoS | 1|
 | FH | Retain  |0  |
 | FH | Remaining Length  | `<computed>` |
-| VH  | Topic Name  | oc2/cmd/device_type/alpha |
+| VH  | Topic Name  | oc2/cmd/ap/iota |
 | VH  | Packet Identifier  | 1234  |
 | PL | Content | request (JSON-encoded OpenC2 command) |
 | PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |

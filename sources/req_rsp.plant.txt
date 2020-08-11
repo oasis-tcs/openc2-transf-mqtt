@@ -16,15 +16,18 @@ Title Request, and Response
 actor Orchestrator as O
 participant Broker as B
 actor Consumer as C
-note over C: Alpha-type Device
 
-group Publish Command to Alpha-Type Devices
-O -> B : PUBLISH (oc2/cmd/device_type/alpha, Request)
+note over C: Consumer ID is abc123\nAPs: Alpha, Iota
+
+
+
+group Publish command to devices implementing "iota"
+O -> B : PUBLISH (oc2/cmd/ap/iota, Request)
 B -> O : PUBACK
-B -> C : PUBLISH (oc2/cmd/device_type/alpha, Request)
+B -> C : PUBLISH (oc2/cmd/ap/iota, Request)
 C -> B: PUBACK
 end
-group Publish Alpha-type Device Response
+group Publish response from one "iota" device
 C -> B : PUBLISH (oc2/rsp, Response)
 B -> C : PUBACK
 B -> O : PUBLISH (oc2/rsp, Response)
