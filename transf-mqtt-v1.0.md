@@ -557,8 +557,23 @@ servers may accept longer ClientIds).
 definition regarding the format or assignment of
 ClientIds. 
 
-> **NOTE**: the approach for creating ClientIds
-> for OpenC2 MQTT clients is TBD.
+The clientId serves to identify the client to the broker so
+that the broker can maintain state information about the
+client. The clientId has no meaning in the context of
+OpenC2, it is only meaningful to the MQTT client and broker
+involved in the connection. The MQTT specification permits
+brokers to accept CONNECT control packets without a
+clientId, in which case the broker assigns its own clientId
+to the connection.
+
+OpenC2 Producers and Consumers connecting to an MQTT broker
+should initially generated a store a random client value
+that meets the constraints specified in
+[mqtt-v3.1.1](#mqtt-v311) Section 3.1.3.1, and retain that
+value for re-use when re-establishing a connection to that
+broker. The clientId for an OpenC2 Consumer is not required
+to have any meaningful relationship to any identity by which
+a Producer identifies that consumer in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
