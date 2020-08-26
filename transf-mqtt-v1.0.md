@@ -294,6 +294,8 @@ that might be out-of-scope / SEP (someone else's problem) is
 welcome. As consensus is developed on each aspect of the
 operating model, the corresponding question(s) should be deleted.
 
+> **QUESTIONS WITH PROPOSED ANSWERS**
+
 > - What is the required interoperable topic
   structure?
 >   - A proposal is contained in [2.2 Default Topic
@@ -301,7 +303,7 @@ operating model, the corresponding question(s) should be deleted.
 
 > - Is OpenC2 going to use the MQTT Will feature? If so,
 >  what should be used for the will topic(s)?
->   - A proposal not to use this feature is contained in
+>   - A proposal **not** to use this feature is contained in
 >     [Section 2.7](#27-will-message).
 
 > - What is the OpenC2 message format over MQTT?
@@ -310,25 +312,6 @@ operating model, the corresponding question(s) should be deleted.
 >- Are there any special requirements for the MQTT ClientId?
 >   - A proposal for ClientId creation is provided in
         [Section 2.5](#25-mqtt-client-identifier).
-
->- How does a Producer discover the active consumers in a
-  pub/subs space?
-
->- How does a Producer discover the capabilities of active
-  consumers in a pub/sub space?
->   - The above two questions have an element of
-    _registration_ (making Consumers known to the Producer)
-    vs. _discovery_ (enabling the Producer to know what
-    Consumers are currently active in the Producer's sphere
-    of control). 
->   - _Proposed_: Discovery as defined above is an appropriate
-    topic for a transfer specification, registration is
-    outside the scope of a transfer specification
->   - _Proposed_: Determination of actuator capabilities is
-    outside the scope of a transfer specification, but a
-    transfer specification might facilitate use of the
-    OpenC2 Language's features to make such determination
-    (details TBD)
 
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
 >   - See [Section 2.4](#24-quality-of-service).
@@ -344,18 +327,46 @@ operating model, the corresponding question(s) should be deleted.
   devices become connected.
 >   - The operating model should address whether and how OpenC2
   should leverage either of those capabilities.
+>   - **Proposed:** No. OpenC2 will not use any type of birth or
+>     death certificates with MQTT.
 
 >- Should we recommend a maximum keep-alive interval?
 >   - [Section 2.6](#26-keep-alive-interval) proposes an
-    approach
+        approach that sets a maximum keep-alive interval for
+      implementations.
 
 > - Do we need to describe the nature / structure of the
   Consumer Device / Actuator(s)?
->   - The in-development [Architecture
+>   - **Proposed:**  No.  The in-development [Architecture
   Specification](https://github.com/oasis-tcs/oc2arch/tree/working)
   is the appropriate location for this information; transfer
   specifications should reference the architecture, once
   it's published.
+
+> **OPEN QUESTIONS**
+
+>- How does a Producer discover the active consumers in a
+  pub/subs space?
+
+>- How does a Producer discover the capabilities of active
+  consumers in a pub/sub space?
+
+> The above two questions have an element of
+    _registration_ (making Consumers known to the Producer)
+    vs. _discovery_ (enabling the Producer to know what
+    Consumers are currently active in the Producer's sphere
+    of control). 
+>   - **Proposed**: Discovery as defined above is an appropriate
+    topic for a transfer specification, registration is
+    outside the scope of a transfer specification
+>      - _What is an appropriate discovery mechanism with MQTT?_
+>   - **Proposed**: Determination of actuator capabilities is
+    outside the scope of a transfer specification, but a
+    transfer specification might facilitate use of the
+    OpenC2 Language's features to make such determination
+    (details TBD)
+
+
 
 > - Is there a need to describe a state model for the Producer
   or Consumer?
@@ -544,36 +555,37 @@ publishing messages to the MQTT broker.
 
 ## 2.5 MQTT Client Identifier
 
-As described in [mqtt-v3.1.1](#mqtt-v311) Section
-3.1, _CONNECT – Client requests a connection to a
-Server_, the Client Identifier (ClientId) is a
-required field in the CONNECT control packet.
-Further requirements are contained in Section
-3.1.3.1, _Client Identifier_, which defines the
-ClientId as a UTF-8 string containing only letters
-and numbers of between 1 and 23 bytes (MQTT
-servers may accept longer ClientIds).
-[mqtt-v3.1.1](#mqtt-v311) provides no further
-definition regarding the format or assignment of
+As described in [mqtt-v3.1.1](#mqtt-v311) Section 3.1,
+_CONNECT – Client requests a connection to a Server_, the
+Client Identifier (ClientId) is a required field in the
+CONNECT control packet. Further requirements are contained
+in Section 3.1.3.1, _Client Identifier_, which defines the
+ClientId as a UTF-8 string between 1 and 23 bytes long
+containing only letters and numbers (MQTT servers may accept
+longer ClientIds).  The MQTT specification also permits
+brokers to accept CONNECT control packets without a
+clientId, in which case the broker assigns its own clientId
+to the connection. [mqtt-v3.1.1](#mqtt-v311) provides no
+further definition regarding the format or assignment of
 ClientIds. 
 
 The clientId serves to identify the client to the broker so
 that the broker can maintain state information about the
 client. The clientId has no meaning in the context of
 OpenC2, it is only meaningful to the MQTT client and broker
-involved in the connection. The MQTT specification permits
-brokers to accept CONNECT control packets without a
-clientId, in which case the broker assigns its own clientId
-to the connection.
+involved in the connection.
 
-OpenC2 Producers and Consumers connecting to an MQTT broker
-should initially generate and store a random clientId value
+OpenC2 Producers and Consumers using MQTT for message
+transfer should generate and store a random clientId value
 that meets the constraints specified in
 [mqtt-v3.1.1](#mqtt-v311) Section 3.1.3.1, and retain that
 value for re-use when re-establishing a connection to that
-broker. The clientId for an OpenC2 Consumer is not required
-to have any meaningful relationship to any identity by which
-a Producer identifies that consumer in OpenC2 messages.
+broker. This clientId should be generated prior to any
+connection to an MQTT broker, potentially during any
+required initialization. The clientId for an OpenC2
+Consumer is not required to have any meaningful relationship
+to any identity by which a Producer identifies that consumer
+in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
@@ -588,7 +600,7 @@ maximum value is 18 hours 12 minutes and 15 seconds."
 
 This transfer specification leaves the selection of a keep
 alive interval to the implementer but defines a value of 5
-minutes (300 seconds) as the maximum value for conformant
+minutes (300 seconds) as the maximum value for _conformant_
 implementations. For reliability, an OpenC2 client should
 send an MQTT PINGREQ when 95% of the Keep Alive interval has
 expired without any other control packets being exchanged.
@@ -598,9 +610,9 @@ expired without any other control packets being exchanged.
 The CONNECT control packet, described in
 [mqtt-v3.1.1](#mqtt-v311), Section 3.1, provides a last will
 feature that enables connected clients to store a message on
-the broker to be published when the client's network
-connection is closed. OpenC2 does not use the MQTT will
-message feature.
+the broker to be published to a client-specified topic when
+the client's network connection is closed. OpenC2 does not
+use the MQTT last will message feature.
 
 # 3 Protocol Mapping
 
