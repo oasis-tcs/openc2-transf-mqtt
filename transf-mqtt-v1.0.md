@@ -394,6 +394,8 @@ would subscribe to `oc2/cmd/ap/slpf`. In addition, each
 Consumer subscribes to its own device-specific topic using a
 device identifier (annotated as `[device_id]`) that is known
 to the OpenC2 Producer(s) that can command that Consumer.
+The determination of device identifiers is beyond the scope
+of this specification.
 
 
 | Topic  | Purpose   | Producer | Consumer |
