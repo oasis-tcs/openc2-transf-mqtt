@@ -101,6 +101,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
     -   [2.7 Will Message](#27-will-message)
+    -   [2.8 Clean Session Flag](#28-clean-session-flag)
 -   [3 Protocol Mapping](#3-protocol-mapping)
     -   [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
         -   [3.1.1 CONNECT](#311-connect)
