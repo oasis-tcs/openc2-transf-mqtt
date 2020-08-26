@@ -343,6 +343,13 @@ operating model, the corresponding question(s) should be deleted.
   specifications should reference the architecture, once
   it's published.
 
+> - (NEW) How should OpenC2 clients use the MQTT "clean
+>   session" flag when connecting?
+>   - [Section 2.8](#28-clean-session-flag) proposes that
+>     the clean session flag only be used when an openC2
+>     first connects to a specific MQTT broker.
+
+
 > **OPEN QUESTIONS**
 
 >- How does a Producer discover the active consumers in a
@@ -365,8 +372,6 @@ operating model, the corresponding question(s) should be deleted.
     transfer specification might facilitate use of the
     OpenC2 Language's features to make such determination
     (details TBD)
-
-
 
 > - Is there a need to describe a state model for the Producer
   or Consumer?
@@ -613,6 +618,22 @@ feature that enables connected clients to store a message on
 the broker to be published to a client-specified topic when
 the client's network connection is closed. OpenC2 does not
 use the MQTT last will message feature.
+
+## 2.8 Clean Session Flag
+
+The MQTT CONNECT control packet includes a flag, Clean
+Session" that tells the broker whether the client,
+identified by its clientId as described in [Section
+2.5](#25-mqtt-client-identifier) desires a new session
+(Clean Session equals _true_) or desires to receive messages
+that were published while the client was disconnect (Clean
+Session equals _false_).  OpenC2 clients should request a
+clean session when initially connecting to an MQTT broker,
+and _not_ request a clean session when re-connecting to the
+same broker.
+
+> **NOTE:** it may be desirable to place a time limit, after
+which a clean session should again be requested.
 
 # 3 Protocol Mapping
 
