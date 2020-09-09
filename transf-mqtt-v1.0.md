@@ -490,6 +490,63 @@ at how real world products work today
 > adoption of this message format and utilizes its
 > structure. 
 
+### 2.3.1  Content Type and Serialization
+
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in [mqtt=3-1-1], "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the PUBLISH packet recipient of the format of what follows.  These bytes are structured as shown in thie following table:
+
+<table border="4 px">
+<tbody>
+  <tr align="center">
+    <th>Bit</th>
+    <th>7</th>
+    <th>6</th>
+    <th>5</th>
+    <th>4</th>
+    <th>3</th>
+    <th>2</th>
+    <th>1</th>
+    <th>0</th>
+  <tr>
+    <td>Byte 1</td>
+    <td colspan="4" align="center">Fixed</td>
+    <td colspan="4" align="center">OpenC2<br>Message Type</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+  </tr>
+  <tr>
+    <td>Byte 2</td>
+    <td colspan="8" align="center">Serialization (see list)</td>
+  </tr>
+</tbody>
+</table>
+
+The OpenC2 message types in the first byte are assigned as follows:
+ * `0000` = request
+ * `0001` = response
+ * `0010` = notification
+ * `0011` - `1111` are reserved
+
+
+The second byte identifies the serialization used for the OpenC2 messages. The
+following serialization values are assigned; all other values are reserved for
+future use:
+ * `0` = CBOR
+ * `128` = JSON
+ * `129` = XML
+
+The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
+
+### 2.3.2 OpenC2 Message Structure
+
 OpenC2 messages transferred using MQTT utilize the
 `OpenC2-Message` structure containing the message elements
 listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
@@ -509,29 +566,17 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
  }
  ```
  
-A Producer sending an OpenC2 Command includes its identifier
-in the message `from` field, allowing Consumers receiving
-the command to know its origin.  A Consumer sending a
-response to an OpenC2 command includes its identifier in the
-message `from` field, allowing responses from different
-actuators to be identified by the Producer receiving the response. 
+A Producer sending an OpenC2 request includes its identifier in the message
+`from` field, allowing Consumers receiving the request to know its origin.  A
+Consumer sending a response to an OpenC2 request includes its identifier in the
+message `from` field, allowing responses from different actuators to be
+identified by the Producer receiving the response. 
  
-The `to` field is not utilized, as the MQTT Topic Structure
-and Client subscriptions regulate which recipients receive
-each individual message.
+When publishing an OpenC2 request, the Producer can use the `to` field as a
+filter to provide finer-grained control over which Consumers should process any
+particular message than is provided by the MQTT Topic Structure and Client
+subscriptions.
 
- The `request_id` field can contain any string; UUIDv4 format
- is recommended for request IDs. 
-
-> **Note**: The selection of the IMF-fixdate format is a carryover
-> from the HTTPS Transfer Spec. There may be date formats
-> more suitable for use with MQTT.
-
- The `created` field is populated with the date/time when
- the message was created, in the preferred IMF-fixdate
- format as defined by Section 7.1.1.1 of RFC 7231; the
- conditions for populating the Date: header specified in
- Section 7.1.1.2 of RFC 7231 SHALL be followed.
 
 
 ## 2.4 Quality of Service
