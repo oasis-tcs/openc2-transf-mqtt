@@ -178,21 +178,22 @@ M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cybe
 Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
 ## 1.4 Terminology
-* **Action**: The task or activity to be performed (e.g., 'deny').
-* **Actuator**: The entity that performs the action (e.g., 'Stateless Packet Filtering').
-* **Command**: A message defined by an action-target pair that is sent from a Producer and received by a Consumer.
-* **Consumer**: A managed device / application that receives Commands.  Note that a single device / application can have both Consumer and Producer capabilities.
-* **Producer**: A manager application that sends Commands.
-* **Response**: A message from a Consumer to a Producer acknowledging a command or returning the requested resources or status to a previously received request.
-* **Target**: The object of the action, i.e., the action is performed on the target (e.g., IP Address).
 
 
 The terms defined in Section 1.2, _Terminology_ of [mqtt-v3.1.1] are applicable to this specification.
 
+The following terms defined in [OpenC2-Lang-v1.0] are applicable to this specification:
+
+
+* **Command**: A message defined by an action-target pair that is sent from a Producer and received by a Consumer.
+* **Consumer**: A managed device / application that receives Commands.  Note that a single device / application can have both Consumer and Producer capabilities.
+* **Producer**: A manager application that sends Commands.
+* **Response**: A message from a Consumer to a Producer acknowledging a command or returning the requested resources or status to a previously received request.
+
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[RFC2119](#rfc2119)] [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
-A list of acronyms is provided in [Annex A](#annex-a-acronyms).
+A list of acronyms is provided in [Appendix X](#appendix-x-acronyms).
 
 ## 1.5 Document Conventions
 
@@ -1071,6 +1072,11 @@ The JSON-encoded command in the PL:Content field is:
 The broker's actions in processing the CleanSession flag and ClientId are illustrated in the following flowchart.
 
 ![Clean Session Flag Handling](./images/clean-session-flow.png)
+
+
+# Appendix X: Acknowledgments
+
+**TBSL**
 
 # Appendix Y: Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
