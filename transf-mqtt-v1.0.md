@@ -173,7 +173,7 @@ MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OAS
 ###### [RFC3552]
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 ###### [IACD]
-M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br><br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
 ###### [Sparkplug-B]
 Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
@@ -185,6 +185,10 @@ Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.
 * **Producer**: A manager application that sends Commands.
 * **Response**: A message from a Consumer to a Producer acknowledging a command or returning the requested resources or status to a previously received request.
 * **Target**: The object of the action, i.e., the action is performed on the target (e.g., IP Address).
+
+
+The terms defined in Section 1.2, _Terminology_ of [mqtt-v3.1.1] are applicable to this specification.
+
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[RFC2119](#rfc2119)] [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
@@ -622,19 +626,55 @@ use the MQTT last will message feature.
 
 ## 2.8 Clean Session Flag
 
-The MQTT CONNECT control packet includes a flag, Clean
+The MQTT CONNECT control packet includes a flag, "Clean
 Session" that tells the broker whether the client,
 identified by its clientId as described in [Section
 2.5](#25-mqtt-client-identifier) desires a new session
-(Clean Session equals _true_) or desires to receive messages
-that were published while the client was disconnect (Clean
-Session equals _false_).  OpenC2 clients should request a
-clean session when initially connecting to an MQTT broker,
-and _not_ request a clean session when re-connecting to the
-same broker.
+(Clean Session equals _true_). In MQTT both the setting of 
+the "Clean Session" flag for both the previous and the 
+current session is relevant to how the broker handles 
+client state.  The behavior is summarized in the following table.
 
-> **NOTE:** it may be desirable to place a time limit, after
-which a clean session should again be requested.
+
+
+<table>
+<thead>
+  <tr>
+    <th></th>
+    <th></th>
+    <th colspan="2" align="center">Previous Clean Session Flag</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td></td>
+    <td align="center"><b>True</b></td>
+    <td align="center"><b>False</b></td>
+  </tr>
+  <tr>
+    <td rowspan="2" align="center">Current<br>Clean<br>Session<br>Flag</td>
+    <td>True</td>
+    <td><ul><li>No prior state to discard<li>New subscriptions required<li>State discarded on DISCONNECT</ul></td>
+    <td><ul><li>Prior state discarded<li>New subscriptions required<li>State discarded on DISCONNECT</ul></td>
+  </tr>
+  <tr>
+    <td>False</td>
+    <td><ul><li>No prior state to discard<li>New subscriptions required<li>State retained on DISCONNECT</ul></td>
+    <td><ul><li>Prior state retained<li>Buffered messages delivered<li>State retained on DISCONNECT</td>
+  </tr>
+</tbody>
+</table>
+
+OpenC2 clients should  _not_ request a clean session when connecting to the
+broker. The use of "Clean Session = false" allows the broker to retain the
+client's subscriptions, and deliver buffered messages that have accumulated
+while the client was disconnected.  However, OpenC2 implementers using MQTT
+should be aware that MQTT broker broker resource constraints may necessitate
+discarding older traffic if clients are disconnected for extended periods.
+
+A flowchart depicting the broker's logic handling the Clean Session flag is included in Appendix B
+
 
 # 3 Protocol Mapping
 
@@ -1026,7 +1066,13 @@ The JSON-encoded command in the PL:Content field is:
 |   VH   | Packet Identifier | 1234   |
 
 
-# Appendix B. Acknowledgments
+# Appendix B: Clean Session Flag Handling
+
+The broker's actions in processing the CleanSession flag and ClientId are illustrated in the following flowchart.
+
+![Clean Session Flag Handling](./images/clean-session-flow.png)
+
+# Appendix Y: Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
 **OpenC2 TC Members:**
@@ -1037,7 +1083,7 @@ TBD | TBD | TBD
 
 -------
 
-# Appendix C. Revision History
+# Appendix Z: Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 | transf-mqtt-v1.0-wd01 | 2020-xx-xx | David Lemire | Initial working draft |
