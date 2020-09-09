@@ -230,7 +230,7 @@ PUT AN EXAMPLE HERE
 ```
 
 ## 1.6 Overview
-OpenC2 is a suite of specifications to command actuators that execute cyber defense functions.  These specifications include the OpenC2 Language Specification, Actuator Profiles, and Transfer Specifications. The OpenC2 Language Specification and Actuator Profile specifications focus on the language content and meaning at the producer and consumer of the command and response while the transfer specifications focus on the protocols for their exchange.  
+OpenC2 is a suite of specifications to command actuators that execute cyber defense functions.  These specifications include the OpenC2 Language Specification, Actuator Profiles (APs), and Transfer Specifications. The OpenC2 Language Specification and Actuator Profile specifications focus on the language content and meaning at the producer and consumer of the command and response while the transfer specifications focus on the protocols for their exchange.  
 In general, there are two types of participants involved in the exchange of OpenC2 messages, as depicted in Figure 1-1:
 
 1. **OpenC2 Producers**: An OpenC2 Producer is an entity that creates commands to provide instruction to one or more systems to act in accordance with the content of the command. An OpenC2 Producer may receive and process responses in conjunction with a command.
@@ -297,7 +297,7 @@ The goal of OpenC2 is to enable coordinated defense in cyber-relevant time betwe
 
 # 2 Operating Model
 
-_This section is non-normative._
+_This section is non-normative. Normative content developed while developing the operating model will eventually be migrated to Section 3._
 
 This section provides an overview of the approach to employing
 MQTT as a message transfer protocol for OpenC2 messages.
@@ -359,9 +359,8 @@ operating model, the corresponding question(s) should be deleted.
 
 > - (NEW) How should OpenC2 clients use the MQTT "clean
 >   session" flag when connecting?
->   - [Section 2.8](#28-clean-session-flag) proposes that
->     the clean session flag only be used when an openC2
->     first connects to a specific MQTT broker.
+>   - [Section 2.8](#28-clean-session-flag) proposes that the clean session flag
+>     not  be used for OpenC2 messaging over MQTT.
 
 
 > **OPEN QUESTIONS**
@@ -387,17 +386,17 @@ operating model, the corresponding question(s) should be deleted.
     OpenC2 Language's features to make such determination
     (details TBD)
 
-> - Is there a need to describe a state model for the Producer
-  or Consumer?
+> - Is there a need to describe a state model for the Producer or Consumer?
+>   * **Proposed:** There is no need to define a unique state model for OpenC2 over MQTT.
 
 
 ## 2.1 Publishers, Subscribers, and Brokers
 
-When transferring OpenC2 Command and Response messages via MQTT,
+When transferring OpenC2 Request (AKA command) and Response messages via MQTT,
 both Producers and Consumers act as both publishers and subscribers:
 
-* Producers publish Commands and subscribe to receive Responses
-* Consumers subscribe to receive Commands and publish Responses
+* Producers publish Requests and subscribe to receive Responses
+* Consumers subscribe to receive Requests and publish Responses
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
@@ -408,26 +407,25 @@ in accordance with the Terminology section (1.2) of [[MQTT-V3.1.1](#mqtt-v311)]:
 * MQTT Brokers are Servers
 * OpenC2 Producers and Consumer are Clients
 
+
+
 ## 2.2 Default Topic Structure
 
 > **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
 [here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
 
-The MQTT topic structure below is used to exchange 
-OpenC2 messages. The "oc2" prefix on the topic names 
-segregates OpenC2-related topics from other topics that 
-might exist on the same broker. Topic name components in
-brackets (e.g., `[actuator_profile]`) are placeholders for
-specific values that would be used in implementation.  For
-example, a device that includes a Stateless Packet Filter AP
-would subscribe to `oc2/cmd/ap/slpf`. In addition, each
-Consumer subscribes to its own device-specific topic using a
-device identifier (annotated as `[device_id]`) that is known
-to the OpenC2 Producer(s) that can command that Consumer.
-The determination of device identifiers is beyond the scope
-of this specification.
+The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
+prefix on the topic names segregates OpenC2-related topics from other topics
+that might exist on the same broker. Topic name components in brackets (e.g.,
+`[actuator_profile]`) are placeholders for specific values that would be used in
+implementation.  For example, a device that implements the Stateless Packeting
+Filter AP would subscribe to `oc2/cmd/ap/slpf`. In addition, each Consumer
+subscribes to its own device-specific topic using a device identifier, annotated
+as `[device_id]`, that is known to the OpenC2 Producer(s) that can command that
+Consumer. The determination of device identifiers is beyond the scope of this
+specification.
 
-
+#### **Table DTS: Default Topic Structure** 
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
@@ -437,22 +435,24 @@ of this specification.
 
 
 In order to receive commands intended for its security 
-functions, a Consumer device registering with the broker 
-would subscribe to:
+functions, a Consumer device connected to the broker 
+would subscribe using the following topic filters:
 * `oc2/cmd/all` to receive commands intended for all devices
 * `oc2/cmd/ap/[acutator_profile]` for all actuator profiles the device implements
 * `oc2/cmd/device/[device_id]` for that device's ID
 
 
 In order to receive responses to the commands is sends, 
-a Producer registering with the broker would subscribe to:
+a Producer connected to the broker would subscribe using the following topic filter:
 * `oc2/rsp`
+
+---
 
 **Non-normative Subscription Example**
 
 A notional OpenC2 Consumer that implemented actuator
 profiles `alpha` and `iota` and had a device identifier of
-`zulu` would subscribe to the following channels:
+`zulu` would subscribe using the following topic filters:
 
 * `oc2/cmd/all`
 * `oc2/cmd/ap/alpha`
@@ -473,7 +473,7 @@ command to:
 
 * `oc2/cmd/device/zulu`
 
-
+---
 
 > **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
 this depends on our model of APs within a ‘device’ (which 
@@ -500,8 +500,9 @@ at how real world products work today
 
 ### 2.3.1  Content Type and Serialization
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in [mqtt=3-1-1], "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the PUBLISH packet recipient of the format of what follows.  These bytes are structured as shown in thie following table:
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in [mqtt-3-1-1](#mqtt-3-1-1), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
 
+#### **Table PFD: Payload Format Description** 
 <table border="4 px">
 <tbody>
   <tr align="center">
@@ -547,9 +548,9 @@ The OpenC2 message types in the first byte are assigned as follows:
 The second byte identifies the serialization used for the OpenC2 messages. The
 following serialization values are assigned; all other values are reserved for
 future use:
- * `0` = CBOR
- * `128` = JSON
- * `129` = XML
+ * `1` = JSON
+ * `2` = CBOR
+ * `3` = XML
 
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
@@ -1127,9 +1128,17 @@ The broker's actions in processing the CleanSession flag and ClientId are illust
 ![Clean Session Flag Handling](./images/clean-session-flow.png)
 
 
-# Appendix X: Acknowledgments
+# Appendix X: Acronyms
 
-**TBSL**
+| Acronym | Meaning |
+| :--: | :--- |
+| AKA | Also Known As |
+| AP | Actuator Profile |
+| JSON | JavaScript Object Notation |
+| TBD | To Be Determined |
+| TBSL | To Be Specified Later |
+
+------
 
 # Appendix Y: Acknowledgments
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
@@ -1140,7 +1149,7 @@ The following individuals have participated in the creation of this specificatio
 | :--- | :--- | :--- |
 TBD | TBD | TBD
 
-
+---
 
 # Appendix Z: Revision History
 | Revision | Date | Editor | Changes Made |
@@ -1148,6 +1157,7 @@ TBD | TBD | TBD
 | WD01 | 2020-05-14 | David Lemire | Initial working draft |
 | WD02 | 2020-06-02 | David Lemire | Updates Operating Model section (2.0) and list of questions to be resolved. |
 | WD03 | 2020-06-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Initial presentation of example operating sequences and message. Will be presented as a CSD candidate at the 17 June 2020 TC meeting. |
+| WD03 / CSD01 | 2020-07-07 | David Lemire | WD03 approved by OpenC2 TC as CSD01 |
 
 
 
