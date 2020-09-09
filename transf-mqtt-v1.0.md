@@ -97,6 +97,10 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
         Brokers](#21-publishers-subscribers-and-brokers)
     -   [2.2 Default Topic Structure](#22-default-topic-structure)
     -   [2.3 Message Format](#23-message-format)
+        -   [2.3.1 Content Type and
+            Serialization](#231-content-type-and-serialization)
+        -   [2.3.2 OpenC2 Message
+            Structure](#232-openc2-message-structure)
     -   [2.4 Quality of Service](#24-quality-of-service)
     -   [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
     -   [2.6 Keep-Alive Interval](#26-keep-alive-interval)
@@ -121,16 +125,20 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
 -   [Appendix A: Message Examples](#appendix-a-message-examples)
-    -   [A.1 Example 1: Connect and
-        Subscribe](#a1-example-1-connect-and-subscribe)
-    -   [A.2 Example 2: Command / Response
-        Exchange](#a2-example-2-command--response-exchange)
-        -   [A.2.1: Orchestrator PUBLISHes a Command to All
-            Devices Implementing AP `iota`](#a21-orchestrator-publishes-a-command-to-all-devices-implementing-ap-iota)
+    -   [A.1 Example 1: `<u>`{=html}Connect and
+        Subscribe`</u>`{=html}](#a1-example-1-connect-and-subscribe)
+    -   [A.2 Example 2: `<u>`{=html}Command / Response
+        Exchange`</u>`{=html}](#a2-example-2-command--response-exchange)
+        -   [A.2.1: Orchestrator PUBLISHes a Command to All Devices
+            Implementing AP
+            `iota`](#a21-orchestrator-publishes-a-command-to-all-devices-implementing-ap-iota)
         -   [A.2.2: Broker Acknowledges the PUBLISH Control
             Packet](#a22-broker-acknowledges-the-publish-control-packet)
--   [Appendix B. Acknowledgments](#appendix-b-acknowledgments)
--   [Appendix C. Revision History](#appendix-c-revision-history)
+-   [Appendix B: Clean Session Flag
+    Handling](#appendix-b-clean-session-flag-handling)
+-   [Appendix X: Acknowledgments](#appendix-x-acknowledgments)
+-   [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
+-   [Appendix Z: Revision History](#appendix-z-revision-history)
 
 
 -------
