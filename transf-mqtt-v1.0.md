@@ -548,6 +548,7 @@ The OpenC2 message types in the first byte are assigned as follows:
 The second byte identifies the serialization used for the OpenC2 messages. The
 following serialization values are assigned; all other values are reserved for
 future use:
+ * `0` = Reserved, do not use
  * `1` = JSON
  * `2` = CBOR
  * `3` = XML
