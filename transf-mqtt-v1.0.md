@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 04
-## xx August 2020
+## xx September 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -188,7 +188,8 @@ Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.
 ## 1.4 Terminology
 
 
-The terms defined in Section 1.2, _Terminology_ of [mqtt-v3.1.1] are applicable to this specification.
+The terms defined in Section 1.2, _Terminology_ of the MQTT v3.1.1 specification 
+[[MQTT-V3.1.1](#mqtt-v311)] are applicable to this specification.
 
 The following terms defined in [OpenC2-Lang-v1.0] are applicable to this specification:
 
@@ -500,7 +501,7 @@ at how real world products work today
 
 ### 2.3.1  Content Type and Serialization
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in [mqtt-3-1-1](#mqtt-3-1-1), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V3.1.1](#mqtt-v311), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
 
 #### **Table PFD: Payload Format Description** 
 <table border="4 px">
@@ -583,9 +584,9 @@ message `from` field, allowing responses from different actuators to be
 identified by the Producer receiving the response. 
  
 When publishing an OpenC2 request, the Producer can use the `to` field as a
-filter to provide finer-grained control over which Consumers should process any
-particular message than is provided by the MQTT Topic Structure and Client
-subscriptions.
+filter to provide finer-grained control than is provided by the MQTT Topic
+Structure and Client topic subscriptions over which Consumers should process any
+particular message.
 
 
 
@@ -630,28 +631,25 @@ ClientId as a UTF-8 string between 1 and 23 bytes long
 containing only letters and numbers (MQTT servers may accept
 longer ClientIds).  The MQTT specification also permits
 brokers to accept CONNECT control packets without a
-clientId, in which case the broker assigns its own clientId
+ClientId, in which case the broker assigns its own ClientId
 to the connection. [mqtt-v3.1.1](#mqtt-v311) provides no
 further definition regarding the format or assignment of
 ClientIds. 
 
-The clientId serves to identify the client to the broker so
+The ClientId serves to identify the client to the broker so
 that the broker can maintain state information about the
-client. The clientId has no meaning in the context of
+client. The ClientId has no meaning in the context of
 OpenC2, it is only meaningful to the MQTT client and broker
 involved in the connection.
 
-OpenC2 Producers and Consumers using MQTT for message
-transfer should generate and store a random clientId value
-that meets the constraints specified in
-[mqtt-v3.1.1](#mqtt-v311) Section 3.1.3.1, and retain that
-value for re-use when re-establishing a connection to that
-broker. This clientId should be generated prior to any
-connection to an MQTT broker, potentially during any
-required initialization. The clientId for an OpenC2
-Consumer is not required to have any meaningful relationship
-to any identity by which a Producer identifies that consumer
-in OpenC2 messages.
+OpenC2 Producers and Consumers using MQTT for message transfer should generate
+and store a random clientId value that meets the constraints specified in
+[mqtt-v3.1.1](#mqtt-v311) Section 3.1.3.1, and retain that value for use when
+establishing a connection to a broker. This clientId should be generated prior
+to any connection to an MQTT broker, potentially as part of a Consumer
+initialization process. The clientId for an OpenC2 Consumer is not required to
+have any meaningful relationship to any identity by which a Producer identifies
+that consumer in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
@@ -686,14 +684,14 @@ The MQTT CONNECT control packet includes a flag, "Clean
 Session" that tells the broker whether the client,
 identified by its clientId as described in [Section
 2.5](#25-mqtt-client-identifier) desires a new session
-(Clean Session equals _true_). In MQTT both the setting of 
+(Clean Session equals _true_). In MQTT the setting of 
 the "Clean Session" flag for both the previous and the 
 current session is relevant to how the broker handles 
 client state.  The behavior is summarized in the following table.
 
 
 
-<table>
+<table border="4 px">
 <thead>
   <tr>
     <th></th>
@@ -726,10 +724,10 @@ OpenC2 clients should  _not_ request a clean session when connecting to the
 broker. The use of "Clean Session = false" allows the broker to retain the
 client's subscriptions, and deliver buffered messages that have accumulated
 while the client was disconnected.  However, OpenC2 implementers using MQTT
-should be aware that MQTT broker broker resource constraints may necessitate
+should be aware that MQTT broker resource constraints may necessitate
 discarding older traffic if clients are disconnected for extended periods.
 
-A flowchart depicting the broker's logic handling the Clean Session flag is included in Appendix B
+A flowchart depicting the broker's logic handling the Clean Session flag is included in [Appendix B](#appendix-b-clean-session-flag-handling).
 
 
 # 3 Protocol Mapping
