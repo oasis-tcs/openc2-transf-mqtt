@@ -504,9 +504,10 @@ at how real world products work today
 OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V3.1.1](#mqtt-v311), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
 
 #### **Table PFD: Payload Format Description** 
-<table border="4 px">
-<tbody>
-  <tr align="center">
+
+<table border="2 px">
+<thead>
+  <tr>
     <th>Bit</th>
     <th>7</th>
     <th>6</th>
@@ -516,10 +517,13 @@ OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  
     <th>2</th>
     <th>1</th>
     <th>0</th>
+  </tr>
+</thead>
+<tbody>
   <tr>
     <td>Byte 1</td>
     <td colspan="4" align="center">Fixed</td>
-    <td colspan="4" align="center">OpenC2<br>Message Type</td>
+    <td colspan="4" align="center">Message Type</td>
   </tr>
   <tr>
     <td></td>
@@ -536,8 +540,39 @@ OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  
     <td>Byte 2</td>
     <td colspan="8" align="center">Serialization (see list)</td>
   </tr>
+  <tr>
+    <td></td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+  </tr>
+  <tr>
+    <td>Byte 3</td>
+    <td colspan="8" align="center">First byte of OpenC2 message</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+  </tr>
+  <tr>
+    <td>Byte 4</td>
+    <td colspan="8" align="center"><b>...</b></td>
+  </tr>
 </tbody>
 </table>
+
 
 The OpenC2 message types in the first byte are assigned as follows:
  * `0000` = request
@@ -965,7 +1000,7 @@ Remove this note before submitting for publication.)
 > as currently provided. The editors would welcome
 > suggestions for the most useful presentation format.
 
-## A.1 Example 1: <u>Connect and Subscribe</u>
+## A.1 Example 1: _Connect and Subscribe_
 
 The following diagram illustrates the process of the
 Orchestrator and a Consumer each connecting to the MQTT
@@ -1001,7 +1036,7 @@ Example CONNECT packed fields and values.
 > **NOTE:** Further example messages to-be-supplied
 
 
-## A.2  Example 2:  <u>Command / Response Exchange</u>
+## A.2  Example 2:  _Command / Response Exchange_
 
 The example messages in A.2.1 and A.2.2 illustrate the
 process of an OpenC2 Producer publishing a command to the
