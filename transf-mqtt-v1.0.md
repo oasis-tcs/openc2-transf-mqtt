@@ -1145,6 +1145,9 @@ TBD | TBD | TBD
 # Appendix Z: Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| transf-mqtt-v1.0-wd01 | 2020-xx-xx | David Lemire | Initial working draft |
+| WD01 | 2020-05-14 | David Lemire | Initial working draft |
+| WD02 | 2020-06-02 | David Lemire | Updates Operating Model section (2.0) and list of questions to be resolved. |
+| WD03 | 2020-06-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Initial presentation of example operating sequences and message. Will be presented as a CSD candidate at the 17 June 2020 TC meeting. |
+
 
 
