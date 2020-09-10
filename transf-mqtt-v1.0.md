@@ -82,6 +82,20 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -------
 
 # Table of Contents
+
+    1.0](#specification-for-transfer-of-openc2-messages-via-mqtt-version-10)
+    -   [Working Draft 04](#working-draft-04)
+    -   [xx September 2020](#xx-september-2020)
+        -   [Technical Committee:](#technical-committee)
+        -   [Chairs:](#chairs)
+        -   [Editors:](#editors)
+        -   [Related work:](#related-work)
+        -   [Abstract:](#abstract)
+        -   [Status:](#status)
+        -   [URI patterns:](#uri-patterns)
+        -   [Citation format:](#citation-format)
+    -   [Notices](#notices)
+-   [Table of Contents](#table-of-contents)
 -   [1 Introduction](#1-introduction)
     -   [1.1 IPR Policy](#11-ipr-policy)
     -   [1.2 Normative References](#12-normative-references)
@@ -96,9 +110,13 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     -   [2.1 Publishers, Subscribers, and
         Brokers](#21-publishers-subscribers-and-brokers)
     -   [2.2 Default Topic Structure](#22-default-topic-structure)
+        -   [**Table DTS: Default Topic
+            Structure**](#table-dts-default-topic-structure)
     -   [2.3 Message Format](#23-message-format)
         -   [2.3.1 Content Type and
             Serialization](#231-content-type-and-serialization)
+            -   [**Table PFD: Payload Format
+                Description**](#table-pfd-payload-format-description)
         -   [2.3.2 OpenC2 Message
             Structure](#232-openc2-message-structure)
     -   [2.4 Quality of Service](#24-quality-of-service)
@@ -125,21 +143,19 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 -   [4 Security Considerations](#4-security-considerations)
 -   [5 Conformance](#5-conformance)
 -   [Appendix A: Message Examples](#appendix-a-message-examples)
-    -   [A.1 Example 1: `<u>`{=html}Connect and
-        Subscribe`</u>`{=html}](#a1-example-1-connect-and-subscribe)
-    -   [A.2 Example 2: `<u>`{=html}Command / Response
-        Exchange`</u>`{=html}](#a2-example-2-command--response-exchange)
-        -   [A.2.1: Orchestrator PUBLISHes a Command to All Devices
-            Implementing AP
-            `iota`](#a21-orchestrator-publishes-a-command-to-all-devices-implementing-ap-iota)
-        -   [A.2.2: Broker Acknowledges the PUBLISH Control
-            Packet](#a22-broker-acknowledges-the-publish-control-packet)
+    -   [A.1 Example 1: *Connect and
+        Subscribe*](#a1-example-1-connect-and-subscribe)
+        -   [Figure A-CAS: Connect and
+            Subscribe](#figure-a-cas-connect-and-subscribe)
+    -   [A.2 Example 2: *Command / Response
+        Exchange*](#a2-example-2-command--response-exchange)
+        -   [Figure A-PRR: Publish Request and
+            Response](#figure-a-prr-publish-request-and-response)
 -   [Appendix B: Clean Session Flag
     Handling](#appendix-b-clean-session-flag-handling)
--   [Appendix X: Acknowledgments](#appendix-x-acknowledgments)
+-   [Appendix X: Acronyms](#appendix-x-acronyms)
 -   [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
 -   [Appendix Z: Revision History](#appendix-z-revision-history)
-
 
 -------
 
