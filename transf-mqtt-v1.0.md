@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 04
-## xx September 2020
+## 10 September 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
