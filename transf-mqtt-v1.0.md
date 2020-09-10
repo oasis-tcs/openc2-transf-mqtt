@@ -1047,7 +1047,7 @@ reply from the recipient would be required.
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-The PUBLISH and PUBACK control packets for this example are as follows; note that the `packedId` is the only field that changes for each of the publishing exchanges in Figure A-PRR, as that value is assigned by the initiator of each exchange:
+The PUBLISH and PUBACK control packets for this example are as follows; note that the `packetId` is the only field that changes for each of the publishing exchanges in Figure A-PRR, as that value is assigned by the initiator of each exchange:
 
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
