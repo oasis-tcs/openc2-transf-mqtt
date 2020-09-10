@@ -1002,158 +1002,50 @@ Remove this note before submitting for publication.)
 
 ## A.1 Example 1: _Connect and Subscribe_
 
-The following diagram illustrates the process of the
+Figure A-CAS illustrates the process of the
 Orchestrator and a Consumer each connecting to the MQTT
 broker and subscribing to relevant channels.  The Consumer
 supports the notional actuator profiles `alpha` and `iota`,
 and is assigned the identifier `abc123`.
 
+#### Figure A-CAS: Connect and Subscribe
+
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
 
-Example CONNECT packed fields and values.
+The Producer and Consumer CONNECT packets for this example are as follows:
 
-| Region | Field | Value |
-|:-:|:-:|:-:|
-| FH | Type | CONNECT |
-| FH | Remaining Length | <computed> |
-| VH | Protocol Name - Length |4|
-| VH | Protocol Name - Value | MQTT |
-| VH | Protocol Level |4|
-| VH | Connect Flags (bitmap) |  |
-|  | Clean Session | 0 |
-|  | Will Flag | 0 |
-|  | Will QoS | 0 |
-|  | Will Retain | 0 |
-|  | User Name Flag | TBD |
-|  | Password Flag | TBD |
-| VH | Keep Alive  | Number < 300 (seconds) |
-| PL | Client Identifier |  |
-| PL | Username | TBD  |
-| PL | Password | TBDS |
+![Producer and Consumer Connect Cackets](./images/connect-packets.jpg)
 
 
-> **NOTE:** Further example messages to-be-supplied
+The Consumer SUBSCRIBE and Broker SUBACK packets for this example are as follows:
 
+![SUBSCRIBE and SUBACK](./images/sub-and-suback.png)
 
 ## A.2  Example 2:  _Command / Response Exchange_
 
-The example messages in A.2.1 and A.2.2 illustrate the
-process of an OpenC2 Producer publishing a command to the
-channel for a specific actuator profile. The examples assume
-the existence of a notional device identified as `abc123`
-that implements the `iota` AP, and that one or more such
-devices are subscribed to the corresponding command topic
-`oc2/cmd/ap/iota`. The example messages show the exchange
-between the Orchestrator publishing the command and the MQTT
-broker.  A similar exchange then occurs between the
-broker and every Consumer device subscribed to
-`oc2/cmd/ap/iota` to distribute the command to the intended
-recipients. 
+The example messages below illustrate the process of an OpenC2 Producer
+publishing a command to the channel for a specific actuator profile. The
+examples assume the existence of two notional Consumers identified as `Xray` and
+`Zulu` that both implement the `iota` AP, and that both such Consumers are
+subscribed to the corresponding command topic `oc2/cmd/ap/iota`. The example
+messages show the exchange between the Producer publishing the Openc2 request and
+the MQTT broker.  A similar exchange then occurs between the broker and every
+Consumer device subscribed to `oc2/cmd/ap/iota` to distribute the command to the
+intended recipients. 
 
-The command and response messages in the sequence diagram
-below are published with a QoS of 1, which requires the
-recipient to respond to the PUBLISH packet with a PUBACK
-packet. If the  messages were sent with QoS of 0 no reply
-from the recipient would be required.
+The command and response messages in the sequence diagram shown in Figure A-PRR
+are published with a QoS of 1, which requires the recipient to respond to the
+PUBLISH packet with a PUBACK packet. If the messages were sent with QoS of 0 no
+reply from the recipient would be required.
+
+#### Figure A-PRR: Publish Request and Response
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-### A.2.1: Orchestrator PUBLISHes a Command to All Devices Implementing AP `iota`
+The PUBLISH and PUBACK control packets for this example are as follows; note that the `packedId` is the only field that changes for each of the publishing exchanges in Figure A-PRR, as that value is assigned by the initiator of each exchange:
 
-
-> **NOTE:** This example shows the required information for the MQTT
-PUBLISH message, but the presentation needs fine tuning /
-verification. Two different approaches are shown for the
-first example MQTT Control Packet (PUBLISH). 
-
-> **Bullet-list representation of control packet**
-
-**Fixed Header**
-*  Type: PUBLISH
-*  Dup: 0
-*  QoS: 1
-*  Retain: 0
-* Remaining Length:  [computed]
-
-**Variable Header**
-*  Topic Name: oc2/cmd/ap/iota
-*  Packet Identifier:  1234
-
-**Payload**
-* Content: request (JSON-encoded OpenC2 command)
-```
-{
-    "action": "contain",
-    "target": {
-        "device": {
-            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
-        }
-    }
-}
-```
-* request_id:  d1ac0489-ed51-4345-9175-f3078f30afe5
-* created:  Wed, 19 Dec 2018 22:15:00 GMT
-* from: producer_one
-
-> **Tabular representation of control packet**
-
-The values FH, VH, and PL represent the Fixed Header,
-Variable Header, and Payload portions, respectively, of the MQTT Control Packet.
-
-| Region | Field | Value |
-|:-:|:-:|-|
-| FH | Type | PUBLISH |
-| FH | Dup | 0|
-| FH | QoS | 1|
-| FH | Retain  |0  |
-| FH | Remaining Length  | `<computed>` |
-| VH  | Topic Name  | oc2/cmd/ap/iota |
-| VH  | Packet Identifier  | 1234  |
-| PL | Content | request (JSON-encoded OpenC2 command) |
-| PL  | request_id  | d1ac0489-ed51-4345-9175-f3078f30afe5 |
-| PL | created | Wed, 19 Dec 2018 22:15:00 GMT |
-| PL | from  | producer_one |
-
-The JSON-encoded command in the PL:Content field is:
-
-```
-{
-    "action": "contain",
-    "target": {
-        "device": {
-            "device_id": "9BCE8431AC106FAA3861C7E771D20E53"
-        }
-    }
-}
-```
-
-
-
-
-
-
-### A.2.2: Broker Acknowledges the PUBLISH Control Packet
-
-
-> **Bullet-list representation of control packet**
-
-**Fixed Header**
-* Type: PUBACK
-* Remaining Length: 2
-
-**Variable Header**
-*  Packet Identifier:  1234
-
-> **Tabular representation of control packet**
-
-
-| Region |       Field       | Value  |
-|:------:|:-----------------:|--------|
-|   FH   |        Type       | PUBACK |
-|   FH   |  Remaining Length | 2      |
-|   VH   | Packet Identifier | 1234   |
-
+![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
 # Appendix B: Clean Session Flag Handling
 
