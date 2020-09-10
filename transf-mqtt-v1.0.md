@@ -83,19 +83,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 
 # Table of Contents
 
-    1.0](#specification-for-transfer-of-openc2-messages-via-mqtt-version-10)
-    -   [Working Draft 04](#working-draft-04)
-    -   [xx September 2020](#xx-september-2020)
-        -   [Technical Committee:](#technical-committee)
-        -   [Chairs:](#chairs)
-        -   [Editors:](#editors)
-        -   [Related work:](#related-work)
-        -   [Abstract:](#abstract)
-        -   [Status:](#status)
-        -   [URI patterns:](#uri-patterns)
-        -   [Citation format:](#citation-format)
-    -   [Notices](#notices)
--   [Table of Contents](#table-of-contents)
+
 -   [1 Introduction](#1-introduction)
     -   [1.1 IPR Policy](#11-ipr-policy)
     -   [1.2 Normative References](#12-normative-references)
