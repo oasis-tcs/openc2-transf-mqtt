@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 04
-## 10 September 2020
+## 15 September 2020
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -504,6 +504,10 @@ at how real world products work today
 > structure. 
 
 ### 2.3.1  Content Type and Serialization
+
+> **NOTE:**  Implementer fFeedback on this proposed approach to conveying the
+> format of the PUBLISH packet payload is strongly desired. Alternative
+> proposals are welome.
 
 OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V3.1.1](#mqtt-v311), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
 
