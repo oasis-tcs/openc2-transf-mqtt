@@ -176,9 +176,10 @@ Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", 
 ###### [OpenC2-Lang-v1.0]
 _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
 
-###### [mqtt-v3.1.1]
+###### [mqtt-v5.0]
 
-MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
+MQTT Version 5.0. Edited by Andrew Banks, Ed Briggs, Ken Borgendale, and Rahul Gupta. 07 March 2019. OASIS Standard. https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html. Latest version: https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html.
+
 
 ## 1.3 Non-Normative References
 
@@ -186,14 +187,16 @@ MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OAS
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
 ###### [IACD]
 M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+###### [mqtt-v3.1.1]
+MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
 ###### [Sparkplug-B]
 Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
 ## 1.4 Terminology
 
 
-The terms defined in Section 1.2, _Terminology_ of the MQTT v3.1.1 specification 
-[[MQTT-V3.1.1](#mqtt-v311)] are applicable to this specification.
+The terms defined in Section 1.2, _Terminology_ of the MQTT v5.0 specification 
+[[MQTT-v5.0](#mqtt-v50)] are applicable to this specification.
 
 The following terms defined in [OpenC2-Lang-v1.0] are applicable to this specification:
 
@@ -406,8 +409,8 @@ both Producers and Consumers act as both publishers and subscribers:
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
 are assumed to be conformant with the MQTT v3.1.1 specification 
-[[MQTT-V3.1.1](#mqtt-v311)]. In the context of OpenC2, and
-in accordance with the Terminology section (1.2) of [[MQTT-V3.1.1](#mqtt-v311)]:
+[[MQTT-v5.0](#mqtt-v50)]. In the context of OpenC2, and
+in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 
 * MQTT Brokers are Servers
 * OpenC2 Producers and Consumer are Clients
@@ -505,97 +508,17 @@ at how real world products work today
 
 ### 2.3.1  Content Type and Serialization
 
-> **NOTE:**  Implementer fFeedback on this proposed approach to conveying the
+> **NOTE:**  Implementer feedback on this proposed approach to conveying the
 > format of the PUBLISH packet payload is strongly desired. Alternative
 > proposals are welome.
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V3.1.1](#mqtt-v311), "the content and format of the data is application specific" and therefore meaningless to the broker. This specification allocates the intial two bytes of the payload to inform the `PUBLISH` packet recipient of the format of the remaining payload. These bytes are structured as shown in Table PFD.
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50), section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the broker. OpenC2 leverages the following MQTT properties to convey essential information about the message to the recipient:
 
-#### **Table PFD: Payload Format Description** 
+* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification.
 
-<table border="2 px">
-<thead>
-  <tr>
-    <th>Bit</th>
-    <th>7</th>
-    <th>6</th>
-    <th>5</th>
-    <th>4</th>
-    <th>3</th>
-    <th>2</th>
-    <th>1</th>
-    <th>0</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Byte 1</td>
-    <td colspan="4" align="center">Fixed</td>
-    <td colspan="4" align="center">Message Type</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td>1</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-  </tr>
-  <tr>
-    <td>Byte 2</td>
-    <td colspan="8" align="center">Serialization (see list)</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-  </tr>
-  <tr>
-    <td>Byte 3</td>
-    <td colspan="8" align="center">First byte of OpenC2 message</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-    <td>x</td>
-  </tr>
-  <tr>
-    <td>Byte 4</td>
-    <td colspan="8" align="center"><b>...</b></td>
-  </tr>
-</tbody>
-</table>
-
-
-The OpenC2 message types in the first byte are assigned as follows:
- * `0000` = request
- * `0001` = response
- * `0010` = notification
- * `0011` - `1111` are reserved
-
-
-The second byte identifies the serialization used for the OpenC2 messages. The
-following serialization values are assigned; all other values are reserved for
-future use:
- * `0` = Reserved, do not use
- * `1` = JSON
- * `2` = CBOR
- * `3` = XML
+* `User Property`:  two user properties are defined to further specify the message format:
+  * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `req` (request), `rsp` (response), or `ntf` (notification)
+  * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `json` and `cbor`.
 
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
