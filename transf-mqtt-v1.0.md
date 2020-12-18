@@ -552,13 +552,13 @@ identified by the Producer receiving the response.
 When publishing an OpenC2 request, the Producer can use the `to` field as a
 filter to provide finer-grained control than is provided by the MQTT Topic
 Structure and Client topic subscriptions over which Consumers should process any
-particular message.
+particular message. Consumers have no requirement to populate the `to` field.
 
 
 
 ## 2.4 Quality of Service
 
-[mqtt-v3.1.1](#mqtt-v311) Section 4.3, _Quality of Service
+[MQTT-v5.0](#mqtt-v50) Section 4.3, _Quality of Service
 Levels and Protocol Flows_ defines three quality of service
 (QoS) levels:
 
@@ -582,51 +582,53 @@ justified by application requirements. QoS 0 is not
 recommended for use in OpenC2 messaging.
 
 In accordance with the above, the requirements of
-[mqtt-v3.1.1](#mqtt-v311) Section 4.3.2, _QoS1: At least
+[MQTT-v5.0](#mqtt-v50) Section 4.3.2, _QoS 1: At least
 once delivery_ apply to OpenC2 Producers and Consumers when
 publishing messages to the MQTT broker.
 
 ## 2.5 MQTT Client Identifier
 
-As described in [mqtt-v3.1.1](#mqtt-v311) Section 3.1,
-_CONNECT – Client requests a connection to a Server_, the
+As described in [MQTT-v5.0](#mqtt-v50), Section 3.1,
+_CONNECT – Connection Request_, the
 Client Identifier (ClientId) is a required field in the
 CONNECT control packet. Further requirements are contained
-in Section 3.1.3.1, _Client Identifier_, which defines the
-ClientId as a UTF-8 string between 1 and 23 bytes long
+in Section 3.1.3.1, _Client Identifier (ClientID)_, which defines the
+ClientID as a UTF-8 string between 1 and 23 bytes long
 containing only letters and numbers (MQTT servers may accept
-longer ClientIds).  The MQTT specification also permits
+longer ClientIDs).  The MQTT specification also permits
 brokers to accept CONNECT control packets without a
-ClientId, in which case the broker assigns its own ClientId
-to the connection. [mqtt-v3.1.1](#mqtt-v311) provides no
+ClientID, in which case the broker assigns its own ClientID
+to the connection. [MQTT-v5.0](#mqtt-v50) provides no
 further definition regarding the format or assignment of
-ClientIds. 
+ClientIDs. 
 
-The ClientId serves to identify the client to the broker so
+The ClientID serves to identify the client to the broker so
 that the broker can maintain state information about the
-client. The ClientId has no meaning in the context of
+client. The ClientID has no meaning in the context of
 OpenC2, it is only meaningful to the MQTT client and broker
 involved in the connection.
 
-OpenC2 Producers and Consumers using MQTT for message transfer should generate
-and store a random clientId value that meets the constraints specified in
-[mqtt-v3.1.1](#mqtt-v311) Section 3.1.3.1, and retain that value for use when
-establishing a connection to a broker. This clientId should be generated prior
-to any connection to an MQTT broker, potentially as part of a Consumer
-initialization process. The clientId for an OpenC2 Consumer is not required to
-have any meaningful relationship to any identity by which a Producer identifies
-that consumer in OpenC2 messages.
+OpenC2 Producers and Consumers using MQTT for message transfer
+should generate and store a random clientID value that meets the
+constraints specified in [MQTT-v5.0](#mqtt-v50) Section 3.1.3.1,
+and retain that value for use when establishing connections to a
+broker. This clientID should be generated prior to any connection
+to an MQTT broker, potentially as part of a Consumer
+initialization process. The clientID for an OpenC2 Consumer is
+not required to have any meaningful relationship to any identity
+by which a Producer identifies that consumer in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
-[mqtt-v3.1.1](#mqtt-v311) section 3.1.2.10 provides a
-keep alive feature where a Client connected to a Broker must
-send either a Control Packet or a PINGREQ to the broker
-before a specified time interval has elapsed to prevent the
-Broker from disconnecting from the Client. The specification
-notes that "The actual value of the Keep Alive is
-application specific; typically this is a few minutes. The
-maximum value is 18 hours 12 minutes and 15 seconds."
+[MQTT-v5.0](#mqtt-v50) section 3.1.2.10, _Keep Alive_, provides a
+keep alive feature where a Client connected to a Broker must send
+a Control Packet to the broker before a specified time interval
+has elapsed to prevent the Broker from disconnecting from the
+Client. The PINGREQ control packet can be sent if the Client has
+no other traffic to process.  The specification notes that "The
+actual value of the Keep Alive is application specific; typically
+this is a few minutes. The maximum value is 18 hours 12 minutes
+and 15 seconds."
 
 This transfer specification leaves the selection of a keep
 alive interval to the implementer but defines a value of 5
@@ -637,23 +639,25 @@ expired without any other control packets being exchanged.
 
 ## 2.7  Will Message
 
-The CONNECT control packet, described in
-[mqtt-v3.1.1](#mqtt-v311), Section 3.1, provides a last will
-feature that enables connected clients to store a message on
-the broker to be published to a client-specified topic when
-the client's network connection is closed. OpenC2 does not
-use the MQTT last will message feature.
+The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
+Section 3.1, provides a last will feature that enables connected
+clients to store a message on the broker to be published to a
+client-specified topic when the client's network connection is
+closed. OpenC2 does not use the MQTT last will message feature.
 
 ## 2.8 Clean Session Flag
 
-The MQTT CONNECT control packet includes a flag, "Clean
-Session" that tells the broker whether the client,
-identified by its clientId as described in [Section
-2.5](#25-mqtt-client-identifier) desires a new session
-(Clean Session equals _true_). In MQTT the setting of 
-the "Clean Session" flag for both the previous and the 
-current session is relevant to how the broker handles 
-client state.  The behavior is summarized in the following table.
+> **RESUME HERE**
+
+As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
+Start_, the MQTT CONNECT control packet includes a flag, "Clean
+Start" that tells the broker whether the client, identified by
+its clientID as described in [Section
+2.5](#25-mqtt-client-identifier) desires a new session (Clean
+Start equals 1 [_true_]). In MQTT the setting of the "Clean
+Start" flag for both the previous and the current session is
+relevant to how the broker handles client state.  The behavior is
+summarized in the following table.
 
 
 
