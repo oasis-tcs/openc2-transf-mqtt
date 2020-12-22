@@ -500,17 +500,15 @@ This section describes how OpenC2 messages are represented in MQTT `PUBLISH` con
 
 OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50), section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT properties to convey essential information about the message to the recipient:
 
-* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification and should be set as appropriate for the message serialization used.
+* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
+* `Content Type`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
 
 * `User Property`:  two user properties are defined to further specify the message format:
-  * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `req` (request), `rsp` (response), or `ntf` (notification)
-  * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `json` and `cbor`.
+  * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `"req"` (request), `"rsp"` (response), or `"ntf"` (notification)
+  * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `"json"` and `"cbor"`.
 
 > NOTE: MQTT v5.0 user properties are always UTF-8 string pairs.
 
-******************************************
-** NEED TO ADDRESS Content Type (section 3.3.2.3.9) IN PUBLISH MESSAGE
-******************************************
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
 ### 2.3.2 OpenC2 Message Structure
@@ -939,25 +937,29 @@ Remove this note before submitting for publication.)
 
 # Appendix A: Message Examples
 
-> **NOTE:** Example message creation and presentation format
-> are work-in-progress and two alternative representations
-> as currently provided. The editors would welcome
-> suggestions for the most useful presentation format.
+_This appendix is non-normative in its entirety._
+
+MQTT control packet examples in this appendix present packet contents relevant to the function(s) being illustrated but do not include all required control packet contents (e.g., computed length fields are not listed, bitmapped flags are written out to convey intent rather than presented as bitmaps).
+
+> **EDITOR'S NOTE:** Example message creation and presentation
+> format are work-in-progress. The editor welcomes
+> suggestions for improving the presentation format.
+
 
 ## A.1 Example 1: _Connect and Subscribe_
 
-Figure A-CAS illustrates the process of the
-Orchestrator and a Consumer each connecting to the MQTT
-broker and subscribing to relevant channels.  The Consumer
-supports the notional actuator profiles `alpha` and `iota`,
-and is assigned the identifier `abc123`.
+Figure A-CAS illustrates the process of a Producer (ie., Orchestrator) and a
+Consumer each connecting to the MQTT broker and subscribing to
+relevant channels.  The Consumer supports the notional actuator
+profiles `alpha` and `iota`, and is assigned the username
+`zulu01north`. The Producer is assigned the username `orch01north`.
 
 #### Figure A-CAS: Connect and Subscribe
 
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
 
-The Producer and Consumer CONNECT packets for this example are as follows; the optional username and password fields of the CONNECT packet are populated in this example:
+The Producer and Consumer CONNECT packets for this example are as follows; the optional username and password fields of the CONNECT packets are populated in this example:
 
 ![Producer and Consumer Connect Cackets](./images/connect-packets.png)
 
@@ -968,26 +970,32 @@ The Consumer SUBSCRIBE and Broker SUBACK packets for this example are as follows
 
 ## A.2  Example 2:  _Command / Response Exchange_
 
-The example messages below illustrate the process of an OpenC2 Producer
-publishing a command to the channel for a specific actuator profile. The
-examples assume the existence of two notional Consumers identified as `Xray` and
-`Zulu` that both implement the `iota` AP, and that both such Consumers are
-subscribed to the corresponding command topic `oc2/cmd/ap/iota`. The example
-messages show the exchange between the Producer publishing the Openc2 request and
-the MQTT broker.  A similar exchange then occurs between the broker and every
-Consumer device subscribed to `oc2/cmd/ap/iota` to distribute the command to the
+The example messages below illustrate the process of an OpenC2
+Producer publishing a command to the channel for a specific
+actuator profile. The examples assume the existence of two
+notional Consumers identified as `Xray` and `Zulu` that both
+implement the `iota` AP, and that both such Consumers are
+subscribed to the corresponding command topic `oc2/cmd/ap/iota`.
+The example messages show the exchange between the Producer
+publishing the Openc2 request and the MQTT broker.  A similar
+exchange then occurs between the broker and every Consumer device
+subscribed to `oc2/cmd/ap/iota` to distribute the command to the
 intended recipients. 
 
-The command and response messages in the sequence diagram shown in Figure A-PRR
-are published with a QoS of 1, which requires the recipient to respond to the
-PUBLISH packet with a PUBACK packet. If the messages were sent with QoS of 0 no
-reply from the recipient would be required.
+The command and response messages in the sequence diagram shown
+in Figure A-PRR are published with a QoS of 1, which requires the
+recipient to respond to the PUBLISH packet with a PUBACK packet.
+If the messages were sent with QoS of 0 no reply from the
+recipient would be required.
 
 #### Figure A-PRR: Publish Request and Response
 
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
-The PUBLISH and PUBACK control packets for this example are as follows; note that the `packetId` is the only field that changes for each of the publishing exchanges in Figure A-PRR, as that value is assigned by the initiator of each exchange:
+The PUBLISH and PUBACK control packets for this example are as
+follows; note that the `packetId` is the only field that changes
+for each of the publishing exchanges in Figure A-PRR, as that
+value is assigned by the initiator of each exchange:
 
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
