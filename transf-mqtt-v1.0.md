@@ -958,7 +958,7 @@ The Producer and Consumer CONNECT packets for this example are as follows; the o
 
 ![Producer and Consumer Connect Cackets](./images/connect-packets.png)
 
-
+ 
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example are as follows:
 
 ![SUBSCRIBE and SUBACK](./images/sub-and-suback.png)
