@@ -23,21 +23,21 @@ group Producer Connect & Subscribe
 P -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
-return : CONNACK
+return CONNACK
 P -> B : SUBSCRIBE (oc2/rsp)
 activate B
 B -> B : validate\nsubscription\nparameters
-return : SUBACK
+return SUBACK
 end
 group Consumer Connect & Subscribe
 C -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
-return : CONNACK
+return CONNACK
 C -> B : SUBSCRIBE (oc2/cmd/ap/alpha,\noc2/cmd/ap/iota,\noc2/cmd/all,\noc2/device/zulu01)
 activate B
 B -> B : validate\nsubscription\nparameters
 
-return : SUBACK
+return SUBACK
 end
 @enduml
