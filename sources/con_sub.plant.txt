@@ -29,6 +29,10 @@ activate B
 B -> B : validate\nsubscription\nparameters
 return SUBACK
 end
+
+' put a little vertical space between the groups
+|||
+
 group Consumer Connect & Subscribe
 C -> B : CONNECT
 activate B
