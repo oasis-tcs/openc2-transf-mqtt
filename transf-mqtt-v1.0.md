@@ -365,9 +365,9 @@ operating model, the corresponding question(s) should be deleted.
   specifications should reference the architecture, once
   it's published.
 
-> - (NEW) How should OpenC2 clients use the MQTT "clean
->   session" flag when connecting?
->   - [Section 2.8](#28-clean-session-flag) proposes that the clean session flag
+> - How should OpenC2 clients use the MQTT "clean
+>   start" flag when connecting?
+>   - [Section 2.8](#28-clean-session-flag) proposes that the clean start flag
 >     not  be used for OpenC2 messaging over MQTT.
 
 
@@ -408,14 +408,14 @@ both Producers and Consumers act as both publishers and subscribers:
 
 The MQTT broker and MQTT client software used by Producers 
 and Consumers are beyond the scope of this specification, but
-are assumed to be conformant with the MQTT v3.1.1 specification 
+are assumed to be conformant with the MQTT v5.0 specification 
 [[MQTT-v5.0](#mqtt-v50)]. In the context of OpenC2, and
 in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 
 * MQTT Brokers are Servers
 * OpenC2 Producers and Consumer are Clients
 
-
+Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers do not act in any OpenC2 role. 
 
 ## 2.2 Default Topic Structure
 
@@ -497,28 +497,19 @@ at how real world products work today
 
 ## 2.3 Message Format
 
->  **NOTE**: The format proposed by Dave Kemp in [Language
-> Spec issue
-> #353](https://github.com/oasis-tcs/openc2-oc2ls/issues/353),
-> or similar, seems appropriate for use with pub/sub
-> protocols. It encapsulates all of the needed information.
-> This draft MQTT Transfer Specification anticipates the
-> adoption of this message format and utilizes its
-> structure. 
+This section describes how OpenC2 messages are represented in MQTT `PUBLISH` control packets.
 
 ### 2.3.1  Content Type and Serialization
 
-> **NOTE:**  Implementer feedback on this proposed approach to conveying the
-> format of the PUBLISH packet payload is strongly desired. Alternative
-> proposals are welome.
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50), section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT properties to convey essential information about the message to the recipient:
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50), section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the broker. OpenC2 leverages the following MQTT properties to convey essential information about the message to the recipient:
-
-* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification.
+* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification and should be set as appropriate for the message serialization used.
 
 * `User Property`:  two user properties are defined to further specify the message format:
   * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `req` (request), `rsp` (response), or `ntf` (notification)
   * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `json` and `cbor`.
+
+> NOTE: MQTT v5.0 user properties are always UTF-8 string pairs.
 
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
@@ -543,7 +534,7 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
  }
  ```
  
-A Producer sending an OpenC2 request includes its identifier in the message
+A Producer sending an OpenC2 request always includes its identifier in the message
 `from` field, allowing Consumers receiving the request to know its origin.  A
 Consumer sending a response to an OpenC2 request includes its identifier in the
 message `from` field, allowing responses from different actuators to be
@@ -590,38 +581,38 @@ publishing messages to the MQTT broker.
 
 As described in [MQTT-v5.0](#mqtt-v50), Section 3.1,
 _CONNECT – Connection Request_, the
-Client Identifier (ClientId) is a required field in the
+Client Identifier (`ClientID`) is a required field in the
 CONNECT control packet. Further requirements are contained
 in Section 3.1.3.1, _Client Identifier (ClientID)_, which defines the
-ClientID as a UTF-8 string between 1 and 23 bytes long
+`ClientID` as a UTF-8 string between 1 and 23 bytes long
 containing only letters and numbers (MQTT servers may accept
-longer ClientIDs).  The MQTT specification also permits
+longer `ClientIDs`).  The MQTT specification also permits
 brokers to accept CONNECT control packets without a
-ClientID, in which case the broker assigns its own ClientID
-to the connection. [MQTT-v5.0](#mqtt-v50) provides no
+`ClientID`, in which case the broker assigns its own `ClientID`
+to the connection, which the client is obligated to use. [MQTT-v5.0](#mqtt-v50) provides no
 further definition regarding the format or assignment of
-ClientIDs. 
+`ClientIDs`. 
 
-The ClientID serves to identify the client to the broker so
+The `ClientID` serves to identify the client to the broker so
 that the broker can maintain state information about the
-client. The ClientID has no meaning in the context of
+client. The `ClientID` has no meaning in the context of
 OpenC2, it is only meaningful to the MQTT client and broker
 involved in the connection.
 
 OpenC2 Producers and Consumers using MQTT for message transfer
-should generate and store a random clientID value that meets the
+should generate and store a random `ClientID` value that meets the
 constraints specified in [MQTT-v5.0](#mqtt-v50) Section 3.1.3.1,
 and retain that value for use when establishing connections to a
-broker. This clientID should be generated prior to any connection
+broker. This `ClientID` should be generated prior to any connection
 to an MQTT broker, potentially as part of a Consumer
-initialization process. The clientID for an OpenC2 Consumer is
+initialization process. The `ClientID` for an OpenC2 Consumer is
 not required to have any meaningful relationship to any identity
 by which a Producer identifies that consumer in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
 The MQTT CONNECT control packet includes a `Keep Alive` property
-([MQTT-v5.0](#mqtt-v50) section 3.1.2.10,) that defines a time
+([MQTT-v5.0](#mqtt-v50) section 3.1.2.10) that defines a time
 interval within which a Client connected to a Broker must send a
 Control Packet to the Broker to prevent the Broker from
 disconnecting from the Client. The PINGREQ control packet can be
@@ -640,10 +631,10 @@ expired without any other control packets being exchanged.
 ## 2.7  Will Message
 
 The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
-Section 3.1, provides a last will feature that enables connected
+Section 3.1, provides a Will Message feature that enables connected
 clients to store a message on the broker to be published to a
 client-specified topic when the client's network connection is
-closed. OpenC2 does not use the MQTT last will message feature.
+closed. OpenC2 does not use the MQTT Will Message feature.
 
 ## 2.8 Clean Start Flag
 
@@ -706,16 +697,16 @@ The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` proper
 For each `Topic Filter` in the SUBSCRIBE control packet the Client must specify a set of `Subscription Options` (section 3.8.3.1). The available options are:
 
 * `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
-* `No Local`: prevents message the Client publishes from being published back to them
+* `No Local`: controls whether messages the Client publishes to this topic are published back to them
 * `Retain as Published`: Controls the setting of the `retain` flag in messages forwarded under this subscription
-* `Retain Handling`: Specifies whether retained messages present when the subscription is established are handled
+* `Retain Handling`: Specifies how retained messages present on the Broker when the subscription is established are handled
 
 The following values are recommended for `Subscription Options` for OpenC2 applications:
 
-* `Maximum QoS`: 2
-* `No Local`: 1
-* `Retain as Published`: 1
-* `Retain Handling`: 0
+* `Maximum QoS`: 2 -- allow the publisher to set the QoS level of the message
+* `No Local`: 1 -- do not receive back messages published by this Client on this topic
+* `Retain as Published`: 1 -- respect the publisher's retain setting value when forwarding messages
+* `Retain Handling`: 0 -- broker should send any retained messages when the subscription is established
 
 
 # 3 Protocol Mapping
