@@ -954,9 +954,9 @@ and is assigned the identifier `abc123`.
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
 
-The Producer and Consumer CONNECT packets for this example are as follows:
+The Producer and Consumer CONNECT packets for this example are as follows; the optional username and password fields of the CONNECT packet are populated in this example:
 
-![Producer and Consumer Connect Cackets](./images/connect-packets.jpg)
+![Producer and Consumer Connect Cackets](./images/connect-packets.png)
 
 
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example are as follows:
@@ -1021,3 +1021,4 @@ TBD | TBD | TBD
 | WD03 / CSD01 | 2020-07-07 | David Lemire | WD03 approved by OpenC2 TC as CSD01 |
 | WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Will be presented as a CSD candidate at the 16 September 2020 TC meeting.|
 | WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
+| WD05 | 2021-01-xx | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
