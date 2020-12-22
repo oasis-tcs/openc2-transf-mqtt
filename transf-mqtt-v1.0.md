@@ -620,21 +620,21 @@ by which a Producer identifies that consumer in OpenC2 messages.
 
 ## 2.6 Keep-Alive Interval
 
-[MQTT-v5.0](#mqtt-v50) section 3.1.2.10, _Keep Alive_, provides a
-keep alive feature where a Client connected to a Broker must send
-a Control Packet to the broker before a specified time interval
-has elapsed to prevent the Broker from disconnecting from the
-Client. The PINGREQ control packet can be sent if the Client has
-no other traffic to process.  The specification notes that "The
-actual value of the Keep Alive is application specific; typically
-this is a few minutes. The maximum value is 18 hours 12 minutes
-and 15 seconds."
+The MQTT CONNECT control packet includes a `Keep Alive` property
+([MQTT-v5.0](#mqtt-v50) section 3.1.2.10,) that defines a time
+interval within which a Client connected to a Broker must send a
+Control Packet to the Broker to prevent the Broker from
+disconnecting from the Client. The PINGREQ control packet can be
+sent if the Client has no other traffic to process.  The
+MQTT specification notes that "The actual value of the Keep Alive is
+application specific; typically this is a few minutes. The
+maximum value is 18 hours 12 minutes and 15 seconds."
 
-This transfer specification leaves the selection of a keep
-alive interval to the implementer but defines a value of 5
+This transfer specification leaves the selection of a `Keep
+Alive` interval to the implementer but defines a value of 5
 minutes (300 seconds) as the maximum value for _conformant_
 implementations. For reliability, an OpenC2 client should
-send an MQTT PINGREQ when 95% of the Keep Alive interval has
+send an MQTT PINGREQ when 95% of the `Keep Alive` interval has
 expired without any other control packets being exchanged.
 
 ## 2.7  Will Message
@@ -645,19 +645,17 @@ clients to store a message on the broker to be published to a
 client-specified topic when the client's network connection is
 closed. OpenC2 does not use the MQTT last will message feature.
 
-## 2.8 Clean Session Flag
-
-> **RESUME HERE**
+## 2.8 Clean Start Flag
 
 As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
-Start_, the MQTT CONNECT control packet includes a flag, "Clean
-Start" that tells the broker whether the client, identified by
+Start_, the MQTT CONNECT control packet includes a flag, `Clean
+Start` that tells the broker whether the client, identified by
 its clientID as described in [Section
-2.5](#25-mqtt-client-identifier) desires a new session (Clean
-Start equals 1 [_true_]). In MQTT the setting of the "Clean
-Start" flag for both the previous and the current session is
-relevant to how the broker handles client state.  The behavior is
-summarized in the following table.
+2.5](#25-mqtt-client-identifier) desires a new session (`Clean
+Start` equals `1` [_true_]). In MQTT the setting of the `Clean
+Start` flag and the value of the `Session Expiry Interval` from the
+most recent CONNECT packet are relevant to how the broker handles
+client state.  The behavior is summarized in the following table.
 
 
 
@@ -666,38 +664,58 @@ summarized in the following table.
   <tr>
     <th></th>
     <th></th>
-    <th colspan="2" align="center">Previous Clean Session Flag</th>
+    <th colspan="2" align="center">Session Expiry Interval Exceeded</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td></td>
     <td></td>
-    <td align="center"><b>True</b></td>
-    <td align="center"><b>False</b></td>
+    <td align="center"><b>Yes</b></td>
+    <td align="center"><b>No</b></td>
   </tr>
   <tr>
-    <td rowspan="2" align="center">Current<br>Clean<br>Session<br>Flag</td>
-    <td>True</td>
-    <td><ul><li>No prior state to discard<li>New subscriptions required<li>State discarded on DISCONNECT</ul></td>
-    <td><ul><li>Prior state discarded<li>New subscriptions required<li>State discarded on DISCONNECT</ul></td>
+    <td rowspan="2" align="center">Clean<br>Start<br>Flag</td>
+    <td>True (1)</td>
+    <td><ul>
+    <li>No prior state to discard<li>New subscriptions required
+    </ul></td>
+    <td><ul><li>Prior state discarded<li>New subscriptions required</ul></td>
   </tr>
   <tr>
-    <td>False</td>
-    <td><ul><li>No prior state to discard<li>New subscriptions required<li>State retained on DISCONNECT</ul></td>
-    <td><ul><li>Prior state retained<li>Buffered messages delivered<li>State retained on DISCONNECT</td>
+    <td>False (0)</td>
+    <td><ul><li>No prior state to discard<li>New subscriptions required</ul></td>
+    <td><ul><li>Prior state retained<li>Previous subscriptions remain<li>Buffered messages delivered</td>
   </tr>
 </tbody>
 </table>
 
-OpenC2 clients should  _not_ request a clean session when connecting to the
-broker. The use of "Clean Session = false" allows the broker to retain the
+OpenC2 clients should  _not_ request a clean start when connecting to the
+broker. The use of `Clean Start` = `false` allows the broker to retain the
 client's subscriptions, and deliver buffered messages that have accumulated
 while the client was disconnected.  However, OpenC2 implementers using MQTT
 should be aware that MQTT broker resource constraints may necessitate
 discarding older traffic if clients are disconnected for extended periods.
 
-A flowchart depicting the broker's logic handling the Clean Session flag is included in [Appendix B](#appendix-b-clean-session-flag-handling).
+## 2.9 Session Expiry and Message Expiry Intervals
+
+The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` property that informs the broker how long the Client's session state must be retained when the session is disconnected.  The MQTT v5.0 PUBLISH control packet includes a `Message Expiry Interval` property that specifies the lifetime of the Application Message in seconds. This transfer specification makes no recommendations regarding appropriate values for either expiry interval. Implementers are encouraged to evaluate their use cases to define reasonable values for these properties. 
+
+## 2.10 Subscriptions Options
+
+For each `Topic Filter` in the SUBSCRIBE control packet the Client must specify a set of `Subscription Options` (section 3.8.3.1). The available options are:
+
+* `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
+* `No Local`: prevents message the Client publishes from being published back to them
+* `Retain as Published`: Controls the setting of the `retain` flag in messages forwarded under this subscription
+* `Retain Handling`: Specifies whether retained messages present when the subscription is established are handled
+
+The following values are recommended for `Subscription Options` for OpenC2 applications:
+
+* `Maximum QoS`: 2
+* `No Local`: 1
+* `Retain as Published`: 1
+* `Retain Handling`: 0
 
 
 # 3 Protocol Mapping
@@ -981,12 +999,6 @@ reply from the recipient would be required.
 The PUBLISH and PUBACK control packets for this example are as follows; note that the `packetId` is the only field that changes for each of the publishing exchanges in Figure A-PRR, as that value is assigned by the initiator of each exchange:
 
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
-
-# Appendix B: Clean Session Flag Handling
-
-The broker's actions in processing the CleanSession flag and ClientId are illustrated in the following flowchart.
-
-![Clean Session Flag Handling](./images/clean-session-flow.png)
 
 
 # Appendix X: Acronyms
