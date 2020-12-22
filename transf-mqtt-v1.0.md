@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 04
-## 15 September 2020
+## Working Draft 05
+## XX January 2021
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -15,8 +15,6 @@
 
 ### Editors:
 * Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Danny Martinez (danny.martinez@hii-tsd.com),
-  [G2, Inc.](http://www.g2-inc.com/)
 * David Lemire (david.lemire@hii-tsd.com), [National
   Security Agency](https://www.nsa.gov/)
 
@@ -25,7 +23,7 @@ This specification is related to:
 *  _Open Command and Control (OpenC2) Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest version: http://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html.
 
 ### Abstract:
-Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Message Queuing Telemetry Transport (MQTT) is a widely used publish / subscribe (pub/sub) transfer protocol. This specification describes the use of MQTT as a transfer mechanism for OpenC2 messages.
+Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Message Queuing Telemetry Transport (MQTT) is a widely used publish / subscribe (pub/sub) transfer protocol. This specification describes the use of MQTT, version 5.0, as a transfer mechanism for OpenC2 messages.
 
 ### Status:
 This document was last revised or approved by the OASIS Open Command and Control (OpenC2) TC on the above date. The level of approval is also listed above. Check the "Latest version" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2#technical.
@@ -51,8 +49,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by Joe Brule,David Lemire, and Danny
-Martinez. 27 February 2019. OASIS Committee Specification
+Version 1.0_. Edited by Joe Brule and David Lemire. 27 February 2019. OASIS Committee Specification
 Draft 01.
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd01/transf-mqtt-v1.0-csd01.html.
 Latest version:
@@ -720,8 +717,8 @@ The following values are recommended for `Subscription Options` for OpenC2 appli
 ### 3.1.1 CONNECT
 
 OpenC2 Producers and Consumers MUST create and transmit the
-CONNECT control packet, as specified in in the
-[mqtt-v3.1.1](#mqtt-v311) specification, to establish a
+CONNECT control packet, as specified in the
+[MQTT v5.0](#mqtt-v50) specification, to establish a
 connection to the MQTT Broker.
 
 The fields of the CONNECT control packet SHALL be populated
@@ -755,16 +752,16 @@ In the above table:
 ### 3.1.2 CONNACK
 
 OpenC2 Producers and Consumers MUST receive and process  the
-CONNACK control packet, as specified in in the
-[mqtt-v3.1.1](#mqtt-v311) specification, after requesting  a
+CONNACK control packet, as specified in the
+[MQTT v5.0](#mqtt-v50) specification, after requesting  a
 connection to the MQTT Broker.
 
 
 ### 3.1.3 PUBLISH
 
 OpenC2 Producers and Consumers MUST create and transmit the
-PUBLISH control packet, as specified in in the
-[mqtt-v3.1.1](#mqtt-v311) specification, to publish messages
+PUBLISH control packet, as specified in the
+[MQTT v5.0](#mqtt-v50) specification, to publish messages
 using the MQTT broker.  Topic selection for publishing
 OpenC2 request and response messages MUST apply the default
 topic structure principles described in [Section
@@ -781,8 +778,8 @@ The PUBLISH packet parameters SHALL be set as follows:
 ### 3.1.4 PUBACK
 
 OpenC2 Producers and Consumers MUST receive and process  the
-PUBACK control packet, as specified in in the
-[mqtt-v3.1.1](#mqtt-v311) specification, after publishing a
+PUBACK control packet, as specified in the
+[MQTT v5.0](#mqtt-v50) specification, after publishing a
 message to the MQTT Broker.
 
 ### 3.1.5 PUBREC
@@ -792,7 +789,7 @@ Consistent with the guidance in [Section
 QoS Level 1, the PUBREC control packet is not normally
 utilized for OpenC2. Implementers who elect to use QoS Level
 2 should implement the PUBREC packet as specified in the
-[mqtt-v3.1.1](#mqtt-v311) specification.
+[MQTT v5.0](#mqtt-v50) specification.
 
 ### 3.1.6 PUBREL
 
@@ -801,7 +798,7 @@ Consistent with the guidance in [Section
 QoS Level 1, the PUBREL control packet is not normally
 utilized for OpenC2 . Implementers who elect to use QoS
 Level 2 should implement the PUBREL packet as specified in
-the [mqtt-v3.1.1](#mqtt-v311) specification.
+the [MQTT v5.0](#mqtt-v50) specification.
 
 ### 3.1.7 PUBCOMP
 
@@ -810,12 +807,12 @@ Consistent with the guidance in [Section
 QoS Level 1, the PUBCOMP control packet is not normally
 utilized for OpenC2. Implementers who elect to use QoS Level
 2 should implement the PUBCOMP packet as specified in the
-[mqtt-v3.1.1](#mqtt-v311) specification.
+[MQTT v5.0](#mqtt-v50) specification.
 
 ### 3.1.8 SUBSCRIBE
 
 Producers and Consumers MUST use the SUBSCRIBE control
-packet, as specified in in the [mqtt-v3.1.1](#mqtt-v311)
+packet, as specified in the [MQTT v5.0](#mqtt-v50)
 specification to subscribe to a set of topics consistent
 with the default topic structure defined in [Section
 2.2](#22-default-topic-structure). This means that:
@@ -840,8 +837,8 @@ level 2 if appropriate for their implementation.
 ### 3.1.9 SUBACK
 
 OpenC2 Producers and Consumers MUST receive and process the
-SUBACK control packet, as specified in in the
-[mqtt-v3.1.1](#mqtt-v311) specification, after transmitting
+SUBACK control packet, as specified in the
+[MQTT v5.0](#mqtt-v50) specification, after transmitting
 a SUBSCRIBE control packet to the MQTT Broker.
 
 ### 3.1.10 UNSUBSCRIBE
@@ -852,13 +849,13 @@ respective default topic selections, as described in [Section
 2.2](#22-default-topic-structure). If a reason arises to
 unsubscribe from one or more topics, the OpenC2 Producer or
 Consumer shall use the UNSUBSUBSCRIBE control packet as
-specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.10.
+specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
 
 ### 3.1.11 UNSUBACK
 
 MQTT brokers receiving an UNSUBSCRIBE control packet from an
 OpenC2 Producer or Consumer shall send an UNSUBACK packet as
-specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.11.
+specified in [MQTT v5.0](#mqtt-v50), Section 3.11.
 
 ### 3.1.12 PINGREQ
 
@@ -874,7 +871,7 @@ interval, 95% of the value specified in [Section
 
 MQTT brokers receiving a PINGREQ control packet from an
 OpenC2 Producer or Consumer shall send a PINGRESP packet as
-specified in [mqtt-v3.1.1](#mqtt-v311), Section 3.13.
+specified in [MQTT v5.0](#mqtt-v50), Section 3.13.
 
 ### 3.1.14 DISCONNECT
 
@@ -1022,6 +1019,5 @@ TBD | TBD | TBD
 | WD02 | 2020-06-02 | David Lemire | Updates Operating Model section (2.0) and list of questions to be resolved. |
 | WD03 | 2020-06-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Initial presentation of example operating sequences and message. Will be presented as a CSD candidate at the 17 June 2020 TC meeting. |
 | WD03 / CSD01 | 2020-07-07 | David Lemire | WD03 approved by OpenC2 TC as CSD01 |
-
-
-
+| WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Will be presented as a CSD candidate at the 16 September 2020 TC meeting.|
+| WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
