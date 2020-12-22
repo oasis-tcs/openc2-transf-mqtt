@@ -473,8 +473,7 @@ command to:
 * `oc2/cmd/ap/iota`
 
 A notional OpenC2 Producer wishing to command the individual
-Consumer with identity `zulu` would publish the
-command to: 
+Consumer with identity `zulu` would publish the command to: 
 
 * `oc2/cmd/device/zulu`
 
