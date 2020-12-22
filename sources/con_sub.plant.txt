@@ -17,7 +17,7 @@ skinparam sequenceMessageAlign direction
 actor Producer as P
 participant Broker as B
 actor Consumer as C
-note ov P: Producer ID is orch 
+note over P: Producer ID is orch 
 note over C: Consumer ID is zulu\nAPs: Alpha, Iota
 group Producer Connect & Subscribe
 P -> B : CONNECT
