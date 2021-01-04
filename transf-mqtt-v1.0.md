@@ -678,7 +678,7 @@ In the above table:
 * VH = Variable Heather
 * PL = Payload
 
-This specification makes no recommendations regarding the following CONNECT properties:
+This specification makes no recommendations regarding values for the following CONNECT properties:
 
  * Authentication Method
  * Authentication Data
@@ -689,11 +689,13 @@ This specification makes no recommendations regarding the following CONNECT prop
 
 ### 3.1.2 CONNACK
 
-OpenC2 Producers and Consumers MUST receive and process  the
-CONNACK control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification, after requesting  a
-connection to the MQTT Broker.
-
+OpenC2 Producers and Consumers MUST receive and process the
+CONNACK control packet, as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.2, after requesting  a
+connection to the MQTT Broker. This specification makes no
+recommendations regarding values for the CONACK properties
+defined in section 3.2.2.3 of the [MQTT v5.0](#mqtt-v50)
+specification.
 
 ### 3.1.3 PUBLISH
 
