@@ -992,8 +992,8 @@ subscribed to the corresponding command topic `oc2/cmd/ap/iota`.
 The example messages show the exchange between the Producer
 publishing the Openc2 request and the MQTT broker.  A similar
 exchange then occurs between the broker and every Consumer device
-subscribed to `oc2/cmd/ap/iota` to distribute the command to the
-intended recipients. 
+subscribed to the `oc2/cmd/ap/iota` topic to distribute the
+command to the intended recipients. 
 
 The command and response messages in the sequence diagram shown
 in Figure A-PRR are published with a QoS of 1, which requires the
@@ -1006,9 +1006,10 @@ recipient would be required.
 ![Basic Interaction Sequence](./images/req_rsp.png)
 
 The PUBLISH and PUBACK control packets for this example are as
-follows; note that the `packetId` is the only field that changes
-for each of the publishing exchanges in Figure A-PRR, as that
-value is assigned by the initiator of each exchange:
+follows; note that the `packetId` is the only field that would
+differ for for each of the three publishing exchanges in Figure
+A-PRR, as that value is assigned by the initiator of each
+exchange:
 
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
