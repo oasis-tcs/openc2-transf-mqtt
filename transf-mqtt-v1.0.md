@@ -83,11 +83,21 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
+          - [[RFC2119]](#rfc2119)
+          - [[RFC8174]](#rfc8174)
+          - [[RFC8259]](#rfc8259)
+          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
+          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
+          - [[RFC3552]](#rfc3552)
+          - [[IACD]](#iacd)
+          - [[mqtt-v3.1.1]](#mqtt-v311)
+          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
     - [1.5.2 Font Colors and Style](#152-font-colors-and-style)
+    - [1.5.3 MQTT Data Representation](#153-mqtt-data-representation)
   - [1.6 Overview](#16-overview)
   - [1.7 Goal](#17-goal)
 - [2 Operating Model](#2-operating-model)
@@ -127,11 +137,10 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
       - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
   - [A.2  Example 2:  _Command / Response Exchange_](#a2--example-2--command--response-exchange)
       - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
+- [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
 - [Appendix X: Acronyms](#appendix-x-acronyms)
 - [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
 - [Appendix Z: Revision History](#appendix-z-revision-history)
-- 
-- 
 
 -------
 
@@ -930,7 +939,7 @@ exchange:
 
 # Appendix W: Operating Model Questions
 
-> NOTE: This appendix contains the questions originally used to help drive the operating model described in [Section 2](2).  The intent is that this Appendix will be deleted prior to public review of this specification.
+> NOTE: This appendix contains the questions originally used to help drive the operating model described in [Section 2, Operating Model](#2-operating-model).  The intent is that this Appendix will be deleted prior to public review of this specification.
 
 > **NOTE:**  Tentative list of Qs the MQTT Transfer Spec
 should answer; feedback on additional questions or questions
