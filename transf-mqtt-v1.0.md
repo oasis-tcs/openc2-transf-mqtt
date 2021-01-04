@@ -649,6 +649,19 @@ The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` proper
 
 ## 3.1 MQTT Control Packet Usage
 
+The three regions of MQTT control packets are represented in the
+tables in this section as follows:
+
+* FH = Fixed Header
+* VH = Variable Header
+* PL = Payload
+
+Only the fields and properties of concern to OpenC2 messaging
+over MQTT are specified. Values for fields and properties not
+specified herein are to be populated as defined in the [MQTT
+v5.0](#mqtt-v50) specification, or as determined by the
+implementer where applicable.
+
 ### 3.1.1 CONNECT
 
 OpenC2 Producers and Consumers MUST create and transmit the
@@ -659,7 +672,7 @@ connection to the MQTT Broker.
 The following fields of the CONNECT control packet SHALL be populated
 as specified:
 
-| Region | Field | Value |
+| Region | Field / Property | Value |
 |:-:|:-:|:-:|
 | VH | Connect Flags | (bitmap) |
 |  | Clean Session | 0 |
@@ -674,9 +687,6 @@ as specified:
 | PL | Username | TBD  |
 | PL | Password | TBD |
 
-In the above table:
-* VH = Variable Heather
-* PL = Payload
 
 This specification makes no recommendations regarding values for the following CONNECT properties:
 
@@ -700,20 +710,33 @@ specification.
 ### 3.1.3 PUBLISH
 
 OpenC2 Producers and Consumers MUST create and transmit the
-PUBLISH control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification, to publish messages
-using the MQTT broker.  Topic selection for publishing
-OpenC2 request and response messages MUST apply the default
-topic structure principles described in [Section
+PUBLISH control packet, as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.3, to publish messages
+using the MQTT broker.  Topic selection for publishing OpenC2
+request and response messages MUST apply the default topic
+structure principles described in [Section
 2.2](##22-default-topic-structure).
 
 The PUBLISH packet parameters SHALL be set as follows:
 
-* DUP: MUST be set to 1 when publishing a duplicate message,
-  and set to 0 otherwise.
-* QoS: 1, unless the implementer has elected to use QoS
-  level 2 for this environment.  QoS MUST NOT be set to 0.
-* RETAIN:  MUST always be set to 0.
+
+| Region | Field / Property | Value |
+|:-:|:-:|:-:|
+| FH  | QoS | 1 |
+| FH | Retain | 0 |
+| VH | Payload Format Indicator | per message encoding used |
+| VH | Message Expiry Interval | TBD |
+| VH | Content Type | `"application/openc2"`|
+| VH | User Property | `"msgType:[type]"` where `[type]` is one of `"req"`, `"rsp`", or `"ntf"`, as appropriate |
+| VH | User Property | `"encoding:[encoding]"` where `[encoding]` is one of  `"json"` or `"cbor"`, as appropriate |
+
+This specification makes no recommendations regarding values for the following CONNECT properties:
+
+ * Response Topic
+ * Correlation Data
+ * Subscription Identifier
+ * Topic Alias
+
 
 ### 3.1.4 PUBACK
 
@@ -813,7 +836,6 @@ MQTT brokers receiving a PINGREQ control packet from an
 OpenC2 Producer or Consumer shall send a PINGRESP packet as
 specified in [MQTT v5.0](#mqtt-v50), Section 3.13.
 
-### 3.1.14 DISCONNECT
 
 # 4 Security Considerations
 
