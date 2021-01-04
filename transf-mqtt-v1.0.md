@@ -652,21 +652,16 @@ The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` proper
 ### 3.1.1 CONNECT
 
 OpenC2 Producers and Consumers MUST create and transmit the
-CONNECT control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification, to establish a
+CONNECT control packet, as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.1, to establish a
 connection to the MQTT Broker.
 
-The fields of the CONNECT control packet SHALL be populated
-as follows:
+The following fields of the CONNECT control packet SHALL be populated
+as specified:
 
 | Region | Field | Value |
 |:-:|:-:|:-:|
-| FH | Type | CONNECT |
-| FH | Remaining Length | `<computed>` |
-| VH | Protocol Name - Length |4|
-| VH | Protocol Name - Value | MQTT |
-| VH | Protocol Level |4|
-| VH | Connect Flags (bitmap) |  |
+| VH | Connect Flags | (bitmap) |
 |  | Clean Session | 0 |
 |  | Will Flag | 0 |
 |  | Will QoS | 0 |
@@ -674,15 +669,23 @@ as follows:
 |  | User Name Flag | TBD |
 |  | Password Flag | TBD |
 | VH | Keep Alive  | Number < 300 (seconds) |
-| PL | Client Identifier | TBD |
+| VH | Session Expiry  | TBD |
+| PL | Client Identifier | client-generated ID |
 | PL | Username | TBD  |
 | PL | Password | TBD |
 
 In the above table:
-* FH = Fixed Header
 * VH = Variable Heather
 * PL = Payload
 
+This specification makes no recommendations regarding the following CONNECT properties:
+
+ * Authentication Method
+ * Authentication Data
+ * Request Problem Information
+ * Receive Maximum
+ * Topic Alias Maximum
+ * Maximum Packet Size
 
 ### 3.1.2 CONNACK
 
