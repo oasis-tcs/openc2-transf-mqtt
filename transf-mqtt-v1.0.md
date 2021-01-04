@@ -83,16 +83,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
-          - [[RFC2119]](#rfc2119)
-          - [[RFC8174]](#rfc8174)
-          - [[RFC8259]](#rfc8259)
-          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
-          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
-          - [[RFC3552]](#rfc3552)
-          - [[IACD]](#iacd)
-          - [[mqtt-v3.1.1]](#mqtt-v311)
-          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
@@ -104,16 +95,16 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
   - [2.1 Publishers, Subscribers, and Brokers](#21-publishers-subscribers-and-brokers)
   - [2.2 Default Topic Structure](#22-default-topic-structure)
       - [**Table DTS: Default Topic Structure**](#table-dts-default-topic-structure)
-  - [2.3 Message Format](#23-message-format)
-    - [2.3.1  Content Type and Serialization](#231--content-type-and-serialization)
-    - [2.3.2 OpenC2 Message Structure](#232-openc2-message-structure)
-  - [2.4 Quality of Service](#24-quality-of-service)
-  - [2.5 MQTT Client Identifier](#25-mqtt-client-identifier)
-  - [2.6 Keep-Alive Interval](#26-keep-alive-interval)
-  - [2.7  Will Message](#27--will-message)
-  - [2.8 Clean Start Flag](#28-clean-start-flag)
-  - [2.9 Session Expiry and Message Expiry Intervals](#29-session-expiry-and-message-expiry-intervals)
-  - [2.10 Subscriptions Options](#210-subscriptions-options)
+  - [2.3 Subscriptions Options](#23-subscriptions-options)
+  - [2.4 OpenC2 Message Format](#24-openc2-message-format)
+    - [2.4.1  Content Type and Serialization](#241--content-type-and-serialization)
+    - [2.4.2 OpenC2 Message Structure](#242-openc2-message-structure)
+  - [2.5 Quality of Service](#25-quality-of-service)
+  - [2.6 MQTT Client Identifier](#26-mqtt-client-identifier)
+  - [2.7 Keep-Alive Interval](#27-keep-alive-interval)
+  - [2.8  Will Message](#28--will-message)
+  - [2.9 Clean Start Flag](#29-clean-start-flag)
+  - [2.10 Session Expiry and Message Expiry Intervals](#210-session-expiry-and-message-expiry-intervals)
 - [3 Protocol Mapping](#3-protocol-mapping)
   - [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
     - [3.1.1 CONNECT](#311-connect)
@@ -362,8 +353,8 @@ that might exist on the same broker. Topic name components in brackets (e.g.,
 `[actuator_profile]`) are placeholders for specific values that would be used in
 implementation.  For example, a device that implements the Stateless Packeting
 Filter AP would subscribe to `oc2/cmd/ap/slpf`. In addition, each Consumer
-subscribes to its own device-specific topic using a device identifier, annotated
-as `[device_id]`, that is known to the OpenC2 Producer(s) that can command that
+subscribes to its own device-specific topic using a device identifier (annotated
+as `[device_id]`) that is known to the OpenC2 Producer(s) that can command that
 Consumer. The determination of device identifiers is beyond the scope of this
 specification.
 
@@ -384,7 +375,7 @@ would subscribe using the following topic filters:
 * `oc2/cmd/device/[device_id]` for that device's ID
 
 
-In order to receive responses to the commands is sends, 
+In order to receive responses to the commands it sends, 
 a Producer connected to the broker would subscribe using the following topic filter:
 * `oc2/rsp`
 
@@ -392,8 +383,8 @@ a Producer connected to the broker would subscribe using the following topic fil
 
 **Non-normative Subscription Example**
 
-A notional OpenC2 Consumer that implemented actuator
-profiles `alpha` and `iota` and had a device identifier of
+A notional OpenC2 Consumer that implements actuator
+profiles `alpha` and `iota` and has a device identifier of
 `zulu` would subscribe using the following topic filters:
 
 * `oc2/cmd/all`
@@ -428,26 +419,44 @@ the atomic/compound AP discussion but I also think reality
 of todays tech informs the discussion and we should look 
 at how real world products work today
 
-## 2.3 Message Format
+## 2.3 Subscriptions Options
+
+For each `Topic Filter` in the SUBSCRIBE control packet the Client must specify a set of `Subscription Options` (section 3.8.3.1). The available options are:
+
+* `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
+* `No Local`: controls whether messages the Client publishes to this topic are published back to them
+* `Retain as Published`: Controls the setting of the `retain` flag in messages forwarded under this subscription
+* `Retain Handling`: Specifies how retained messages present on the Broker when the subscription is established are handled
+
+The following values are recommended for `Subscription Options` for OpenC2 applications:
+
+* `Maximum QoS`: 2 -- allow the publisher to set the QoS level of the message
+* `No Local`: 1 -- do not receive back messages published by this Client on this topic
+* `Retain as Published`: 1 -- respect the publisher's retain setting value when forwarding messages
+* `Retain Handling`: 0 -- broker should send any retained messages when the subscription is established
+
+
+
+## 2.4 OpenC2 Message Format
 
 This section describes how OpenC2 messages are represented in MQTT `PUBLISH` control packets.
 
-### 2.3.1  Content Type and Serialization
+### 2.4.1  Content Type and Serialization
 
 OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50), section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT properties to convey essential information about the message to the recipient:
 
-* `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
-* `Content Type`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
+* `Payload Format Indicator [Property 0x01]`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
+* `Content Type [Property 0x03]`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
 
-* `User Property`:  two User Properties are defined to further specify the message format:
-  * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `"req"` (request), `"rsp"` (response), or `"ntf"` (notification)
-  * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `"json"` and `"cbor"`.
+* `User Property [Property 0x26]`:  two User Properties are defined to further specify the message format:
+  * `"msgType"`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `"req"` (request), `"rsp"` (response), or `"ntf"` (notification)
+  * `"encoding"`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `"json"` and `"cbor"`.
 
 > NOTE: MQTT v5.0 user properties are always UTF-8 string pairs.
 
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
-### 2.3.2 OpenC2 Message Structure
+### 2.4.2 OpenC2 Message Structure
 
 OpenC2 messages transferred using MQTT utilize the
 `OpenC2-Message` structure containing the message elements
@@ -468,9 +477,9 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
  }
  ```
  
-A Producer sending an OpenC2 request always includes its identifier in the message
+A Producer sending an OpenC2 request _always_ includes its identifier in the message
 `from` field, allowing Consumers receiving the request to know its origin.  A
-Consumer sending a response to an OpenC2 request includes its identifier in the
+Consumer sending a response to an OpenC2 request _always_ includes its identifier in the
 message `from` field, allowing responses from different actuators to be
 identified by the Producer receiving the response. 
  
@@ -481,7 +490,7 @@ particular message. Consumers have no requirement to populate the `to` field.
 
 
 
-## 2.4 Quality of Service
+## 2.5 Quality of Service
 
 [MQTT-v5.0](#mqtt-v50) Section 4.3, _Quality of Service
 Levels and Protocol Flows_ defines three quality of service
@@ -511,21 +520,20 @@ In accordance with the above, the requirements of
 once delivery_ apply to OpenC2 Producers and Consumers when
 publishing messages to the MQTT broker.
 
-## 2.5 MQTT Client Identifier
+## 2.6 MQTT Client Identifier
 
-As described in [MQTT-v5.0](#mqtt-v50), Section 3.1,
-_CONNECT – Connection Request_, the
-Client Identifier (`ClientID`) is a required field in the
-CONNECT control packet. Further requirements are contained
-in Section 3.1.3.1, _Client Identifier (ClientID)_, which defines the
-`ClientID` as a UTF-8 string between 1 and 23 bytes long
-containing only letters and numbers (MQTT servers may accept
-longer `ClientIDs`).  The MQTT specification also permits
-brokers to accept CONNECT control packets without a
-`ClientID`, in which case the broker assigns its own `ClientID`
-to the connection, which the client is obligated to use. [MQTT-v5.0](#mqtt-v50) provides no
-further definition regarding the format or assignment of
-`ClientIDs`. 
+As described in [MQTT-v5.0](#mqtt-v50), Section 3.1, _CONNECT –
+Connection Request_, the Client Identifier (`ClientID`) is a
+required field in the CONNECT control packet. Further
+requirements are contained in Section 3.1.3.1, _Client Identifier
+(ClientID)_, which defines the `ClientID` as a UTF-8 string
+between 1 and 23 bytes long containing only letters and numbers
+(MQTT servers may accept longer `ClientIDs`).  The MQTT
+specification also permits brokers to accept CONNECT control
+packets without a `ClientID`, in which case the broker assigns
+its own `ClientID` to the connection, which the client is
+obligated to use. [MQTT-v5.0](#mqtt-v50) provides no further
+definition regarding the format or assignment of `ClientIDs`. 
 
 The `ClientID` serves to identify the client to the broker so
 that the broker can maintain state information about the
@@ -541,19 +549,22 @@ broker. This `ClientID` should be generated prior to any connection
 to an MQTT broker, potentially as part of a Consumer
 initialization process. The `ClientID` for an OpenC2 Consumer is
 not required to have any meaningful relationship to any identity
-by which a Producer identifies that consumer in OpenC2 messages.
+by which a Producer identifies that Consumer in OpenC2 messages.
 
-## 2.6 Keep-Alive Interval
+## 2.7 Keep-Alive Interval
 
 The MQTT CONNECT control packet includes a `Keep Alive` property
 ([MQTT-v5.0](#mqtt-v50) section 3.1.2.10) that defines a time
 interval within which a Client connected to a Broker must send a
 Control Packet to the Broker to prevent the Broker from
 disconnecting from the Client. The PINGREQ control packet can be
-sent if the Client has no other traffic to process.  The
-MQTT specification notes that "The actual value of the Keep Alive is
+sent if the Client has no other traffic to process.  The MQTT
+specification notes that "The actual value of the Keep Alive is
 application specific; typically this is a few minutes. The
-maximum value is 18 hours 12 minutes and 15 seconds."
+maximum value is 18 hours 12 minutes and 15 seconds." The Broker
+must close the network connection if 1.5 times the `Keep Alive`
+interval has passed without receiving a control packet from the
+Client.
 
 This transfer specification leaves the selection of a `Keep
 Alive` interval to the implementer but defines a value of 5
@@ -562,7 +573,7 @@ implementations. For reliability, an OpenC2 client should
 send an MQTT PINGREQ when 95% of the `Keep Alive` interval has
 expired without any other control packets being exchanged.
 
-## 2.7  Will Message
+## 2.8  Will Message
 
 The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
 Section 3.1, provides a Will Message feature that enables connected
@@ -570,17 +581,18 @@ clients to store a message on the broker to be published to a
 client-specified topic when the client's network connection is
 closed. OpenC2 does not use the MQTT Will Message feature.
 
-## 2.8 Clean Start Flag
+## 2.9 Clean Start Flag
 
 As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
 Start_, the MQTT CONNECT control packet includes a flag, `Clean
-Start` that tells the broker whether the client, identified by
+Start`, that tells the broker whether the client, identified by
 its clientID as described in [Section
-2.5](#25-mqtt-client-identifier) desires a new session (`Clean
+2.6](#26-mqtt-client-identifier) desires a new session (`Clean
 Start` equals `1` [_true_]). In MQTT the setting of the `Clean
-Start` flag and the value of the `Session Expiry Interval` from the
-most recent CONNECT packet are relevant to how the broker handles
-client state.  The behavior is summarized in the following table.
+Start` flag and the value of the `Session Expiry Interval` from
+the most recent CONNECT packet are relevant to how the broker
+handles client state.  The behavior is summarized in the
+following table.
 
 
 
@@ -615,32 +627,18 @@ client state.  The behavior is summarized in the following table.
 </tbody>
 </table>
 
-OpenC2 clients should  _not_ request a clean start when connecting to the
-broker. The use of `Clean Start` = `false` allows the broker to retain the
-client's subscriptions, and deliver buffered messages that have accumulated
-while the client was disconnected.  However, OpenC2 implementers using MQTT
-should be aware that MQTT broker resource constraints may necessitate
-discarding older traffic if clients are disconnected for extended periods.
+OpenC2 clients should  _not_ request a clean start when
+connecting to the broker. The use of `Clean Start` = `false`
+allows the broker to retain the client's subscriptions, and
+deliver buffered messages that have accumulated while the client
+was disconnected.  However, OpenC2 implementers using MQTT should
+be aware that MQTT broker resource constraints and `Message
+Exipiry Interval` settings from Producers may cause older traffic
+to be discarded if clients are disconnected for extended periods.
 
-## 2.9 Session Expiry and Message Expiry Intervals
+## 2.10 Session Expiry and Message Expiry Intervals
 
 The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` property that informs the broker how long the Client's session state must be retained when the session is disconnected.  The MQTT v5.0 PUBLISH control packet includes a `Message Expiry Interval` property that specifies the lifetime of the Application Message in seconds. This transfer specification makes no recommendations regarding appropriate values for either expiry interval. Implementers are encouraged to evaluate their use cases to define reasonable values for these properties. 
-
-## 2.10 Subscriptions Options
-
-For each `Topic Filter` in the SUBSCRIBE control packet the Client must specify a set of `Subscription Options` (section 3.8.3.1). The available options are:
-
-* `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
-* `No Local`: controls whether messages the Client publishes to this topic are published back to them
-* `Retain as Published`: Controls the setting of the `retain` flag in messages forwarded under this subscription
-* `Retain Handling`: Specifies how retained messages present on the Broker when the subscription is established are handled
-
-The following values are recommended for `Subscription Options` for OpenC2 applications:
-
-* `Maximum QoS`: 2 -- allow the publisher to set the QoS level of the message
-* `No Local`: 1 -- do not receive back messages published by this Client on this topic
-* `Retain as Published`: 1 -- respect the publisher's retain setting value when forwarding messages
-* `Retain Handling`: 0 -- broker should send any retained messages when the subscription is established
 
 
 # 3 Protocol Mapping
@@ -957,24 +955,24 @@ operating model, the corresponding question(s) should be deleted.
 > - Is OpenC2 going to use the MQTT Will feature? If so,
 >  what should be used for the will topic(s)?
 >   - A proposal **not** to use this feature is contained in
->     [Section 2.7](#27-will-message).
+>     [Section 2.8](#28-will-message).
 
 > - What is the OpenC2 message format over MQTT?
->   - See [Section 2.3](#23-message-format)
+>   - See [Section 2.4](#24-message-format)
 
 >- Are there any special requirements for the MQTT ClientId?
 >   - A proposal for ClientId creation is provided in
-        [Section 2.5](#25-mqtt-client-identifier).
+        [Section 2.6](#26-mqtt-client-identifier).
 
 > - What is the appropriate QoS for MQTT messaging for OpenC2?
->   - See [Section 2.4](#24-quality-of-service).
+>   - See [Section 2.5](#25-quality-of-service).
 
 > - Should Consumers publish any kind of birth and/or death
   messages?
 >   - MQTT includes a "last will" mechanism to provide
       information when a device is disconnected; A proposal
       not to use this feature is contained in [Section
-      2.7](#27-will-message).
+      2.8](#28-will-message).
 >   - The [Sparkplug B specification](sparkplug-b) defines a
   birth certificate mechanism to provide information when
   devices become connected.
@@ -984,7 +982,7 @@ operating model, the corresponding question(s) should be deleted.
 >     death certificates with MQTT.
 
 >- Should we recommend a maximum keep-alive interval?
->   - [Section 2.6](#26-keep-alive-interval) proposes an
+>   - [Section 2.7](#27-keep-alive-interval) proposes an
         approach that sets a maximum keep-alive interval for
       implementations.
 
@@ -998,7 +996,7 @@ operating model, the corresponding question(s) should be deleted.
 
 > - How should OpenC2 clients use the MQTT "clean
 >   start" flag when connecting?
->   - [Section 2.8](#28-clean-session-flag) proposes that the clean start flag
+>   - [Section 2.9](#29-clean-session-flag) proposes that the clean start flag
 >     not  be used for OpenC2 messaging over MQTT.
 
 
