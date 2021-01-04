@@ -718,36 +718,36 @@ The PUBLISH packet parameters SHALL be set as follows:
 ### 3.1.4 PUBACK
 
 OpenC2 Producers and Consumers MUST receive and process  the
-PUBACK control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification, after publishing a
-message to the MQTT Broker.
+PUBACK control packet, as specified in the [MQTT v5.0](#mqtt-v50)
+specification section 3.4, after publishing a message to the MQTT
+Broker.
 
 ### 3.1.5 PUBREC
 
 Consistent with the guidance in [Section
-2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBREC control packet is not normally
-utilized for OpenC2. Implementers who elect to use QoS Level
-2 should implement the PUBREC packet as specified in the
-[MQTT v5.0](#mqtt-v50) specification.
+2.5](#25-quality-of-service) of this specification to use QoS
+Level 1, the PUBREC control packet is not normally utilized for
+OpenC2. Implementers who elect to use QoS Level 2 should
+implement the PUBREC packet as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.5.
 
 ### 3.1.6 PUBREL
 
 Consistent with the guidance in [Section
-2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBREL control packet is not normally
-utilized for OpenC2 . Implementers who elect to use QoS
-Level 2 should implement the PUBREL packet as specified in
-the [MQTT v5.0](#mqtt-v50) specification.
+2.5](#25-quality-of-service) of this specification to use QoS
+Level 1, the PUBREL control packet is not normally utilized for
+OpenC2 . Implementers who elect to use QoS Level 2 should
+implement the PUBREL packet as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.6.
 
 ### 3.1.7 PUBCOMP
 
 Consistent with the guidance in [Section
-2.4](#24-quality-of-service) of this specification to use
-QoS Level 1, the PUBCOMP control packet is not normally
-utilized for OpenC2. Implementers who elect to use QoS Level
-2 should implement the PUBCOMP packet as specified in the
-[MQTT v5.0](#mqtt-v50) specification.
+2.5](#25-quality-of-service) of this specification to use QoS
+Level 1, the PUBCOMP control packet is not normally utilized for
+OpenC2. Implementers who elect to use QoS Level 2 should
+implement the PUBCOMP packet as specified in the [MQTT
+v5.0](#mqtt-v50) specification section 3.7.
 
 ### 3.1.8 SUBSCRIBE
 
