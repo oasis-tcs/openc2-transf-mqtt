@@ -234,13 +234,13 @@ In this specification, the UTF-8 String Pair data type is of particular interest
 
 Per the MQTT specification, sections 1.5.4 and 1.5.7, each string is encoded with a 2-byte length followed by the UTF-8 encoding of the string, so the general form of a UTF-8 String Pair is:  
 
- * 0x26 (identifier for User Property)
+ * 1-byte identifier for User Property [0x26]
  * 2-byte length of first string
  * UTF-8 encoding of first string
  * 2-byte length of second string
  * UTF-8 encoding of second string
 
-For the example above, the encoding would be:
+For the "key:value" example above, the encoding would be:
 
 ```
 [0x26][0x00][x03]key[0x00][x05]value
