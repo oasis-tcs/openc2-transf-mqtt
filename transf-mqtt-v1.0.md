@@ -225,6 +225,29 @@ Example:
 PUT AN EXAMPLE HERE
 ```
 
+### 1.5.3 MQTT Data Representation
+
+Section 1.5 of the MQTT v5.0 specification 
+[[MQTT-v5.0](#mqtt-v50)] defines data types relevant to the protocol. Implementations of this specification are assumed to encode and decode those data types as defined in the MQTT specification. 
+
+In this specification, the UTF-8 String Pair data type is of particular interest, as MQTT v5.0 User Properties are utilized.  Within this document, the representation for a UTF-8 String Pair User Property is `"key:value"`.
+
+Per the MQTT specification, sections 1.5.4 and 1.5.7, each string is encoded with a 2-byte length followed by the UTF-8 encoding of the string, so the general form of a UTF-8 String Pair is:  
+
+ * 0x26 (identifier for User Property)
+ * 2-byte length of first string
+ * UTF-8 encoding of first string
+ * 2-byte length of second string
+ * UTF-8 encoding of second string
+
+For the example above, the encoding would be:
+
+```
+[0x26][0x00][x03]key[0x00][x05]value
+```
+
+
+
 ## 1.6 Overview
 OpenC2 is a suite of specifications to command actuators that execute cyber defense functions.  These specifications include the OpenC2 Language Specification, Actuator Profiles (APs), and Transfer Specifications. The OpenC2 Language Specification and Actuator Profile specifications focus on the language content and meaning at the producer and consumer of the command and response while the transfer specifications focus on the protocols for their exchange.  
 In general, there are two types of participants involved in the exchange of OpenC2 messages, as depicted in Figure 1-1:
@@ -493,7 +516,7 @@ OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  
 * `Payload Format Indicator`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
 * `Content Type`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
 
-* `User Property`:  two user properties are defined to further specify the message format:
+* `User Property`:  two User Properties are defined to further specify the message format:
   * `msgType`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `"req"` (request), `"rsp"` (response), or `"ntf"` (notification)
   * `encoding`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `"json"` and `"cbor"`.
 
@@ -988,7 +1011,6 @@ for each of the publishing exchanges in Figure A-PRR, as that
 value is assigned by the initiator of each exchange:
 
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
-
 
 # Appendix X: Acronyms
 
