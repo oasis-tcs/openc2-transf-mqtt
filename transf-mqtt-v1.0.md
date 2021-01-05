@@ -121,6 +121,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
     - [3.1.12 PINGREQ](#3112-pingreq)
     - [3.1.13 PINGRESP](#3113-pingresp)
     - [3.1.14 DISCONNECT](#3114-disconnect)
+    - [3.1.15 AUTH](#3115-auth)
 - [4 Security Considerations](#4-security-considerations)
 - [5 Conformance](#5-conformance)
 - [Appendix A: Message Examples](#appendix-a-message-examples)
@@ -841,6 +842,14 @@ used.
 OpenC2 Producers and Consumers SHALL receive and process
 PINGRESP control packets from a broker as specified in [MQTT
 v5.0](#mqtt-v50), Section 3.13.
+
+### 3.1.14 DISCONNECT
+
+TBD
+
+### 3.1.15 AUTH
+
+TBD
 
 
 # 4 Security Considerations
