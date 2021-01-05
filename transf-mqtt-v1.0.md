@@ -715,7 +715,7 @@ v5.0](#mqtt-v50) specification section 3.3, to publish messages
 using the MQTT broker.  Topic selection for publishing OpenC2
 request and response messages MUST apply the default topic
 structure principles described in [Section
-2.2](##22-default-topic-structure).
+2.2](##22-default-topic-structure) of this specification.
 
 The PUBLISH packet parameters SHALL be set as follows:
 
@@ -774,17 +774,17 @@ v5.0](#mqtt-v50) specification section 3.7.
 
 ### 3.1.8 SUBSCRIBE
 
-Producers and Consumers MUST use the SUBSCRIBE control
-packet, as specified in the [MQTT v5.0](#mqtt-v50)
-specification to subscribe to a set of topics consistent
-with the default topic structure defined in [Section
-2.2](#22-default-topic-structure). This means that:
+Producers and Consumers MUST use the SUBSCRIBE control packet, as
+specified in the [MQTT v5.0](#mqtt-v50) specification section 3.8
+to subscribe to a set of topics consistent with the default topic
+structure defined in [Section 2.2](#22-default-topic-structure)
+of this specification. This means that:
 
-* Consumers subscribe to topics for all actuator profiles
-  the Consumer implements, the all commands topic
+* Consumers SHALL subscribe to topics for all actuator profiles
+  the Consumer implements, the all-commands topic
   (`oc2/cmd/all`), and an individual topic for that Consumer
   device.
-* Producers subscribe to the response topic (`oc2/rsp`).
+* Producers SHALL subscribe to the response topic (`oc2/rsp`).
 
 Topic wildcards are not normally utilized for OpenC2.
 However, implementers of OpenC2 Consumers MAY elect to use a
@@ -792,49 +792,55 @@ wildcard to subscribe to the command topics for all actuator
 profiles (`oc2/cmd/ap/#) and filter received messages at the
 Consumer to identify relevant messages.
 
-As defined in [Section 2.4](#24-quality-of-service),
-subscribers MUST specify at least QoS level 1 when
-subscribing to topics. Implementers MAY elect to use QoS
-level 2 if appropriate for their implementation.
+As defined in [Section 2.4](#24-quality-of-service) of this
+specification, subscribers MUST specify at least QoS level 1 when
+subscribing to topics. Implementers MAY elect to use QoS level 2
+if appropriate for their implementation.
 
 ### 3.1.9 SUBACK
 
 OpenC2 Producers and Consumers MUST receive and process the
 SUBACK control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification, after transmitting
+[MQTT v5.0](#mqtt-v50) specification section 3.9, after transmitting
 a SUBSCRIBE control packet to the MQTT Broker.
 
 ### 3.1.10 UNSUBSCRIBE
 
 Under normal operating circumstances OpenC2 Producers and
-Consumers are not expected to unsubscribe from their
-respective default topic selections, as described in [Section
-2.2](#22-default-topic-structure). If a reason arises to
-unsubscribe from one or more topics, the OpenC2 Producer or
-Consumer shall use the UNSUBSUBSCRIBE control packet as
-specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
+Consumers are not expected to unsubscribe from their respective
+default topic selections, as described in [Section
+2.2](#22-default-topic-structure) of this specification. If a
+reason arises to unsubscribe from one or more topics, the OpenC2
+Producer or Consumer SHALL use the UNSUBSUBSCRIBE control packet
+as specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
 
 ### 3.1.11 UNSUBACK
 
-MQTT brokers receiving an UNSUBSCRIBE control packet from an
-OpenC2 Producer or Consumer shall send an UNSUBACK packet as
-specified in [MQTT v5.0](#mqtt-v50), Section 3.11.
+Under normal operating circumstances OpenC2 Producers and
+Consumers are not expected to unsubscribe from their respective
+default topic selections, as described in [Section
+2.2](#22-default-topic-structure) of this specification. If a
+reason arises to unsubscribe from one or more topics, the OpenC2
+Producer or Consumer SHALL receive and process an UNSUBACK
+control packet from the broker as specified in [MQTT
+v5.0](#mqtt-v50), Section 3.11.
 
 ### 3.1.12 PINGREQ
 
-OpenC2 Producers and Consumers MUST send a PINGREQ control
-packet to all MQTT brokers with which they are connected if
-they have not processed any other control packets with 95%
-of the keep-alive interval defined by the implementer.  If
-the implementer has not otherwise specified a keep-alive
-interval, 95% of the value specified in [Section
-2.6](#26-keep-alive-interval) shall be used.
+OpenC2 Producers and Consumers MUST send a PINGREQ control packet
+to all MQTT brokers with which they are connected if they have
+not processed any other control packets with 95% of the
+keep-alive interval defined by the implementer.  If the
+implementer has not otherwise specified a keep-alive interval,
+95% of the value specified in [Section
+2.6](#26-keep-alive-interval) of this specification shall be
+used.
 
 ### 3.1.13 PINGRESP
 
-MQTT brokers receiving a PINGREQ control packet from an
-OpenC2 Producer or Consumer shall send a PINGRESP packet as
-specified in [MQTT v5.0](#mqtt-v50), Section 3.13.
+OpenC2 Producers and Consumers SHALL receive and process
+PINGRESP control packets from a broker as specified in [MQTT
+v5.0](#mqtt-v50), Section 3.13.
 
 
 # 4 Security Considerations
