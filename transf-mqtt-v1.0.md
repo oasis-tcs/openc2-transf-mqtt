@@ -139,7 +139,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 # 1 Introduction
 _This section is non-normative._
 
-> **NOTE:**  The content of Section 1 is currently a direct
+> **NOTE:**  The content of Section 1 is currently a _modified_
 > copy-and-paste from previous OpenC2 specifications. It is
 > anticipated that this section will be greatly abbreviated once
 > the relevant material is captured in the _OpenC2 Architecture
@@ -150,7 +150,7 @@ _This section is non-normative._
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
 
-OpenC2 allows the application producing the commands to discover the set of capabilities supported by the managed devices.  These capabilities permit the managing application to adjust its behavior to take advantage of the features exposed by the managed device.  The capability definitions can be easily extended in a noncentralized manner, allowing standard and non-standard capabilities to be defined with semantic and syntactic rigor.
+This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 message's between Producers and Consumers. Version 5 of the MQTT Specification ([MQTT-v5.0](#mqtt-v50)) is used as it includes features useful for OpenC2 that are not available in [MQTT v3.1.1](#mqtt-v311).
 
 ## 1.1 IPR Policy
 This specification is provided under the [Non-Assertion](https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertion-Mode) Mode of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page ([https://www.oasis-open.org/committees/openc2/ipr.php](https://www.oasis-open.org/committees/openc2/ipr.php)).
