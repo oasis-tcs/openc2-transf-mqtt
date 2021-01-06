@@ -83,14 +83,21 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
+          - [[RFC2119]](#rfc2119)
+          - [[RFC8174]](#rfc8174)
+          - [[RFC8259]](#rfc8259)
+          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
+          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
+          - [[RFC3552]](#rfc3552)
+          - [[IACD]](#iacd)
+          - [[mqtt-v3.1.1]](#mqtt-v311)
+          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
     - [1.5.2 Font Colors and Style](#152-font-colors-and-style)
     - [1.5.3 MQTT Data Representation](#153-mqtt-data-representation)
-  - [1.6 Overview](#16-overview)
-  - [1.7 Goal](#17-goal)
 - [2 Operating Model](#2-operating-model)
   - [2.1 Publishers, Subscribers, and Brokers](#21-publishers-subscribers-and-brokers)
   - [2.2 Default Topic Structure](#22-default-topic-structure)
@@ -205,8 +212,10 @@ A list of acronyms is provided in [Appendix X](#appendix-x-acronyms).
 ## 1.5 Document Conventions
 
 ### 1.5.1 Naming Conventions
-* [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words (see section 1.2) are in all uppercase.
+* [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words are in all uppercase.
 * All MQTT property names are in Initial Cap (e.g., User Property).
+
+> **NOTE:** need to do a scrub to ensure the foregoing statement is true.
 
 ### 1.5.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
@@ -244,73 +253,6 @@ For the "key:value" example above, the encoding would be:
 [0x26][0x00][x03]key[0x00][x05]value
 ```
 
-
-
-## 1.6 Overview
-OpenC2 is a suite of specifications to command actuators that execute cyber defense functions.  These specifications include the OpenC2 Language Specification, Actuator Profiles (APs), and Transfer Specifications. The OpenC2 Language Specification and Actuator Profile specifications focus on the language content and meaning at the producer and consumer of the command and response while the transfer specifications focus on the protocols for their exchange.  
-In general, there are two types of participants involved in the exchange of OpenC2 messages, as depicted in Figure 1-1:
-
-1. **OpenC2 Producers**: An OpenC2 Producer is an entity that creates commands to provide instruction to one or more systems to act in accordance with the content of the command. An OpenC2 Producer may receive and process responses in conjunction with a command.
-2. **OpenC2 Consumers**: An OpenC2 Consumer is an entity that receives and may act upon an OpenC2 command.  An OpenC2 Consumer may create responses that provide any information captured or necessary to send back to the OpenC2 Producer. 
-
-* The OpenC2 Language Specification [[OpenC2-Lang-v1.0](#openc2-lang-v10)] provides the semantics for the essential elements of the language, the structure for commands and responses, and the schema that defines the proper syntax for the language elements that represents the command or response.
-* OpenC2 Actuator Profiles specify the subset of the OpenC2 language relevant in the context of specific actuator functions. Cyber defense components, devices, systems and/or instances may (in fact are likely) to implement multiple actuator profiles.  Actuator profiles extend the language by defining specifiers that identify the actuator to the required level of precision. Actuator Profiles may define command arguments and targets that are relevant and/or unique to those actuator functions.
-* OpenC2 Transfer Specifications utilize existing protocols and standards to implement OpenC2 in specific environments. These standards are used for communications and security functions beyond the scope of the language, such as message transfer encoding, authentication, and end-to-end transport of OpenC2 messages.
-
-The OpenC2 Language Specification defines a language used to compose messages for command and control of cyber defense systems and components.  A message consists of a header and a payload (_defined_ as a message body in the OpenC2 Language Specification Version 1.0 and _specified_ in one or more actuator profiles). 
-
-The language defines two payload structures:
-
-1. **Command**: An instruction from one system known as the OpenC2 "Producer", to one or more systems, the OpenC2 "Consumer(s)", to act on the content of the command.
-2. **Response**: Any information sent back to the OpenC2 Producer as a result of the command.  
-
-![no alt title](./images/MessageFlow.png)
-
-**Figure 1-1. OpenC2 Message Exchange**
-
-OpenC2 implementations integrate the related OpenC2 specifications described above with related industry specifications, protocols, and standards. Figure 1-2 depicts the relationships among OpenC2 specifications, and their relationships to other industry standards and environment-specific implementations of OpenC2. Note that the layering of implementation aspects in the diagram is notional, and not intended to preclude any particular approach to implementing the needed functionality (for example, the use of an application-layer message signature function to provide message source authentication and integrity). 
-
-![no alt title](./images/OC2LayeringModel.png )
-
-**Figure 1-2. OpenC2 Documentation and Layering Model**
-
-OpenC2 is conceptually partitioned into four layers as shown in Table 1-1.
-
-**Table 1-1. OpenC2 Protocol Layers**
-
-| Layer | Examples |
-| :--- | :--- |
-| Function-Specific Content | Actuator Profiles<br>(standard and extensions) |
-| Common Content | [OpenC2 Language Specification](http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html) |
-| Message | Transfer Specifications<br>(OpenC2-over-HTTPS, OpenC2-over-CoAP, …) |
-| Secure Transport | HTTPS, CoAP, MQTT, OpenDXL, ... |
-
-* The **Secure Transport** layer provides a communication path between the producer and the consumer.  OpenC2 can be layered over any standard transport protocol.
-* The **Message** layer provides a transport- and content-independent mechanism for conveying requests, responses, and notifications.  A transfer specification maps transport-specific protocol elements to a transport-independent set of message elements consisting of content and associated metadata.  
-* The **Common Content** layer defines the structure of OpenC2 commands and responses and a set of common language elements used to construct them.
-* The **Function-specific Content** layer defines the language elements used to support a particular cyber defense function.  An actuator profile defines the implementation conformance requirements for that function.  OpenC2 Producers and Consumers will support one or more profiles.
-
-
-The components of an OpenC2 Command are an action (what is to be done), a target (what is being acted upon), an optional actuator (what is performing the command), and command arguments, which influence how the command is to be performed. An action coupled with a target is sufficient to describe a complete OpenC2 Command. Though optional, the inclusion of an actuator and/or command arguments provides additional precision to a command, when needed.
-
-The components of an OpenC2 Response are a numerical status code, an optional status text string, and optional results. The format of the results, if included, depend on the type or response being transferred. 
-
-## 1.7 Goal
-The goal of the OpenC2 Language Specification is to provide a language for interoperating between functional elements of cyber defense systems. This language used in conjunction with OpenC2 Actuator Profiles and OpenC2 Transfer Specifications allows for vendor-agnostic cybertime response to attacks.
-
-The Integrated Adaptive Cyber Defense (IACD) framework defines a collection of activities, based on the traditional OODA (Observe–Orient–Decide–Act) Loop [[IACD](#IACD)]:
-
-* Sensing:  gathering of data regarding system activities
-* Sense Making:  evaluating data using analytics to understand what's happening
-* Decision Making:  determining a course-of-action to respond to system events
-* Acting:  Executing the course-of-action 
-
-The goal of OpenC2 is to enable coordinated defense in cyber-relevant time between decoupled blocks that perform cyber defense functions.  OpenC2 focuses on the Acting portion of the IACD framework; the assumption that underlies the design of OpenC2 is that the sensing/analytics have been provisioned and the decision to act has been made. This goal and these assumptions guides the design of OpenC2:
-
-* **Technology Agnostic:**  The OpenC2 language defines a set of abstract atomic cyber defense actions in a platform and implementation agnostic manner
-* **Concise:**  An OpenC2 command is intended to convey only the essential information required to describe the action required and can be represented in a very compact form for communications-constrained environments
-* **Abstract:**  OpenC2 commands and responses are defined abstractly and can be encoded and transferred via multiple schemes as dictated by the needs of different implementation environments
-* **Extensible:**  While OpenC2 defines a core set of actions and targets for cyber defense, the language is expected to evolve with cyber defense technologies, and permits extensions to accommodate new cyber defense technologies.
 
 # 2 Operating Model
 
