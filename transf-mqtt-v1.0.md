@@ -790,7 +790,7 @@ of this specification. This means that:
 Topic wildcards are not normally utilized for OpenC2.
 However, implementers of OpenC2 Consumers MAY elect to use a
 wildcard to subscribe to the command topics for all actuator
-profiles (`oc2/cmd/ap/#) and filter received messages at the
+profiles (`oc2/cmd/ap/#`) and filter received messages at the
 Consumer to identify relevant messages.
 
 When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
