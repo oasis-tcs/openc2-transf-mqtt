@@ -793,6 +793,13 @@ wildcard to subscribe to the command topics for all actuator
 profiles (`oc2/cmd/ap/#) and filter received messages at the
 Consumer to identify relevant messages.
 
+When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
+
+* `Maximum QoS: 2`
+* `No Local: 1 (true)`
+* `Retain as Published: 1` 
+* `Retain Handling: 0` 
+
 As defined in [Section 2.4](#24-quality-of-service) of this
 specification, subscribers MUST specify at least QoS level 1 when
 subscribing to topics. Implementers MAY elect to use QoS level 2
