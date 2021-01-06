@@ -141,10 +141,12 @@ _This section is non-normative._
 
 > **NOTE:**  The content of Section 1 is currently a direct
 > copy-and-paste from previous OpenC2 specifications. It is
-> anticipated that this section will be greatly abbreviated
-> once the relevant material is captured in the _OpenC2
-> Architecture Specification_. Relevant content for
-> reviewer is currently in [Section 2](#2-operating-model) and [Appendix A](#appendix-a-message-examples).
+> anticipated that this section will be greatly abbreviated once
+> the relevant material is captured in the _OpenC2 Architecture
+> Specification_. Relevant content for reviewer is currently in
+> [Section 2](#2-operating-model), [Section
+> 3](#3-protocol-mapping) and [Appendix
+> A](#appendix-a-message-examples).
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
 
@@ -204,38 +206,33 @@ A list of acronyms is provided in [Appendix X](#appendix-x-acronyms).
 
 ### 1.5.1 Naming Conventions
 * [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words (see section 1.2) are in all uppercase.
-* All property names and literals are in lowercase, except when referencing canonical names defined in another standard (e.g., literal values from an IANA registry).
-* All words in structure component names are capitalized and are separated with a hyphen, e.g., ACTION, TARGET, TARGET-SPECIFIER.
-* Words in property names are separated with an underscore (_), while words in string enumerations and type names are separated with a hyphen (-).
-* The term "hyphen" used here refers to the ASCII hyphen or minus character, which in Unicode is "hyphen-minus", U+002D.
-* All type names, property names, object names, and vocabulary terms are between three and 40 characters long.
+* All MQTT property names are in Initial Cap (e.g., User Property).
 
 ### 1.5.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
 
 * A fixed width font is used for all type names, property names, and literals.
 
-* Property names are in bold style – **'created_at'**.
-
-* All examples in this document are expressed in JSON. They are in fixed width font, with straight quotes, black text and a light shaded background, and 4-space indentation. JSON examples in this document are representations of JSON Objects. They should not be interpreted as string literals. The ordering of object keys is insignificant. Whitespace before or after JSON structural characters in the examples are insignificant [[RFC8259](#rfc8259)].
-* Parts of the example may be omitted for conciseness and clarity. These omitted parts are denoted with the ellipses (...).
-
-Example:
-
-```
-PUT AN EXAMPLE HERE
-```
 
 ### 1.5.3 MQTT Data Representation
 
-Section 1.5 of the MQTT v5.0 specification 
-[[MQTT-v5.0](#mqtt-v50)] defines data types relevant to the protocol. Implementations of this specification are assumed to encode and decode those data types as defined in the MQTT specification. 
+Section 1.5 of the MQTT v5.0 specification
+[[MQTT-v5.0](#mqtt-v50)] defines data types relevant to the
+protocol. Implementations of this specification are assumed to
+encode and decode those data types as defined in the MQTT
+specification. 
 
-In this specification, the UTF-8 String Pair data type is of particular interest, as MQTT v5.0 User Properties are utilized.  Within this document, the representation for a UTF-8 String Pair User Property is `"key:value"`.
+In this specification, the UTF-8 String Pair data type
+([[MQTT-v5.0](#mqtt-v50)], section 1.5.7) is of particular
+interest, as MQTT v5.0 User Properties are utilized. Within this
+document, the representation for a UTF-8 String Pair User
+Property is `"key:value"`.
 
-Per the MQTT specification, sections 1.5.4 and 1.5.7, each string is encoded with a 2-byte length followed by the UTF-8 encoding of the string, so the general form of a UTF-8 String Pair is:  
+Per the MQTT specification, sections 1.5.4 and 1.5.7, each string
+is encoded with a 2-byte length followed by the UTF-8 encoding of
+the string, so the general form of a UTF-8 String Pair is:  
 
- * 1-byte identifier for User Property [0x26]
+ * 1-byte identifier for User Property `[0x26]`
  * 2-byte length of first string
  * UTF-8 encoding of first string
  * 2-byte length of second string
