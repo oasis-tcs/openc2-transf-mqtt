@@ -400,7 +400,7 @@ The specifics of serializing OpenC2 messages are defined in other OpenC2 specifi
 
 OpenC2 messages transferred using MQTT utilize the
 `OpenC2-Message` structure containing the message elements
-listed in Section 3.2 of [OpenC2-Lang-v1.0](openc2-lang-v10).
+listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
  ```
  OpenC2-Message = Record {
      1 content         Content,                  // Message body as specified by msg_type (the ID/Name of Content)
@@ -621,7 +621,7 @@ as specified:
 |  | Will Retain | 0 |
 |  | User Name Flag | TBD |
 |  | Password Flag | TBD |
-| VH | Keep Alive  | Number < 300 (seconds) |
+| VH | Keep Alive  | Number <= 300 (seconds) |
 | VH | Session Expiry  | TBD |
 | PL | Client Identifier | client-generated ID |
 | PL | Username | TBD  |
@@ -961,7 +961,7 @@ operating model, the corresponding question(s) should be deleted.
       information when a device is disconnected; A proposal
       not to use this feature is contained in [Section
       2.8](#28-will-message).
->   - The [Sparkplug B specification](sparkplug-b) defines a
+>   - The [Sparkplug B specification](#sparkplug-b) defines a
   birth certificate mechanism to provide information when
   devices become connected.
 >   - The operating model should address whether and how OpenC2
