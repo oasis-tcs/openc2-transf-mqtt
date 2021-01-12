@@ -919,6 +919,104 @@ value is assigned by the initiator of each exchange:
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
 
+## A.3 Example 3:  Query Consumer Actuator Profiles
+
+This example illustrates the use of the OpenC2 `query` action over MQTT to retrieve the list of actuator profiles supported by a set of consumers. This example includes three consumers that implement several different actuator profiles, as follows:
+
+* Consumer #1 implements the stateless packet filtering AP (`slpf`)
+* Consumer #2 implements the stateless packet filtering and intrusion detection system APs (`slpf` and `ids`)
+* Consumer #3 implements the endpoint detection and response and software bill of materials (SBOM) APs (`eds` and `sbom`)
+
+> **NOTES:** 
+> 1. The PUBLISH / PUBACK sequences among Producers, Consumers,
+>    and Brokers are similar to those illustrated in Example 2,
+>    so no sequence diagram is provided. This example only
+>    includes the PUBLISH control packets.
+> 2. For compactness these examples use a simplified `request_id`
+>    rather than the UUID_v4 format recommended for OpenC2.
+
+The Producer initiates this process by publishing a `query` request to `oc2/cmd/all`. The OpenC2 request message content and corresponding MQTT PUBLISH control packet are:
+
+
+``` json
+{
+  "headers": {
+    "request_id": "abc123",
+    "created": 1610483630,
+    "from": "Producer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "request": {
+        "action": "query",
+        "target": {
+          "features": ["profiles"]}}}}}
+```
+![Producer Request](./images/a3-producer-req.png)
+
+
+
+The consumer responses are as follows:
+
+_Consumer 1:_
+
+``` json
+{
+  "headers": {
+    "request_id": "abc123",
+    "created": 1610483633,
+    "from": "Consumer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 200,
+        "results": {
+          "profiles": ["slpf"]}}}}}
+```
+![Consumer 1 Response](./images/a3-cnsmr1-rsp.png)
+
+
+_Consumer 2:_
+
+``` json
+{
+  "headers": {
+    "request_id": "abc123",
+    "created": 1610483632,
+    "from": "Consumer2@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 200,
+        "results": {
+          "profiles": ["slpf","ids"]}}}}}
+```
+![Consumer 2 Response](./images/a3-cnsmr2-rsp.png)
+
+_Consumer 3:_
+
+
+``` json
+{
+  "headers": {
+    "request_id": "abc123",
+    "created": 1610483632,
+    "from": "Consumer3@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 200,
+        "results": {
+          "profiles": ["edr","sbom"]}}}}}
+
+```
+![Consumer 3 Response](./images/a3-cnsmr3-rsp.png)
+
+
+
 # Appendix W: Operating Model Questions
 
 > NOTE: This appendix contains the questions originally used to help drive the operating model described in [Section 2, Operating Model](#2-operating-model).  The intent is that this Appendix will be deleted prior to public review of this specification.
@@ -1047,3 +1145,4 @@ TBD | TBD | TBD
 | WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Presented as a CSD candidate at the 16 September 2020 TC meeting.|
 | WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
 | WD05 | 2021-01-xx | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
+
