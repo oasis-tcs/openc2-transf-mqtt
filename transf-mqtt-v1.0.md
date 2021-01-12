@@ -80,10 +80,32 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 
 # Table of Contents
 
+- [Specification for Transfer of OpenC2 Messages via MQTT Version 1.0](#specification-for-transfer-of-openc2-messages-via-mqtt-version-10)
+  - [Working Draft 05](#working-draft-05)
+  - [XX January 2021](#xx-january-2021)
+    - [Technical Committee:](#technical-committee)
+    - [Chairs:](#chairs)
+    - [Editors:](#editors)
+    - [Related work:](#related-work)
+    - [Abstract:](#abstract)
+    - [Status:](#status)
+    - [URI patterns:](#uri-patterns)
+    - [Citation format:](#citation-format)
+  - [Notices](#notices)
+- [Table of Contents](#table-of-contents)
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
+          - [[RFC2119]](#rfc2119)
+          - [[RFC8174]](#rfc8174)
+          - [[RFC8259]](#rfc8259)
+          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
+          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
+          - [[RFC3552]](#rfc3552)
+          - [[IACD]](#iacd)
+          - [[mqtt-v3.1.1]](#mqtt-v311)
+          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
@@ -123,11 +145,11 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [4 Security Considerations](#4-security-considerations)
 - [5 Conformance](#5-conformance)
 - [Appendix A: Message Examples](#appendix-a-message-examples)
-  - [A.1 Example 1: _Connect and Subscribe_](#a1-example-1-connect-and-subscribe)
+  - [A.1 Example 1: Connect and Subscribe](#a1-example-1-connect-and-subscribe)
       - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
-  - [A.2  Example 2:  _Command / Response Exchange_](#a2--example-2--command--response-exchange)
+  - [A.2  Example 2: Command / Response Exchange](#a2-example-2-command--response-exchange)
       - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
-  - [A.3 Example 3:  _Query Consumer Actuator Profiles_](#a3-example-3--query-consumer-actuator-profiles)
+  - [A.3 Example 3: Query Consumer Actuator Profiles](#a3-example-3-query-consumer-actuator-profiles)
 - [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
 - [Appendix X: Acronyms](#appendix-x-acronyms)
 - [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
@@ -866,7 +888,7 @@ MQTT control packet examples in this appendix present packet contents relevant t
 > suggestions for improving the presentation format.
 
 
-## A.1 Example 1: _Connect and Subscribe_
+## A.1 Example 1: Connect and Subscribe
 
 Figure A-CAS illustrates the process of a Producer (ie., an
 Orchestrator) and a Consumer each connecting to the MQTT broker
@@ -889,7 +911,7 @@ The Consumer SUBSCRIBE and Broker SUBACK packets for this example are shown belo
 
 ![SUBSCRIBE and SUBACK](./images/sub-and-suback.png)
 
-## A.2  Example 2:  _Command / Response Exchange_
+## A.2  Example 2: Command / Response Exchange
 
 The example messages below illustrate the process of an OpenC2
 Producer publishing a command to the channel for a specific
@@ -922,7 +944,7 @@ value is assigned by the initiator of each exchange:
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
 
-## A.3 Example 3:  _Query Consumer Actuator Profiles_
+## A.3 Example 3: Query Consumer Actuator Profiles
 
 This example illustrates the use of the OpenC2 `query` action over MQTT to retrieve the list of actuator profiles supported by a set of consumers. This example includes three consumers that implement several different actuator profiles, as follows:
 
