@@ -127,7 +127,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
       - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
   - [A.2  Example 2:  _Command / Response Exchange_](#a2--example-2--command--response-exchange)
       - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
-  - [A.3 Example 3:  Query Consumer Actuator Profiles](#a3-example-3--query-consumer-actuator-profiles)
+  - [A.3 Example 3:  _Query Consumer Actuator Profiles_](#a3-example-3--query-consumer-actuator-profiles)
 - [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
 - [Appendix X: Acronyms](#appendix-x-acronyms)
 - [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
@@ -922,7 +922,7 @@ value is assigned by the initiator of each exchange:
 ![PUBLISH and PUBACK](./images/pub-and-puback.png)
 
 
-## A.3 Example 3:  Query Consumer Actuator Profiles
+## A.3 Example 3:  _Query Consumer Actuator Profiles_
 
 This example illustrates the use of the OpenC2 `query` action over MQTT to retrieve the list of actuator profiles supported by a set of consumers. This example includes three consumers that implement several different actuator profiles, as follows:
 
