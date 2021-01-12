@@ -127,6 +127,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
       - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
   - [A.2  Example 2:  _Command / Response Exchange_](#a2--example-2--command--response-exchange)
       - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
+  - [A.3 Example 3:  Query Consumer Actuator Profiles](#a3-example-3--query-consumer-actuator-profiles)
 - [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
 - [Appendix X: Acronyms](#appendix-x-acronyms)
 - [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
@@ -335,6 +336,8 @@ A notional OpenC2 Producer wishing to command the individual
 Consumer with identity `zulu` would publish the command to: 
 
 * `oc2/cmd/device/zulu`
+
+Additional examples of publishing exchanges can be found in [Appendix A](#appendix-a-message-examples).
 
 ---
 
