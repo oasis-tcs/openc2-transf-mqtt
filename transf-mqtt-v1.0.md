@@ -592,7 +592,15 @@ to be discarded if clients are disconnected for extended periods.
 
 ## 2.10 Session Expiry and Message Expiry Intervals
 
-The MQTT v5.0 CONNECT control packet includes a `Session Expiry Interval` property that informs the broker how long the Client's session state must be retained when the session is disconnected.  The MQTT v5.0 PUBLISH control packet includes a `Message Expiry Interval` property that specifies the lifetime of the Application Message in seconds. This transfer specification makes no recommendations regarding appropriate values for either expiry interval. Implementers are encouraged to evaluate their use cases to define reasonable values for these properties. 
+The MQTT v5.0 CONNECT control packet includes a `Session Expiry
+Interval` property that informs the broker how long the Client's
+session state must be retained when the session is disconnected.
+The MQTT v5.0 PUBLISH control packet includes a `Message Expiry
+Interval` property that specifies the lifetime of the Application
+Message in seconds. This transfer specification makes no
+recommendations regarding appropriate values for either expiry
+interval. Implementers are encouraged to evaluate their use cases
+to define reasonable values for these properties. 
 
 
 # 3 Protocol Mapping
@@ -913,19 +921,19 @@ the username `zulu01`. The Producer is assigned the username
 
 #### Figure A-CAS: Connect and Subscribe
 
-![Connect and Subscribe Sequence](./images/con_sub.png)
+![Connect and Subscribe Sequence](./images/a1-con_sub.png)
 
 
 The Producer and Consumer CONNECT packets for this example are as
 follows; the optional username and password fields of the CONNECT
 packets are populated in this example:
 
-![Producer and Consumer Connect Cackets](./images/connect-packets.png)
+![Producer and Consumer Connect Cackets](./images/a1-connect-packets.png)
 
  
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example are shown below; `Subscription Options` are populated as specified in [section 3.1.8](#318-subscribe) of this specification:
 
-![SUBSCRIBE and SUBACK](./images/sub-and-suback.png)
+![SUBSCRIBE and SUBACK](./images/a1-sub-and-suback.png)
 
 ## A.2  Example 2: Command / Response Exchange
 
@@ -947,7 +955,7 @@ recipient to respond to the PUBLISH packet with a PUBACK packet.
 
 #### Figure A-PRR: Publish Request and Response
 
-![Basic Interaction Sequence](./images/req_rsp.png)
+![Basic Interaction Sequence](./images/a2-req_rsp.png)
 
 The `PUBLISH` and `PUBACK` control packets for the command
 portion of this example are as follows. The packet contents
@@ -957,7 +965,7 @@ with the exception that the `packetId` field  will differ for
 each of the three publishing exchanges in Figure A-PRR, as that
 value is assigned by the initiator of each exchange:
 
-![PUBLISH and PUBACK](./images/pub-and-puback.png)
+![PUBLISH and PUBACK](./images/a2-pub-and-puback.png)
 
 
 ## A.3 Example 3: Query Consumer Actuator Profiles
