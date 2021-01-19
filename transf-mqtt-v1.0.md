@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 05
-## XX January 2021
+## 19 January 2021
 
 ### Technical Committee:
 * [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
@@ -80,19 +80,6 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 
 # Table of Contents
 
-- [Specification for Transfer of OpenC2 Messages via MQTT Version 1.0](#specification-for-transfer-of-openc2-messages-via-mqtt-version-10)
-  - [Working Draft 05](#working-draft-05)
-  - [XX January 2021](#xx-january-2021)
-    - [Technical Committee:](#technical-committee)
-    - [Chairs:](#chairs)
-    - [Editors:](#editors)
-    - [Related work:](#related-work)
-    - [Abstract:](#abstract)
-    - [Status:](#status)
-    - [URI patterns:](#uri-patterns)
-    - [Citation format:](#citation-format)
-  - [Notices](#notices)
-- [Table of Contents](#table-of-contents)
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
@@ -933,7 +920,10 @@ packets are populated in this example:
 ![Producer and Consumer Connect Cackets](./images/a1-connect-packets.png)
 
  
-The Consumer SUBSCRIBE and Broker SUBACK packets for this example are shown below; `Subscription Options` are populated as specified in [section 3.1.8](#318-subscribe) of this specification:
+The Consumer SUBSCRIBE and Broker SUBACK packets for this example
+are shown below; `Subscription Options` are populated as
+specified in [section 3.1.8](#318-subscribe) of this
+specification:
 
 ![SUBSCRIBE and SUBACK](./images/a1-sub-and-suback.png)
 
