@@ -415,6 +415,7 @@ The specifics of serializing OpenC2 messages are defined in other OpenC2 specifi
 OpenC2 messages transferred using MQTT utilize the
 `OpenC2-Message` structure containing the message elements
 listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
+
  ```
  OpenC2-Message = Record {
      1 content         Content,                  // Message body as specified by msg_type (the ID/Name of Content)
@@ -881,7 +882,19 @@ Remove this note before submitting for publication.)
 
 _This appendix is non-normative in its entirety._
 
-MQTT control packet examples in this appendix present packet contents relevant to the function(s) being illustrated but do not include all required control packet contents (e.g., computed length fields are not listed, bitmapped flags are written out to convey intent rather than presented as bitmaps).
+MQTT control packet examples in this appendix present packet
+contents relevant to the function(s) being illustrated but do not
+include all required control packet contents (e.g., computed
+length fields are not listed, bitmapped flags are written out to
+convey intent rather than presented as bitmaps).
+
+The OpenC2 Language Specification defines the `from` and `to`
+fields in OpenC2 messages as strings containing "Authenticated
+identifier of the creator of or authority for execution of a
+message." No definition is provided regarding the content of the
+`from` and `to` strings. The examples in this Appendix populate
+these fields with notional Producer and Consumer email addresses
+for convenience and readability.
 
 > **EDITOR'S NOTE:** Example message creation and presentation
 > format are work-in-progress. The editor welcomes
@@ -999,6 +1012,7 @@ _Consumer 1:_
         "results": {
           "profiles": ["slpf"]}}}}}
 ```
+
 ![Consumer 1 Response](./images/a3-cnsmr1-rsp.png)
 
 
@@ -1018,6 +1032,7 @@ _Consumer 2:_
         "results": {
           "profiles": ["slpf","ids"]}}}}}
 ```
+
 ![Consumer 2 Response](./images/a3-cnsmr2-rsp.png)
 
 _Consumer 3:_
@@ -1038,6 +1053,7 @@ _Consumer 3:_
           "profiles": ["edr","sbom"]}}}}}
 
 ```
+
 ![Consumer 3 Response](./images/a3-cnsmr3-rsp.png)
 
 
