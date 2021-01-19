@@ -83,16 +83,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
-          - [[RFC2119]](#rfc2119)
-          - [[RFC8174]](#rfc8174)
-          - [[RFC8259]](#rfc8259)
-          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
-          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
-          - [[RFC3552]](#rfc3552)
-          - [[IACD]](#iacd)
-          - [[mqtt-v3.1.1]](#mqtt-v311)
-          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
@@ -146,15 +137,6 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 
 # 1 Introduction
 _This section is non-normative._
-
-> **NOTE:**  The content of Section 1 is currently a _modified_
-> copy-and-paste from previous OpenC2 specifications. It is
-> anticipated that this section will be greatly abbreviated once
-> the relevant material is captured in the _OpenC2 Architecture
-> Specification_. The primary relevant content for reviewers is
-> currently in [Section 2](#2-operating-model), [Section
-> 3](#3-protocol-mapping) and [Appendix
-> A](#appendix-a-message-examples).
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
 
