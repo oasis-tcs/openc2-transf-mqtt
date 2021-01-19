@@ -24,7 +24,7 @@ P -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
 return CONNACK
-P -> B : SUBSCRIBE (oc2/rsp)
+P -> B : SUBSCRIBE\n(oc2/rsp,\noc2/rsp/orch01)
 activate B
 B -> B : validate\nsubscription\nparameters
 return SUBACK

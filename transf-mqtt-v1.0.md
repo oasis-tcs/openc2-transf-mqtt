@@ -330,9 +330,11 @@ would subscribe using the following topic filters:
 * `oc2/cmd/device/[device_id]` for that device's ID
 
 
-In order to receive responses to the commands it sends, 
-a Producer connected to the broker would subscribe using the following topic filter:
+In order to receive responses to the commands it sends, a
+Producer connected to the broker would subscribe using the
+following topic filter:
 * `oc2/rsp`
+* `oc2/rsp/[producer_id]`
 
 ---
 
