@@ -319,6 +319,7 @@ specification.
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
 | `oc2/cmd/device/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
+| `oc2/rsp/[producer_id]`  | Used to return OpenC2 response messages to a specific producer.  | Sub | Pub |
 
 
 In order to receive commands intended for its security 
@@ -891,10 +892,10 @@ convey intent rather than presented as bitmaps).
 The OpenC2 Language Specification defines the `from` and `to`
 fields in OpenC2 messages as strings containing "Authenticated
 identifier of the creator of or authority for execution of a
-message." No definition is provided regarding the content of the
-`from` and `to` strings. The examples in this Appendix populate
-these fields with notional Producer and Consumer email addresses
-for convenience and readability.
+message." No further definition is provided regarding the content
+of the `from` and `to` strings. The examples in this Appendix
+populate these fields with notional Producer and Consumer email
+addresses for convenience and readability.
 
 > **EDITOR'S NOTE:** Example message creation and presentation
 > format are work-in-progress. The editor welcomes
