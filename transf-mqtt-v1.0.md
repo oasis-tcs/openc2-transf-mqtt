@@ -915,7 +915,9 @@ the username `zulu01`. The Producer is assigned the username
 ![Connect and Subscribe Sequence](./images/con_sub.png)
 
 
-The Producer and Consumer CONNECT packets for this example are as follows; the optional username and password fields of the CONNECT packets are populated in this example:
+The Producer and Consumer CONNECT packets for this example are as
+follows; the optional username and password fields of the CONNECT
+packets are populated in this example:
 
 ![Producer and Consumer Connect Cackets](./images/connect-packets.png)
 
@@ -959,11 +961,17 @@ value is assigned by the initiator of each exchange:
 
 ## A.3 Example 3: Query Consumer Actuator Profiles
 
-This example illustrates the use of the OpenC2 `query` action over MQTT to retrieve the list of actuator profiles supported by a set of consumers. This example includes three consumers that implement several different actuator profiles, as follows:
+This example illustrates the use of the OpenC2 `query` action
+over MQTT to retrieve the list of actuator profiles supported by
+a set of consumers. This example includes three consumers that
+implement several different actuator profiles, as follows:
 
-* Consumer #1 implements the stateless packet filtering AP (`slpf`)
-* Consumer #2 implements the stateless packet filtering and intrusion detection system APs (`slpf` and `ids`)
-* Consumer #3 implements the endpoint detection and response and software bill of materials (SBOM) APs (`eds` and `sbom`)
+* Consumer #1 implements the stateless packet filtering AP
+  (`slpf`)
+* Consumer #2 implements the stateless packet filtering and
+  intrusion detection system APs (`slpf` and `ids`)
+* Consumer #3 implements the endpoint detection and response and
+  software bill of materials (SBOM) APs (`eds` and `sbom`)
 
 > **NOTES:** 
 > 1. The PUBLISH / PUBACK sequences among Producers, Consumers,
@@ -973,7 +981,12 @@ This example illustrates the use of the OpenC2 `query` action over MQTT to retri
 > 2. For compactness these examples use a simplified `request_id`
 >    rather than the UUID_v4 format recommended for OpenC2.
 
-The Producer initiates this process by publishing a `query` request to `oc2/cmd/all`. The OpenC2 request message content and corresponding MQTT PUBLISH control packet are:
+The Producer initiates this process by publishing a `query`
+request to `oc2/cmd/all`. The OpenC2 request message contents and
+corresponding MQTT PUBLISH control packet are shown below,
+followed by the Consumer replies. The PUBLISH control packet
+fields and OpenC2 message content that varies among the packets
+is shown in red in the packet examples for clarity.
 
 
 ``` json
