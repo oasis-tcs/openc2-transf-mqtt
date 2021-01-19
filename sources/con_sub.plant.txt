@@ -17,26 +17,31 @@ skinparam sequenceMessageAlign direction
 actor Producer as P
 participant Broker as B
 actor Consumer as C
-note over C: Consumer ID is zulu\nAPs: Alpha, Iota
-group Orchestrator Connect & Subscribe
+note over P: Producer ID is orch01 
+note over C: Consumer ID is zulu01\nAPs: alpha, iota
+group Producer Connect & Subscribe
 P -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
-return : CONNACK
-P -> B : SUBSCRIBE (oc2/rsp)
+return CONNACK
+P -> B : SUBSCRIBE\n(oc2/rsp,\noc2/rsp/orch01)
 activate B
 B -> B : validate\nsubscription\nparameters
-return : SUBACK
+return SUBACK
 end
+
+' put a little vertical space between the groups
+|||
+
 group Consumer Connect & Subscribe
 C -> B : CONNECT
 activate B
 B -> B : validate\nconnection\nparameters
-return : CONNACK
-C -> B : SUBSCRIBE (oc2/cmd/ap/alpha,\noc2/cmd/ap/iota,\noc2/cmd/all,\noc2/device/zulu)
+return CONNACK
+C -> B : SUBSCRIBE (oc2/cmd/ap/alpha,\noc2/cmd/ap/iota,\noc2/cmd/all,\noc2/device/zulu01)
 activate B
 B -> B : validate\nsubscription\nparameters
 
-return : SUBACK
+return SUBACK
 end
 @enduml
