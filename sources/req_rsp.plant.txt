@@ -1,0 +1,43 @@
+@startuml
+' PlantUML source to generate sequence diagram:
+' *************************
+' Request and Response
+' *************************
+' Use with PlantUML.com's online server
+' http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+' Paste this code in and use submit button to 
+' regenerate the diagram
+' PlantUML help for sequence diagram formatting is at 
+' https://plantuml.com/sequence-diagram
+
+hide footbox
+skinparam sequenceMessageAlign direction
+Title Publish Request and Response
+actor Producer as P
+participant Broker as B
+actor "Consumer Xray" as X
+actor "Consumer Zulu" as Z
+
+
+
+group Publish command to devices implementing "iota"
+P -> B : PUBLISH (oc2/cmd/ap/iota, Request)
+B -> P : PUBACK
+B -> X : PUBLISH (oc2/cmd/ap/iota, Request)
+X -> B: PUBACK
+B -> Z : PUBLISH (oc2/cmd/ap/iota, Request)
+Z -> B: PUBACK
+end
+group Publish response from "iota" device Xray
+X -> B : PUBLISH (oc2/rsp, Response)
+B -> X : PUBACK
+B -> P : PUBLISH (oc2/rsp, Response)
+P -> B : PUBACK
+end
+group Publish response from "iota" device Zulu
+Z -> B : PUBLISH (oc2/rsp, Response)
+B -> Z : PUBACK
+B -> P : PUBLISH (oc2/rsp, Response)
+P -> B : PUBACK
+end
+@enduml

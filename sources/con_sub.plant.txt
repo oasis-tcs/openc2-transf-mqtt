@@ -1,0 +1,47 @@
+@startuml
+' PlantUML source to generate sequence diagram:
+' *************************
+' Connect and Subscribe
+' *************************
+' Use with PlantUML.com's online server
+' http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+' Paste this code in and use submit button to 
+' regenerate the diagram
+' PlantUML help for sequence diagram formatting is at 
+' https://plantuml.com/sequence-diagram
+
+
+Title Connect and Subscribe
+hide footbox
+skinparam sequenceMessageAlign direction
+actor Producer as P
+participant Broker as B
+actor Consumer as C
+note over P: Producer ID is orch01 
+note over C: Consumer ID is zulu01\nAPs: alpha, iota
+group Producer Connect & Subscribe
+P -> B : CONNECT
+activate B
+B -> B : validate\nconnection\nparameters
+return CONNACK
+P -> B : SUBSCRIBE\n(oc2/rsp,\noc2/rsp/orch01)
+activate B
+B -> B : validate\nsubscription\nparameters
+return SUBACK
+end
+
+' put a little vertical space between the groups
+|||
+
+group Consumer Connect & Subscribe
+C -> B : CONNECT
+activate B
+B -> B : validate\nconnection\nparameters
+return CONNACK
+C -> B : SUBSCRIBE (oc2/cmd/ap/alpha,\noc2/cmd/ap/iota,\noc2/cmd/all,\noc2/device/zulu01)
+activate B
+B -> B : validate\nsubscription\nparameters
+
+return SUBACK
+end
+@enduml
