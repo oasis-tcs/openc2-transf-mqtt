@@ -239,7 +239,7 @@ For the "key:value" example above, the encoding would be:
 
 # 2 Operating Model
 
-_This section is non-normative. Normative content identified while developing the operating model will eventually be migrated to Section 3._
+_This section is non-normative in its entirety._
 
 This section provides an overview of the approach to employing
 MQTT as a message transfer protocol for OpenC2 messages.
