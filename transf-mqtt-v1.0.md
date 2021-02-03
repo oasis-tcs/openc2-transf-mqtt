@@ -349,7 +349,7 @@ at how real world products work today
 
 ## 2.3 Subscriptions Options
 
-For each `Topic Filter` in the SUBSCRIBE control packet the Client must specify a set of `Subscription Options` (section 3.8.3.1). The available options are:
+For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` (section 3.8.3.1). The available options are:
 
 * `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
 * `No Local`: controls whether messages the Client publishes to this topic are published back to them
