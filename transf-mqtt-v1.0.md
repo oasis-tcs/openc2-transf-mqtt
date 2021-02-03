@@ -896,6 +896,7 @@ of the messages required for this example.
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Subscription options settings, [Section 2.3](#23-subscriptions-options)
 * Randomly generated ClientID, [Section 2.6](#26-mqtt-client-identifier)
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
 * No use of MQTT "will" messages, [Section 2.8](#28--will-message)
@@ -922,33 +923,50 @@ specification:
 
 ## A.2  Example 2: Command / Response Exchange
 
-The example messages below illustrate the process of an OpenC2
-Producer publishing a command to the channel for a specific
-actuator profile. The examples assume the existence of two
-notional Consumers identified as `Xray` and `Zulu` that both
-implement the `iota` AP, and that both such Consumers are
-subscribed to the corresponding command topic `oc2/cmd/ap/iota`.
-The example messages show the exchange between the Producer
-publishing the Openc2 request and the MQTT broker.  A similar
-exchange then occurs between the broker and every Consumer device
-subscribed to the `oc2/cmd/ap/iota` topic to distribute the
-command to the intended recipients. 
+This example illustrates the message flows that occur for a
+notional but common process of an OpenC2 Producer publishing an
+OpenC2 request to multiple Consumers. The focus of this example
+is the use of MQTT PUBLISH and PUBACK control packets for the
+message flows. No meaningful OpenC2 content appears in any of the
+messages in this example. 
+
+In the example an OpenC2 Producer publishes a command to the
+channel for a specific notional actuator profile, `iota`. The
+example assumes the existence of two notional Consumers
+identified as `Xray` and `Zulu` that both implement the `iota`
+AP, and that both such Consumers are subscribed to the
+corresponding command topic `oc2/cmd/ap/iota`. The example
+messages show the exchange between the Producer publishing the
+Openc2 request and the MQTT broker.  A similar exchange then
+occurs between the broker and every Consumer device subscribed to
+the `oc2/cmd/ap/iota` topic to distribute the command to the
+intended recipients. 
 
 The command and response messages in the sequence diagram shown
 in Figure A-PRR are published with a QoS of 1, which requires the
 recipient to respond to the PUBLISH packet with a PUBACK packet.
+
+This example illustrates the following aspects of the operating model:
+
+* Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
+* Properties to convey message type and formatting, [Section 2.4](#24-openc2-message-format)
+* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+
 
 #### Figure A-PRR: Publish Request and Response
 
 ![Basic Interaction Sequence](./images/a2-req_rsp.png)
 
 The `PUBLISH` and `PUBACK` control packets for the command
-portion of this example are as follows. The packet contents
-between the Producer and the Broker and between the Broker and
+portion of this example are illustrated below. The packet contents
+between the Producer and the Broker, and between the Broker and
 the Consumers are the same in each `PUBLISH / PUBACK` exchange,
-with the exception that the `packetId` field  will differ for
-each of the three publishing exchanges in Figure A-PRR, as that
-value is assigned by the initiator of each exchange:
+with the exception that the `packetId` field will differ for each
+of the three publishing exchanges in Figure A-PRR, as that value
+is assigned by the initiator of each exchange. The payload of
+`"(JSON-encoded openc2 request)"` is a placeholder for a
+meaningful OpenC2 request message.
 
 ![PUBLISH and PUBACK](./images/a2-pub-and-puback.png)
 
