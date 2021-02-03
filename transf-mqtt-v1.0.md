@@ -480,16 +480,16 @@ by which a Producer identifies that Consumer in OpenC2 messages.
 
 The MQTT CONNECT control packet includes a `Keep Alive` property
 ([MQTT-v5.0](#mqtt-v50) section 3.1.2.10) that defines a time
-interval within which a Client connected to a Broker must send a
-control packet to the Broker to prevent the Broker from
-disconnecting from the Client. The PINGREQ control packet can be
-sent if the Client has no other traffic to process.  The MQTT
-specification notes that "The actual value of the Keep Alive is
-application specific; typically this is a few minutes. The
-maximum value is 18 hours 12 minutes and 15 seconds." The Broker
-must close the network connection if 1.5 times the `Keep Alive`
-interval has passed without receiving a control packet from the
-Client.
+interval within which a Client connected to a Broker is expected
+to send a control packet of any type to the Broker to prevent the
+Broker from disconnecting from the Client. The PINGREQ control
+packet can be sent if the Client has no other traffic to process.
+The MQTT specification notes that "The actual value of the Keep
+Alive is application specific; typically this is a few minutes.
+The maximum value is 18 hours 12 minutes and 15 seconds." Per the
+MQTT specifciation the Broker will close the network connection
+if 1.5 times the `Keep Alive` interval has passed without
+receiving a control packet from the Client.
 
 This transfer specification leaves the selection of a `Keep
 Alive` interval to the implementer but defines a value of 5
