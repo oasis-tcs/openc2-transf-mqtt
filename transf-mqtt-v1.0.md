@@ -565,7 +565,7 @@ to be discarded if clients are disconnected for extended periods.
 
 The MQTT v5.0 CONNECT control packet includes a `Session Expiry
 Interval` property that informs the broker how long the Client's
-session state must be retained when the session is disconnected.
+session state is to be retained when the session is disconnected.
 The MQTT v5.0 PUBLISH control packet includes a `Message Expiry
 Interval` property that specifies the lifetime of the Application
 Message in seconds. This transfer specification makes no
