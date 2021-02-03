@@ -1013,7 +1013,14 @@ is shown in red in the packet examples for clarity.
       "request": {
         "action": "query",
         "target": {
-          "features": ["profiles"]}}}}}
+          "features": [
+            "profiles"
+          ]
+        }
+      }
+    }
+  }
+}
 ```
 ![Producer Request](./images/a3-producer-req.png)
 
@@ -1035,7 +1042,14 @@ _Consumer 1:_
       "response": {
         "status": 200,
         "results": {
-          "profiles": ["slpf"]}}}}}
+          "profiles": [
+            "slpf"
+          ]
+        }
+      }
+    }
+  }
+}
 ```
 
 ![Consumer 1 Response](./images/a3-cnsmr1-rsp.png)
@@ -1055,7 +1069,15 @@ _Consumer 2:_
       "response": {
         "status": 200,
         "results": {
-          "profiles": ["slpf","ids"]}}}}}
+          "profiles": [
+            "slpf",
+            "ids"
+          ]
+        }
+      }
+    }
+  }
+}
 ```
 
 ![Consumer 2 Response](./images/a3-cnsmr2-rsp.png)
@@ -1075,7 +1097,15 @@ _Consumer 3:_
       "response": {
         "status": 200,
         "results": {
-          "profiles": ["edr","sbom"]}}}}}
+          "profiles": [
+            "edr",
+            "sbom"
+          ]
+        }
+      }
+    }
+  }
+}
 
 ```
 
