@@ -976,6 +976,11 @@ meaningful OpenC2 request message.
 ![PUBLISH and PUBACK](./images/a2-pub-and-puback.png)
 
 
+> NOTE: alternative organization for Example 2 sequence diagram
+
+![PUBLISH and PUBACK alternate](images/a2-pub-and-puback-alt.png)
+
+
 ## A.3 Example 3: Query Consumer Actuator Profiles
 
 This example illustrates the packaging of OpenC2 requests in MQTT
