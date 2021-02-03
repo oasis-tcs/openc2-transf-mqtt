@@ -906,14 +906,14 @@ This example illustrates the following aspects of the operating model:
 
 #### Figure A-CAS: Connect and Subscribe
 
-![Connect and Subscribe Sequence](./images/a1-con_sub.png)
+![Connect and Subscribe Sequence](./images/a1-seq-con_sub.png)
 
 
 The Producer and Consumer CONNECT packets for this example are as
 follows; the optional username and password fields of the CONNECT
 packets are populated in this example:
 
-![Producer and Consumer Connect Cackets](./images/a1-connect-packets.png)
+![Producer and Consumer Connect Cackets](./images/a1-pkt-connect-packets.png)
 
  
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example
@@ -921,7 +921,7 @@ are shown below; `Subscription Options` are populated as
 specified in [section 3.1.8](#318-subscribe) of this
 specification:
 
-![SUBSCRIBE and SUBACK](./images/a1-sub-and-suback.png)
+![SUBSCRIBE and SUBACK](./images/a1-pkt-sub-and-suback.png)
 
 ## A.2  Example 2: Command / Response Exchange
 
@@ -961,7 +961,7 @@ This example illustrates the following aspects of the operating model:
 
 #### Figure A-PRR: Publish Request and Response
 
-![Basic Interaction Sequence](./images/a2-req_rsp.png)
+![Basic Interaction Sequence](./images/a2-seq-req_rsp.png)
 
 The `PUBLISH` and `PUBACK` control packets for the command
 portion of this example are illustrated below. The packet contents
@@ -973,12 +973,8 @@ is assigned by the initiator of each exchange. The payload of
 `"(JSON-encoded openc2 request)"` is a placeholder for a
 meaningful OpenC2 request message.
 
-![PUBLISH and PUBACK](./images/a2-pub-and-puback.png)
+![PUBLISH and PUBACK](./images/a2-pkt-pub-and-puback.png)
 
-
-> NOTE: alternative organization for Example 2 sequence diagram
-
-![PUBLISH and PUBACK alternate](images/a2-pub-and-puback-alt.png)
 
 
 ## A.3 Example 3: Query Consumer Actuator Profiles
@@ -1050,7 +1046,7 @@ nessages in the control packet payloads use condensed formatting
   }
 }
 ```
-![Producer Request](./images/a3-producer-req.png)
+![Producer Request](./images/a3-pkt-producer-req.png)
 
 
 ### Query Response -- Consumers to Producer 
@@ -1081,7 +1077,7 @@ _Consumer 1:_
 }
 ```
 
-![Consumer 1 Response](./images/a3-cnsmr1-rsp.png)
+![Consumer 1 Response](./images/a3-pkt-cnsmr1-rsp.png)
 
 
 _Consumer 2:_
@@ -1109,7 +1105,7 @@ _Consumer 2:_
 }
 ```
 
-![Consumer 2 Response](./images/a3-cnsmr2-rsp.png)
+![Consumer 2 Response](./images/a3-pkt-cnsmr2-rsp.png)
 
 _Consumer 3:_
 
@@ -1138,7 +1134,7 @@ _Consumer 3:_
 
 ```
 
-![Consumer 3 Response](./images/a3-cnsmr3-rsp.png)
+![Consumer 3 Response](./images/a3-pkt-cnsmr3-rsp.png)
 
 
 
