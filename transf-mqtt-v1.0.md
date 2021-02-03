@@ -973,34 +973,51 @@ meaningful OpenC2 request message.
 
 ## A.3 Example 3: Query Consumer Actuator Profiles
 
-This example illustrates the use of the OpenC2 `query` action
-over MQTT to retrieve the list of actuator profiles supported by
-a set of consumers. This example includes three consumers that
-implement several different actuator profiles, as follows:
+This example illustrates the packages of OpenC2 requests in MQTT
+PUBLISH control packets.  The scenario is a request containing an
+OpenC2 `query` action sent over MQTT to retrieve the list of
+actuator profiles supported by a set of consumers. This example
+includes three consumers that implement several different
+actuator profiles, as follows:
 
 * Consumer #1 implements the stateless packet filtering AP
   (`slpf`)
 * Consumer #2 implements the stateless packet filtering and
   intrusion detection system APs (`slpf` and `ids`)
 * Consumer #3 implements the endpoint detection and response and
-  software bill of materials (SBOM) APs (`eds` and `sbom`)
+  software bill of materials (SBOM) APs (`edr` and `sbom`)
 
-> **NOTES:** 
-> 1. The PUBLISH / PUBACK sequences among Producers, Consumers,
->    and Brokers are similar to those illustrated in Example 2,
->    so no sequence diagram is provided. This example only
->    includes the PUBLISH control packets.
-> 2. For compactness these examples use a simplified `request_id`
->    rather than the UUID_v4 format recommended for OpenC2.
+ **NOTES:** 
+ 1. The PUBLISH / PUBACK sequences among Producers, Consumers,
+    and Brokers are similar to those illustrated in Example 2
+    so no sequence diagram is provided. This example only
+    includes the PUBLISH control packets containing the OpenC2 request and respond messages.
+ 1. The `response_requested` aregument is omitted from the
+    `query` request message so the consumers exhibit the default
+    behavior of sending a complete response.
+ 1. For compactness these examples use a simplified `request_id`
+    rather than the UUID_v4 format recommended for OpenC2.
+ 
+
+This example illustrates the following aspects of the operating model:
+
+* Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Packaging of OpenC2 message in PUBLISH control packet payload, [Section 2.4.1](#241--content-type-and-serialization)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
+* Properties to convey message type and formatting, [Section 2.4](#24-openc2-message-format)
+* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+
 
 The Producer initiates this process by publishing a `query`
 request to `oc2/cmd/all`. The OpenC2 request message contents and
 corresponding MQTT PUBLISH control packet are shown below,
 followed by the Consumer replies. The PUBLISH control packet
 fields and OpenC2 message content that varies among the packets
-is shown in red in the packet examples for clarity.
+is shown in red in the packet examples for clarity, and the JSON
+nessages in the control packet payloads use condensed formatting
+(white space minimized).
 
-
+### Query Action -- Producer to Consumers 
 ``` json
 {
   "headers": {
@@ -1025,6 +1042,7 @@ is shown in red in the packet examples for clarity.
 ![Producer Request](./images/a3-producer-req.png)
 
 
+### Query Response -- Consumers to Producer 
 
 The consumer responses are as follows:
 
