@@ -933,20 +933,19 @@ message flows. No meaningful OpenC2 content appears in any of the
 messages in this example. 
 
 In the example an OpenC2 Producer publishes a command to the
-channel for a specific notional actuator profile, `iota`. The
-example assumes the existence of two notional Consumers
-identified as `Xray` and `Zulu` that both implement the `iota`
-AP, and that both such Consumers are subscribed to the
-corresponding command topic `oc2/cmd/ap/iota`. The example
-messages show the exchange between the Producer publishing the
-Openc2 request and the MQTT broker.  A similar exchange then
-occurs between the broker and every Consumer device subscribed to
-the `oc2/cmd/ap/iota` topic to distribute the command to the
-intended recipients.  While the OpenC2 request in this example is
-only notional, the example assumes the `response_requested`
-argument is omitted from the request message so the consumers
-exhibit the OpenC2 default behavior of sending a complete
-response.
+channel for a notional actuator profile, `iota`. The example
+assumes the existence of two notional Consumers identified as
+`Xray` and `Zulu` that both implement the `iota` AP, and that
+both Consumers are subscribed to the corresponding command topic
+`oc2/cmd/ap/iota`. The example messages first show the exchange
+between the Producer publishing the Openc2 request and the MQTT
+broker. A similar exchange then occurs between the broker and
+every Consumer device subscribed to the `oc2/cmd/ap/iota` topic
+to distribute the command to the intended recipients.  While the
+OpenC2 request in this example is only notional, the example
+assumes the `response_requested` argument is omitted from the
+request message so the consumers exhibit the OpenC2 default
+behavior of sending a complete response.
 
 The command and response messages in the sequence diagram shown
 in Figure A-PRR are published with a QoS of 1, which requires the
@@ -956,7 +955,7 @@ This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* Properties to convey message type and formatting, [Section 2.4](#24-openc2-message-format)
+* Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * PUBLISH control packet flags, [Section 3.1.3](#313-publish)
 
 
@@ -979,11 +978,11 @@ meaningful OpenC2 request message.
 
 ## A.3 Example 3: Query Consumer Actuator Profiles
 
-This example illustrates the packages of OpenC2 requests in MQTT
+This example illustrates the packaging of OpenC2 requests in MQTT
 PUBLISH control packets.  The scenario is a request containing an
 OpenC2 `query` action sent over MQTT to retrieve the list of
-actuator profiles supported by a set of consumers. This example
-includes three consumers that implement several different
+actuator profiles supported by a set of Consumers. This example
+includes three Consumers that implement several different
 actuator profiles, as follows:
 
 * Consumer #1 implements the stateless packet filtering AP
@@ -994,12 +993,13 @@ actuator profiles, as follows:
   software bill of materials (SBOM) APs (`edr` and `sbom`)
 
  **NOTES:** 
- 1. The PUBLISH / PUBACK sequences among Producers, Consumers,
-    and Brokers are similar to those illustrated in Example 2
-    so no sequence diagram is provided. This example only
-    includes the PUBLISH control packets containing the OpenC2 request and respond messages.
+ 1. No sequence diagram is included as the PUBLISH / PUBACK
+    sequences among Producers, Consumers, and Brokers are similar
+    to those illustrated in Example 2. This example only includes
+    the PUBLISH control packets containing the OpenC2 request and
+    response messages.
  1. The `response_requested` aregument is omitted from the
-    `query` request message so the consumers exhibit the default
+    `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
  1. For compactness these examples use a simplified `request_id`
     rather than the UUID_v4 format recommended for OpenC2.
@@ -1008,9 +1008,9 @@ actuator profiles, as follows:
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Packaging of OpenC2 message in PUBLISH control packet payload, [Section 2.4.1](#241--content-type-and-serialization)
+* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* Properties to convey message type and formatting, [Section 2.4](#24-openc2-message-format)
 * PUBLISH control packet flags, [Section 3.1.3](#313-publish)
 
 
