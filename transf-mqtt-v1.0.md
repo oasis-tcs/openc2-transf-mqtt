@@ -883,12 +883,23 @@ addresses for convenience and readability.
 
 ## A.1 Example 1: Connect and Subscribe
 
-Figure A-CAS illustrates the process of a Producer (ie., an
-Orchestrator) and a Consumer each connecting to the MQTT broker
-and subscribing to relevant channels.  The Consumer supports the
+This example illustrates the message flows involved in the
+process of a Producer (i.e., an Orchestrator) and a Consumer each
+connecting to the MQTT broker and subscribing to the appropriate
+channels for each, in accordance with the default topic model.
+The message flows are depicted in Figure A-CAS. The Producer is
+assigned the username `orch01`. The Consumer supports the
 notional actuator profiles `alpha` and `iota`, and is assigned
-the username `zulu01`. The Producer is assigned the username
-`orch01`.
+the username `zulu01`. No OpenC2-specific content appears in any
+of the messages required for this example.
+
+This example illustrates the following aspects of the operating model:
+
+* Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Randomly generated ClientID, [Section 2.6](#26-mqtt-client-identifier)
+* Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
+* No use of MQTT "will" messages, [Section 2.8](#28--will-message)
+* Optional use of username and password, [Section 3.1.1](#311-connect)
 
 #### Figure A-CAS: Connect and Subscribe
 
