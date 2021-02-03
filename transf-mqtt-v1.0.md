@@ -940,7 +940,11 @@ messages show the exchange between the Producer publishing the
 Openc2 request and the MQTT broker.  A similar exchange then
 occurs between the broker and every Consumer device subscribed to
 the `oc2/cmd/ap/iota` topic to distribute the command to the
-intended recipients. 
+intended recipients.  While the OpenC2 request in this example is
+only notional, the example assumes the `response_requested`
+argument is omitted from the request message so the consumers
+exhibit the OpenC2 default behavior of sending a complete
+response.
 
 The command and response messages in the sequence diagram shown
 in Figure A-PRR are published with a QoS of 1, which requires the
