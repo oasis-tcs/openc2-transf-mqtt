@@ -28,12 +28,28 @@ X -> B: PUBACK
 B -> Z : PUBLISH (oc2/cmd/ap/iota, Request)
 Z -> B: PUBACK
 end
+
+group Xray Process Request
+X --> X : process\nOpenC2\nrequest
+Activate X
+Deactivate X
+end 
+
 group Publish response from "iota" device Xray
 X -> B : PUBLISH (oc2/rsp, Response)
 B -> X : PUBACK
 B -> P : PUBLISH (oc2/rsp, Response)
 P -> B : PUBACK
 end
+
+group Zulu Process Request
+Z --> Z : process\nOpenC2\nrequest
+Activate Z
+Deactivate Z
+end
+
+
+
 group Publish response from "iota" device Zulu
 Z -> B : PUBLISH (oc2/rsp, Response)
 B -> Z : PUBACK
