@@ -797,17 +797,25 @@ TBD
 
 # 4 Security Considerations
 
-For OpenC2 use of MQTT:
+> NOTE: Need to add the RFCs identified below to the references list
 
-* Bare minimum requirement for operational
-  instance should be use of TLS 1.2 or higher for operational
-  client-broker connections. Basically, extract
-  and use the TLS guidance from the v1.0 HTTPS
-  Transfer CS.
-* Unsecured MQTT should only be used for testing purposes.
-* Consider whether information leakage (commands reaching
-  devices not intended to process those commands) is worth
-  taking into account.
+
+For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS) and SHOULD use TLS v1.3. OpenC2 endpoint MQTT clients MUST accept TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD accept TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
+
+OpenC2 endpoint MQTT clients MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
+
+The implementation and use of TLS SHOULD align with the best currently available security guidance, such as that provided in [[RFC7525](#rfc7525)]/BCP 195.
+
+The TLS session MUST use non-NULL ciphersuites for authentication, integrity, and confidentiality.  Sessions MAY be renegotiated within these constraints.
+
+OpenC2 endpoint MQTT clients supporting TLS v1.2 MUST NOT use any of the blacklisted ciphersuites identified in Appendix A of [[RFC7540](#rfc7540)]. 
+
+OpenC2 endpoint MQTT clients supporting TLS 1.3 MUST NOT implement zero round trip time resumption (0-RTT).
+
+This specification recommends that the mechanisms available in MQTT v5.0 be given preference for implementing enhanced authentication of OpenC2 endpoints.
+
+
+OpenC2 messaging over unsecured MQTT SHOULD be restricted to non-operational testing purposes.
 
 ---
 
