@@ -2,7 +2,7 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 06
+## Working Draft 07
 ## 08 February 2021
 
 ### Technical Committee:
@@ -1303,5 +1303,6 @@ TBD | TBD | TBD
 | WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Presented as a CSD candidate at the 16 September 2020 TC meeting.|
 | WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
 | WD05 | 2021-01-19 | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
-| WD06a | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. (Tagged as WD06a as initial WD06 upload didn't include revision history update.) |
+| WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
+| WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 
