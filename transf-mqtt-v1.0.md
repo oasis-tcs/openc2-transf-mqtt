@@ -301,7 +301,7 @@ would subscribe using the following topic filters:
 
 In order to receive responses to the commands it sends, a
 Producer connected to the broker would subscribe using the
-following topic filter:
+following topic filters:
 * `oc2/rsp`
 * `oc2/rsp/[producer_id]`
 
@@ -319,6 +319,8 @@ profiles `alpha` and `iota` and has a device identifier of
 * `oc2/cmd/device/zulu`
 
 **Non-normative Publishing Examples**
+
+Under typical circumstances, the publishing of OpenC2 commands is either a 1:_n_ situation (one Producer commanding multiple Consumers) or a 1:1 situation (one Producer commands a specific Consumer). The publishing of responses represents the reverse situation, where responses published by numerous Consumers are all directed to a single Producer.
 
 A notional OpenC2 Producer wishing to command all Consumers
 that implement actuator profile `iota` would publish the
@@ -444,6 +446,14 @@ In accordance with the above, the requirements of
 [MQTT-v5.0](#mqtt-v50) Section 4.3.2, _QoS 1: At least
 once delivery_ apply to OpenC2 Producers and Consumers when
 publishing messages to the MQTT broker.
+
+As described in [MQTT-v5.0](#mqtt-v50) Section 4.6, _Message
+Ordering_, the use of QoS 1 assures that "the final copy of each
+message received by the subscribers will be in the order that
+they were published" but does not preclude the possibility of
+duplicate message delivery. OpenC2 Producers and Consumers
+implementations should be prepared to respond sensibly if
+duplicate requests or responses are received.
 
 ## 2.6 MQTT Client Identifier
 
@@ -717,13 +727,15 @@ of this specification. This means that:
   the Consumer implements, the all-commands topic
   (`oc2/cmd/all`), and an individual topic for that Consumer
   device.
-* Producers SHALL subscribe to the response topic (`oc2/rsp`).
+* Producers SHALL subscribe to the general response topic (`oc2/rsp`).
+* Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
 
-Topic wildcards are not normally utilized for OpenC2.
-However, implementers of OpenC2 Consumers MAY elect to use a
-wildcard to subscribe to the command topics for all actuator
-profiles (`oc2/cmd/ap/#`) and filter received messages at the
-Consumer to identify relevant messages.
+Topic wildcards are not normally utilized for OpenC2 but their
+use is no precluded. For example, implementers of OpenC2
+Consumers might elect to use a wildcard to subscribe to the
+command topics for all actuator profiles (`oc2/cmd/ap/#`) and
+filter received messages at the Consumer to identify relevant
+messages. An OpenC2 traffic logger might subscribe to `oc2/#`.
 
 When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
 
