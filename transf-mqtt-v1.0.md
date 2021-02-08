@@ -751,7 +751,7 @@ of this specification. This means that:
 * Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
 
 Topic wildcards are not normally utilized for OpenC2 but their
-use is no precluded. For example, implementers of OpenC2
+use is not precluded. For example, implementers of OpenC2
 Consumers might elect to use a wildcard to subscribe to the
 command topics for all actuator profiles (`oc2/cmd/ap/#`) and
 filter received messages at the Consumer to identify relevant
