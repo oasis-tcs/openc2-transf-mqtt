@@ -318,9 +318,21 @@ profiles `alpha` and `iota` and has a device identifier of
 * `oc2/cmd/ap/iota`
 * `oc2/cmd/device/zulu`
 
+A notional OpenC2 Producer with a device identifier of `omega`
+would subscribe using the following topic filters:
+
+* `oc2/rsp`
+* `oc2/rsp/omega`
+
+
 **Non-normative Publishing Examples**
 
-Under typical circumstances, the publishing of OpenC2 commands is either a 1:_n_ situation (one Producer commanding multiple Consumers) or a 1:1 situation (one Producer commands a specific Consumer). The publishing of responses represents the reverse situation, where responses published by numerous Consumers are all directed to a single Producer.
+Under typical circumstances, the publishing of OpenC2 commands is
+either a 1:_n_ situation (one Producer commanding multiple
+Consumers) or a 1:1 situation (one Producer commands a specific
+Consumer). The publishing of responses represents the reverse
+situation, where responses published by potentially numerous
+Consumers are all directed to a single Producer.
 
 A notional OpenC2 Producer wishing to command all Consumers
 that implement actuator profile `iota` would publish the
