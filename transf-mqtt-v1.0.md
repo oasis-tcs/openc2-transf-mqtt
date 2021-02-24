@@ -138,7 +138,7 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 # 1 Introduction
 _This section is non-normative._
 
-OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
+OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a request (i.e., command) is encoded by an OpenC2 Producer (managing application) and transferred to one or more OpenC2 Consumers (managed devices or virtualized functions) using a secure transfer protocol. The Consumers act on the request and respond with status and any other requested information.  
 
 This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 message's between Producers and Consumers. Version 5 of the MQTT Specification ([MQTT-v5.0](#mqtt-v50)) is used as it includes features useful for OpenC2 that are not available in [MQTT v3.1.1](#mqtt-v311).
 
