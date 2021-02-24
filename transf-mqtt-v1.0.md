@@ -230,7 +230,7 @@ Property is `"key:value"`.
 
 Per the MQTT specification sections 1.5.4 and 1.5.7 each string
 is encoded with a 2-byte length followed by the UTF-8 encoding of
-the string, so the general form of a UTF-8 String Pair is:  
+the string, so the general form of a User Property as a UTF-8 String Pair is:  
 
  * 1-byte identifier for User Property `[0x26]`
  * 2-byte length of first string
