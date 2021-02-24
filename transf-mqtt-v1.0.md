@@ -497,14 +497,15 @@ OpenC2, it is only meaningful to the MQTT client and broker
 involved in the connection.
 
 OpenC2 Producers and Consumers using MQTT for message transfer
-should generate and store a random `ClientID` value that meets the
-constraints specified in [MQTT-v5.0](#mqtt-v50) Section 3.1.3.1,
-and retain that value for use when establishing connections to a
-broker. This `ClientID` should be generated prior to any connection
-to an MQTT broker, potentially as part of a Consumer
-initialization process. The `ClientID` for an OpenC2 Consumer is
-not required to have any meaningful relationship to any identity
-by which a Producer identifies that Consumer in OpenC2 messages.
+should generate and store a random `ClientID` value that meets
+the constraints specified in [MQTT-v5.0](#mqtt-v50) Section
+3.1.3.1, and retain that value for use when establishing
+connections to a broker. This `ClientID` should be generated
+prior to any connection to an MQTT broker, potentially as part of
+an initialization process. The `ClientID` for an OpenC2 Consumer
+is not required to have any meaningful relationship to any
+identity by which a Producer identifies that Consumer in OpenC2
+messages.
 
 ## 2.7 Keep-Alive Interval
 
