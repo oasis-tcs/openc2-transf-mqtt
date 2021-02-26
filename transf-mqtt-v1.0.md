@@ -525,9 +525,10 @@ receiving a control packet from the Client.
 This transfer specification leaves the selection of a `Keep
 Alive` interval to the implementer but defines a value of 5
 minutes (300 seconds) as the maximum value for _conformant_
-implementations. For reliability, an OpenC2 client should
-send an MQTT PINGREQ when 95% of the `Keep Alive` interval has
-expired without any other control packets being exchanged.
+implementations. For reliability, it is recommended that an
+OpenC2 client send an MQTT PINGREQ when 95% of the `Keep Alive`
+interval has expired without any other control packets being
+exchanged.
 
 ## 2.8  Will Message
 
