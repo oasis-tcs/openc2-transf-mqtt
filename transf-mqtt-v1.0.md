@@ -342,6 +342,13 @@ following topic filters:
 * `oc2/rsp`
 * `oc2/rsp/[producer_id]`
 
+Topic wildcards are not normally utilized for OpenC2 but their
+use is not precluded. For example, implementers of OpenC2
+Consumers might elect to use a wildcard to subscribe to the
+command topics for all actuator profiles (`oc2/cmd/ap/#`) and
+filter received messages at the Consumer to identify relevant
+messages. An OpenC2 traffic logger might subscribe to `oc2/#`.
+
 ---
 
 **Non-normative Subscription Example**
@@ -779,13 +786,6 @@ of this specification. This means that:
   device.
 * Producers SHALL subscribe to the general response topic (`oc2/rsp`).
 * Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
-
-Topic wildcards are not normally utilized for OpenC2 but their
-use is not precluded. For example, implementers of OpenC2
-Consumers might elect to use a wildcard to subscribe to the
-command topics for all actuator profiles (`oc2/cmd/ap/#`) and
-filter received messages at the Consumer to identify relevant
-messages. An OpenC2 traffic logger might subscribe to `oc2/#`.
 
 When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
 
