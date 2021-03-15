@@ -456,11 +456,11 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
  ```
  
 A Producer sending an OpenC2 request _always_ includes its
-identifier in the message `from` field, allowing Consumers
-receiving the request to know its origin.  A Consumer sending a
+identifier in the message `from` field, allowing receiving Consumers
+to know the origin of the request.  A Consumer sending a
 response to an OpenC2 request _always_ includes its identifier in
 the message `from` field, allowing responses to the same request
-from different actuators to be identified by the Producer
+from different Consumers to be identified by the Producer
 receiving the responses. 
  
 When publishing an OpenC2 request, the Producer can use the `to`
