@@ -717,8 +717,13 @@ The PUBLISH packet parameters SHALL be set as follows:
 | VH | Content Type | `"application/openc2"`|
 | VH | User Property | `"msgType:[type]"` where `[type]` is one of `"req"`, `"rsp`", or `"ntf"`, as appropriate |
 | VH | User Property | `"encoding:[encoding]"` where `[encoding]` is one of  `"json"` or `"cbor"`, as appropriate |
+| PL | Payload | OpenC2 message of type specified by the `"msgType:[type]"` User Property, encoded as specified by the `"encoding:[encoding]"` User Property |
 
-This specification makes no recommendations regarding values for the following CONNECT properties:
+OpenC2 Producers and Consumers MUST transmit the encoded OpenC2 message in the payload of the PUBLISH control packet. 
+
+OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
+
+This specification makes no recommendations regarding values for the following PUBLISH control packet properties:
 
  * Response Topic
  * Correlation Data
