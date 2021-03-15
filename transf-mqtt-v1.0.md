@@ -573,7 +573,7 @@ As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
 Start_, the MQTT CONNECT control packet includes a flag, `Clean
 Start`, that tells the broker whether the client, identified by
 its ClientID as described in [Section
-2.6](#26-mqtt-client-identifier) desires a new session (`Clean
+2.6](#26-mqtt-client-identifier), desires a new session (`Clean
 Start` equals `1` [_true_]). In MQTT the setting of the `Clean
 Start` flag and the value of the `Session Expiry Interval` from
 the most recent CONNECT packet are relevant to how the broker
@@ -619,7 +619,7 @@ allows the broker to retain the client's subscriptions, and
 deliver buffered messages that have accumulated while the client
 was disconnected.  However, OpenC2 implementers using MQTT should
 be aware that MQTT broker resource constraints and `Message
-Exipiry Interval` settings from Producers may cause older traffic
+Expiry Interval` settings from Producers may cause older traffic
 to be discarded if clients are disconnected for extended periods.
 
 ## 2.10 Session Expiry and Message Expiry Intervals
