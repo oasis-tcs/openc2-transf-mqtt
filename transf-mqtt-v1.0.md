@@ -964,7 +964,7 @@ This example illustrates the following aspects of the operating model:
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
 * No use of MQTT "will" messages, [Section 2.8](#28--will-message)
 * Clean Start flag set to false, [Section 2.9](#29-clean-start-flag)
-* Optional use of username and password, [Section 3.1.1](#311-connect)
+* Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 
 #### Figure A-CAS: Connect and Subscribe
 
@@ -980,7 +980,7 @@ packets are populated in this example:
  
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example
 are shown below; `Subscription Options` are populated as
-specified in [section 3.1.8](#318-subscribe) of this
+specified in [section 3.8](#38-subscribe-control-packet) of this
 specification:
 
 ![SUBSCRIBE and SUBACK](./images/a1-pkt-sub-and-suback.png)
@@ -1018,7 +1018,7 @@ This example illustrates the following aspects of the operating model:
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
-* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 #### Figure A-PRR: Publish Request and Response
@@ -1074,7 +1074,7 @@ This example illustrates the following aspects of the operating model:
 * Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `query`
