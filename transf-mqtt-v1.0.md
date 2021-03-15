@@ -98,7 +98,20 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
   - [1.2 Normative References](#12-normative-references)
+          - [[RFC2119]](#rfc2119)
+          - [[RFC5246]](#rfc5246)
+          - [[RFC7525]](#rfc7525)
+          - [[RFC7540]](#rfc7540)
+          - [[RFC8174]](#rfc8174)
+          - [[RFC8259]](#rfc8259)
+          - [[RFC8446]](#rfc8446)
+          - [[OpenC2-Lang-v1.0]](#openc2-lang-v10)
+          - [[mqtt-v5.0]](#mqtt-v50)
   - [1.3 Non-Normative References](#13-non-normative-references)
+          - [[RFC3552]](#rfc3552)
+          - [[IACD]](#iacd)
+          - [[mqtt-v3.1.1]](#mqtt-v311)
+          - [[Sparkplug-B]](#sparkplug-b)
   - [1.4 Terminology](#14-terminology)
   - [1.5 Document Conventions](#15-document-conventions)
     - [1.5.1 Naming Conventions](#151-naming-conventions)
@@ -119,30 +132,31 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
   - [2.9 Clean Start Flag](#29-clean-start-flag)
   - [2.10 Session Expiry and Message Expiry Intervals](#210-session-expiry-and-message-expiry-intervals)
 - [3 Protocol Mapping](#3-protocol-mapping)
-  - [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
-    - [3.1.1 CONNECT](#311-connect)
-    - [3.1.2 CONNACK](#312-connack)
-    - [3.1.3 PUBLISH](#313-publish)
-    - [3.1.4 PUBACK](#314-puback)
-    - [3.1.5 PUBREC](#315-pubrec)
-    - [3.1.6 PUBREL](#316-pubrel)
-    - [3.1.7 PUBCOMP](#317-pubcomp)
-    - [3.1.8 SUBSCRIBE](#318-subscribe)
-    - [3.1.9 SUBACK](#319-suback)
-    - [3.1.10 UNSUBSCRIBE](#3110-unsubscribe)
-    - [3.1.11 UNSUBACK](#3111-unsuback)
-    - [3.1.12 PINGREQ](#3112-pingreq)
-    - [3.1.13 PINGRESP](#3113-pingresp)
-    - [3.1.14 DISCONNECT](#3114-disconnect)
-    - [3.1.15 AUTH](#3115-auth)
+  - [3.1 CONNECT Control Packet](#31-connect-control-packet)
+  - [3.2 CONNACK Control Packet](#32-connack-control-packet)
+  - [3.3 PUBLISH Control Packet](#33-publish-control-packet)
+  - [3.4 PUBACK Control Packet](#34-puback-control-packet)
+  - [3.5 PUBREC Control Packet](#35-pubrec-control-packet)
+  - [3.6 PUBREL Control Packet](#36-pubrel-control-packet)
+  - [3.7 PUBCOMP Control Packet](#37-pubcomp-control-packet)
+  - [3.8 SUBSCRIBE Control Packet](#38-subscribe-control-packet)
+  - [3.9 SUBACK Control Packet](#39-suback-control-packet)
+  - [3.10 UNSUBSCRIBE Control Packet](#310-unsubscribe-control-packet)
+  - [3.11 UNSUBACK Control Packet](#311-unsuback-control-packet)
+  - [3.12 PINGREQ Control Packet](#312-pingreq-control-packet)
+  - [3.13 PINGRESP Control Packet](#313-pingresp-control-packet)
+  - [3.14 DISCONNECT Control Packet](#314-disconnect-control-packet)
+  - [3.15 AUTH Control Packet](#315-auth-control-packet)
 - [4 Security Considerations](#4-security-considerations)
 - [5 Conformance](#5-conformance)
 - [Appendix A: Message Examples](#appendix-a-message-examples)
   - [A.1 Example 1: Connect and Subscribe](#a1-example-1-connect-and-subscribe)
       - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
-  - [A.2  Example 2: Command / Response Exchange](#a2-example-2-command--response-exchange)
+  - [A.2  Example 2: Command / Response Exchange](#a2--example-2-command--response-exchange)
       - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
   - [A.3 Example 3: Query Consumer Actuator Profiles](#a3-example-3-query-consumer-actuator-profiles)
+    - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
+    - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
 - [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
 - [Appendix X: Acronyms](#appendix-x-acronyms)
 - [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
@@ -623,12 +637,6 @@ to define reasonable values for these properties.
 
 # 3 Protocol Mapping
 
-> **TBSL**  The protocol mapping should be considered
-> tentative until consensus has been achieved on the
-> operating model.
-
-## 3.1 MQTT Control Packet Usage
-
 The three regions of MQTT control packets are represented in the
 tables in this section as follows:
 
@@ -642,7 +650,7 @@ specified herein are to be populated as defined in the [MQTT
 v5.0](#mqtt-v50) specification, or as determined by the
 implementer where applicable.
 
-### 3.1.1 CONNECT
+## 3.1 CONNECT Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
 CONNECT control packet, as specified in the [MQTT
@@ -677,7 +685,7 @@ This specification makes no recommendations regarding values for the following C
  * Topic Alias Maximum
  * Maximum Packet Size
 
-### 3.1.2 CONNACK
+## 3.2 CONNACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process the
 CONNACK control packet, as specified in the [MQTT
@@ -687,7 +695,7 @@ recommendations regarding values for the CONACK properties
 defined in section 3.2.2.3 of the [MQTT v5.0](#mqtt-v50)
 specification.
 
-### 3.1.3 PUBLISH
+## 3.3 PUBLISH Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
 PUBLISH control packet, as specified in the [MQTT
@@ -718,14 +726,14 @@ This specification makes no recommendations regarding values for the following C
  * Topic Alias
 
 
-### 3.1.4 PUBACK
+## 3.4 PUBACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process  the
 PUBACK control packet, as specified in the [MQTT v5.0](#mqtt-v50)
 specification section 3.4, after publishing a message to the MQTT
 Broker.
 
-### 3.1.5 PUBREC
+## 3.5 PUBREC Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -734,7 +742,7 @@ OpenC2. Implementers who elect to use QoS Level 2 should
 implement the PUBREC packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.5.
 
-### 3.1.6 PUBREL
+## 3.6 PUBREL Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -743,7 +751,7 @@ OpenC2 . Implementers who elect to use QoS Level 2 should
 implement the PUBREL packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.6.
 
-### 3.1.7 PUBCOMP
+## 3.7 PUBCOMP Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -752,7 +760,7 @@ OpenC2. Implementers who elect to use QoS Level 2 should
 implement the PUBCOMP packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.7.
 
-### 3.1.8 SUBSCRIBE
+## 3.8 SUBSCRIBE Control Packet
 
 Producers and Consumers MUST use the SUBSCRIBE control packet, as
 specified in the [MQTT v5.0](#mqtt-v50) specification section 3.8
@@ -790,14 +798,14 @@ This specification makes no recommendations regarding values for the following S
 
  * Subscription Identifier
 
-### 3.1.9 SUBACK
+## 3.9 SUBACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process the
 SUBACK control packet, as specified in the
 [MQTT v5.0](#mqtt-v50) specification section 3.9, after transmitting
 a SUBSCRIBE control packet to the MQTT Broker.
 
-### 3.1.10 UNSUBSCRIBE
+## 3.10 UNSUBSCRIBE Control Packet
 
 Under normal operating circumstances OpenC2 Producers and
 Consumers are not expected to unsubscribe from their respective
@@ -807,7 +815,7 @@ reason arises to unsubscribe from one or more topics, the OpenC2
 Producer or Consumer SHALL use the UNSUBSUBSCRIBE control packet
 as specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
 
-### 3.1.11 UNSUBACK
+## 3.11 UNSUBACK Control Packet
 
 Under normal operating circumstances OpenC2 Producers and
 Consumers are not expected to unsubscribe from their respective
@@ -818,7 +826,7 @@ Producer or Consumer SHALL receive and process an UNSUBACK
 control packet from the broker as specified in [MQTT
 v5.0](#mqtt-v50), Section 3.11.
 
-### 3.1.12 PINGREQ
+## 3.12 PINGREQ Control Packet
 
 OpenC2 Producers and Consumers MUST send a PINGREQ control packet
 to all MQTT brokers with which they are connected if they have
@@ -829,17 +837,17 @@ implementer has not otherwise specified a keep-alive interval,
 2.6](#26-keep-alive-interval) of this specification shall be
 used.
 
-### 3.1.13 PINGRESP
+## 3.13 PINGRESP Control Packet
 
 OpenC2 Producers and Consumers SHALL receive and process
 PINGRESP control packets from a broker as specified in [MQTT
 v5.0](#mqtt-v50), Section 3.13.
 
-### 3.1.14 DISCONNECT
+## 3.14 DISCONNECT Control Packet
 
 TBD
 
-### 3.1.15 AUTH
+## 3.15 AUTH Control Packet
 
 TBD
 
