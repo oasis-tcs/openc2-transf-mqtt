@@ -859,9 +859,9 @@ TBD
 
 # 4 Security Considerations
 
-For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS) and SHOULD use TLS v1.3. OpenC2 endpoint MQTT clients MUST accept TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD accept TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
+For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS). Endpoint MQTT clients and MQTT brokers used for OpenC2 messaging MUST support TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD support TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
 
-OpenC2 endpoint MQTT clients MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
+OpenC2 endpoint MQTT clients and MQTT brokers MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
 
 The implementation and use of TLS SHOULD align with the best currently available security guidance, such as that provided in [[RFC7525](#rfc7525)]/BCP 195.
 
@@ -873,8 +873,7 @@ OpenC2 endpoint MQTT clients supporting TLS 1.3 MUST NOT implement zero round tr
 
 This specification recommends that the mechanisms available in MQTT v5.0 be given preference for implementing enhanced authentication of OpenC2 endpoints.
 
-
-OpenC2 messaging over unsecured MQTT SHOULD be restricted to non-operational testing purposes.
+OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-operational testing purposes.
 
 ---
 
