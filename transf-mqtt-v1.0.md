@@ -966,7 +966,7 @@ TBD | TBD | TBD
 | WD05 | 2021-01-19 | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
 | WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
-
+| CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 
 ---
 
