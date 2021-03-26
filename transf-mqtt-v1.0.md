@@ -34,8 +34,6 @@ Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
 #### Editors:
-Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-
 David Lemire (david.lemire@hii-tsd.com), [National
   Security Agency](https://www.nsa.gov/)
 
