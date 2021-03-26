@@ -69,6 +69,15 @@ https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
 
+## Notices
+Copyright © OASIS Open 2021. All Rights Reserved.
+
+Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr).
+
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
+
+For complete copyright information please see the Notices section in the Appendix.
+
 
 -------
 
