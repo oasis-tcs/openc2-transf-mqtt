@@ -64,11 +64,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification
-Draft 03.
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.
-
-Latest stage:
+Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
