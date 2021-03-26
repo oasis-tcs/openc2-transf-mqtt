@@ -92,7 +92,6 @@ For complete copyright information please see the Notices section in the Appendi
       - [1.2.3.1 Naming Conventions](#1231-naming-conventions)
       - [1.2.3.2 Font Colors and Style](#1232-font-colors-and-style)
       - [1.2.3.3 MQTT Data Representation](#1233-mqtt-data-representation)
-  - [1.4 Terminology](#14-terminology)
 - [2 Operating Model](#2-operating-model)
   - [2.1 Publishers, Subscribers, and Brokers](#21-publishers-subscribers-and-brokers)
   - [2.2 Default Topic Structure](#22-default-topic-structure)
@@ -234,13 +233,6 @@ For the "key:value" example above, the encoding would be:
 [0x26][0x00][x03]key[0x00][x05]value
 ```
 
-
-## 1.4 Terminology
-
-
-
-
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[RFC2119](#rfc2119)] [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
 
 
