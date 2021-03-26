@@ -184,6 +184,7 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 | AKA | Also Known As |
 | AP | Actuator Profile |
 | JSON | JavaScript Object Notation |
+| MQTT | Message Queuing Telemetry Transport |
 | TBD | To Be Determined |
 | TBSL | To Be Specified Later |
 
