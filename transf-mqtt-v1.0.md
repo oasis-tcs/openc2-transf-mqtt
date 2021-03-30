@@ -877,6 +877,8 @@ Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Conside
 M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
 ###### [mqtt-v3.1.1]
 MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
+###### [OpenC2-SLPF-v1.0]
+Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0. Edited by Joe Brule, Duncan Sparrell and Alex Everett. 11 July 2019. Committee Specification 01. https://docs.oasis-open.org/openc2/oc2slpf/v1.0/cs01/oc2slpf-v1.0-cs01.html. Latest version: https://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html.
 ###### [Sparkplug-B]
 Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
 
@@ -1254,10 +1256,10 @@ _Consumer 3:_
 This example illustrates the execution of a common  OpenC2
 requests using MQTT PUBLISH control packets.  The example is a
 deny action for a particular IP connection, as described in the
-Stateless Packet Filtering AP, Section A.1.1.This example
-primarily indicates the content of the PUBLISH control packets.
-For simplicity the exchange illustrated only includes one
-Producer and one Consumer.
+[Stateless Packet Filtering AP](#openc2-slpf-v10), Section
+A.1.1.This example primarily indicates the content of the PUBLISH
+control packets. For simplicity the exchange illustrated only
+includes one Producer and one Consumer.
 
 
  **NOTES:** 
