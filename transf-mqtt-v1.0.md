@@ -1290,7 +1290,73 @@ and corresponding MQTT PUBLISH control packet are shown below,
 followed by the Consumer reply.The JSON nessages in the control
 packet payloads use condensed formatting (white space minimized).
 
+### Deny Action -- Producer to Consumer
 
+
+``` json
+
+{
+  "headers": {
+    "request_id": "ghk479",
+    "created": 1610483630,
+    "from": "Producer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "request": {
+        "action": "deny",
+        "target": {
+          "ipv4_connection": {
+            "protocol": "tcp",
+            "src_addr": "1.2.3.4",
+            "src_port": 10996,
+            "dst_addr": "198.2.3.4",
+            "dst_port": 80
+          }
+        },
+        "args": {
+          "start_time": 1534775460000,
+          "duration": 500,
+          "response_requested": "ack",
+          "slpf": {
+            "drop_process": "none"
+          }
+        },
+        "actuator": {
+          "slpf": {
+            "asset_id": "30"
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+![Producer Request](./images/e4-pkt-producer-req.png)
+
+### Deny Response -- Consumer to Producer 
+
+The consumer response is as follows:
+
+``` json
+{
+  "headers": {
+    "request_id": "ghk479",
+    "created": 1610483633,
+    "from": "Consumer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 102
+      }
+    }
+  }
+}
+```
+
+![Consumer 1 Response](./images/e4-pkt-cnsmr1-rsp.png)
 
 
 ---
