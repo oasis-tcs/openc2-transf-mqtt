@@ -1112,7 +1112,7 @@ actuator profiles, as follows:
     to those illustrated in Example 2. This example only includes
     the PUBLISH control packets containing the OpenC2 request and
     response messages.
- 1. The `response_requested` aregument is omitted from the
+ 1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
  1. For compactness these examples use a simplified `request_id`
@@ -1251,7 +1251,44 @@ _Consumer 3:_
 
 ## E.4 OpenC2 Deny Example
 
-> TBSL
+This example illustrates the execution of a common  OpenC2
+requests using MQTT PUBLISH control packets.  The example is a
+deny action for a particular IP connection, as described in the
+Stateless Packet Filtering AP, Section A.1.1.This example
+primarily indicates the content of the PUBLISH control packets.
+For simplicity the exchange illustrated only includes one
+Producer and one Consumer.
+
+
+ **NOTES:** 
+ 1. No sequence diagram is included as the PUBLISH / PUBACK
+    sequences among Producer, Consumer, and Broker are similar
+    to those illustrated in Example 2. This example only includes
+    the PUBLISH control packets containing the OpenC2 request and
+    response messages.
+ 1. The `response_requested` aregument is omitted from the
+    `query` request message so the Consumers exhibit the default
+    behavior of sending a complete response.
+ 1. For compactness these examples use a simplified `request_id`
+    rather than the UUID_v4 format recommended for OpenC2.
+ 
+
+This example illustrates the following aspects of the operating model:
+
+* Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+
+
+The Producer initiates this process by publishing a `deny`
+request to `oc2/cmd/slpf`. The OpenC2 request message contents
+and corresponding MQTT PUBLISH control packet are shown below,
+followed by the Consumer reply.The JSON nessages in the control
+packet payloads use condensed formatting (white space minimized).
+
+
 
 
 ---
