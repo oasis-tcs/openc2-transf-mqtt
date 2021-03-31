@@ -887,7 +887,7 @@ Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.
 
 
 
-# Appendix B. Seaftey, Security and Privacy Considerations
+# Appendix B. Safety, Security and Privacy Considerations
 
 For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS). Endpoint MQTT clients and MQTT brokers used for OpenC2 messaging MUST support TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD support TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
 
