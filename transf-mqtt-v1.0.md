@@ -969,7 +969,7 @@ TBD | TBD | TBD
 | WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
-
+| WD08 | 2021-mm-dd | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
 ---
 
 # Appendix E: Examples
