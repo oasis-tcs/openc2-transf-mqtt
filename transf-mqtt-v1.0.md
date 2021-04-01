@@ -150,15 +150,18 @@ _This section is non-normative._
 
 OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a request (i.e., command) is encoded by an OpenC2 Producer (managing application) and transferred to one or more OpenC2 Consumers (managed devices or virtualized functions) using a secure transfer protocol. The Consumers act on the request and respond with status and any other requested information.  
 
-This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 message's between Producers and Consumers. Version 5 of the MQTT Specification [[MQTT-v5.0](#mqtt-v50)] is used as it includes features useful for OpenC2 that are not available in the previous version [[MQTT v3.1.1](#mqtt-v311)].
+This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 messages between Producers and Consumers. Version 5 of the MQTT Specification [[MQTT-v5.0](#mqtt-v50)] is used as it includes features useful for OpenC2 that are not available in the previous version [[MQTT v3.1.1](#mqtt-v311)].
 
 ## 1.1 Changes from Earlier Versions
 
 The following changes have been implemented since CSD03:
 
 * Restructured to match current OASIS template / outline
-* _need to fill in this list_
-
+* Added example illustrating `deny` action
+* Added example illustrating use of the paho MQTT python client
+* Eliminates an unneeded layer of indenture / numbering in Section 3
+* Moves the discussion of topic wildcard use into the Default Topic Structure section
+* Removed notes from Section 2.2
 
 
 ## 1.2 Glossary
@@ -172,6 +175,7 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 
 * **Command**: A message defined by an action-target pair that is sent from a Producer and received by a Consumer.
 * **Consumer**: A managed device / application that receives Commands.  Note that a single device / application can have both Consumer and Producer capabilities.
+* **Message**: A content- and transport-independent set of elements conveyed between Consumers and Producers.
 * **Producer**: A manager application that sends Commands.
 * **Response**: A message from a Consumer to a Producer acknowledging a command or returning the requested resources or status to a previously received request.
 
@@ -200,7 +204,7 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 #### 1.2.3.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
 
-* A fixed width font is used for all type names, property names, and literals.
+* A `fixed width font` is used for all type names, property names, and literals.
 
 
 #### 1.2.3.3 MQTT Data Representation
@@ -265,9 +269,6 @@ in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers do not act in any OpenC2 role. 
 
 ## 2.2 Default Topic Structure
-
-> **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
-[here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
 
 The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
 prefix on the topic names segregates OpenC2-related topics from other topics
@@ -351,25 +352,12 @@ Consumer with identity `zulu` would publish the command to:
 
 * `oc2/cmd/device/zulu`
 
-Additional examples of publishing exchanges can be found in [Appendix A](#appendix-a-message-examples).
+Additional examples of publishing exchanges can be found in [Appendix E](#appendix-e-examples).
 
----
-
-> **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
-this depends on our model of APs within a ‘device’ (which 
-may be in a ‘device’) and what operates at which level (AP/
-inner device/outer device) which we haven’t discussed much. 
-And I think that discussion depend on the ‘lots of little 
-atomic APs’ or ‘fewer compound APs with optional pieceparts’ 
-(which BTW I’ll argue is just the lots of little atomic with 
-an added layer). I think the pub/sub discussion “informs” 
-the atomic/compound AP discussion but I also think reality 
-of todays tech informs the discussion and we should look 
-at how real world products work today
 
 ## 2.3 Subscriptions Options
 
-For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` (section 3.8.3.1). The available options are:
+For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` ([MQTT-V5.0](#mqtt-v50) specification section 3.8.3.1). The available options are:
 
 * `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
 * `No Local`: controls whether messages the Client publishes to this topic are published back to them
@@ -391,7 +379,7 @@ This section describes how OpenC2 messages are represented in MQTT `PUBLISH` con
 
 ### 2.4.1  Content Type and Serialization
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT properties to convey essential information about the message to the recipient:
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT `PUBLISH` control packet properties to convey essential information about the message to the recipient:
 
 * `Payload Format Indicator [Property 0x01]`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
 * `Content Type [Property 0x03]`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
