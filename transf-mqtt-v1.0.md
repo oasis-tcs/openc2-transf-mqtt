@@ -126,7 +126,7 @@ For complete copyright information please see the Notices section in the Appendi
 - [Appendix A: References](#appendix-a-references)
   - [A.1 Normative References](#a1-normative-references)
   - [A.2 Informative References](#a2-informative-references)
-- [Appendix B. Seaftey, Security and Privacy Considerations](#appendix-b-seaftey-security-and-privacy-considerations)
+- [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations)
 - [Appendix C: Acknowledgments](#appendix-c-acknowledgments)
   - [C.1 Special Thanks](#c1-special-thanks)
   - [C.2 Participants](#c2-participants)
