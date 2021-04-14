@@ -84,7 +84,7 @@ For complete copyright information please see the Notices section in the Appendi
 # Table of Contents
 
 - [1 Introduction](#1-introduction)
-  - [1.1 IPR Policy](#11-ipr-policy)
+  - [1.1 Changes from Earlier Versions](#11-changes-from-earlier-versions)
   - [1.2 Glossary](#12-glossary)
     - [1.2.1 Definitions of terms](#121-definitions-of-terms)
     - [1.2.2 Acronyms and abbreviations](#122-acronyms-and-abbreviations)
@@ -140,6 +140,8 @@ For complete copyright information please see the Notices section in the Appendi
     - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
     - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
   - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
+    - [Deny Action -- Producer to Consumer](#deny-action----producer-to-consumer)
+    - [Deny Response -- Consumer to Producer](#deny-response----consumer-to-producer)
 - [Appendix F: Notices](#appendix-f-notices)
 - [Appendix Z: Operating Model Questions](#appendix-z-operating-model-questions)
 
