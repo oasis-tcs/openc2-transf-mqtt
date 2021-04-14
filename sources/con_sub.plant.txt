@@ -17,8 +17,10 @@ skinparam sequenceMessageAlign direction
 actor Producer as P
 participant Broker as B
 actor Consumer as C
+
+' Use leading "/" to align tops of notes
 note over P: Producer ID is orch01 
-note over C: Consumer ID is zulu01\nAPs: alpha, iota
+/ note over C: Consumer ID is zulu01\nAPs: alpha, iota
 group Producer Connect & Subscribe
 P -> B : CONNECT
 activate B

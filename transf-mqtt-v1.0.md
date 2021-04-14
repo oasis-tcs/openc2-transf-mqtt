@@ -1,31 +1,52 @@
-![OASIS Logo](http://docs.oasis-open.org/templates/OASISLogo-v2.0.jpg)
+![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 07
 ## 08 February 2021
 
-### Technical Committee:
-* [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
 
-### Chairs:
-* Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* Duncan Sparrell (duncan@sfractal.com), [sFractal
+
+#### This stage:
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.md (Authoritative) \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.pdf
+
+#### Previous stage:
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.md (Authoritative) \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.html \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.pdf
+
+#### Latest stage:
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.md (Authoritative) \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.pdf
+
+
+
+#### Technical Committee:
+[OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
+
+#### Chairs:
+Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
+
+Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
-### Editors:
-* Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-* David Lemire (david.lemire@hii-tsd.com), [National
+#### Editors:
+David Lemire (david.lemire@hii-tsd.com), [National
   Security Agency](https://www.nsa.gov/)
 
-### Related work:
+#### Related work:
 This specification is related to:
+
+*  _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. 24 November 2019. OASIS Committee Specification 02. https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
 *  _Open Command and Control (OpenC2) Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest version: http://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html.
 
-### Abstract:
+#### Abstract:
 Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Message Queuing Telemetry Transport (MQTT) is a widely-used publish / subscribe (pub/sub) transfer protocol. This specification describes the use of MQTT version 5.0 as a transfer mechanism for OpenC2 messages.
 
-### Status:
+#### Status:
 This document was last revised or approved by the OASIS Open Command and Control (OpenC2) TC on the above date. The level of approval is also listed above. Check the "Latest version" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2#technical.
 
 TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "Send A Comment" button on the TC's web page at https://www.oasis-open.org/committees/openc2/.
@@ -34,47 +55,29 @@ This specification is provided under the [Non-Assertion](https://www.oasis-open.
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
-### URI patterns:
-Initial publication URI:  
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd01/transf-mqtt-v1.0-csd01.html
+#### Key words:
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [[RFC2119](#rfc2119)] and [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
-Permanent "Latest version" URI:  
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html
-
-(Note: Publication URIs are managed by OASIS TC Administration; please don't modify.)
-
-### Citation format:
+#### Citation format:
 When referencing this specification the following citation format should be used:
 
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by Joe Brule and David Lemire. 27 February 2019. OASIS Committee Specification
-Draft 01.
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd01/transf-mqtt-v1.0-csd01.html.
-Latest version:
+Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
 
 ## Notices
-Copyright © OASIS Open 2019. All Rights Reserved.
+Copyright © OASIS Open 2021. All Rights Reserved.
 
-All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr) may be found at the OASIS website.
+Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr).
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+For complete copyright information please see the Notices section in the Appendix.
 
-This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-
-OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Committee Specification or OASIS Standard, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this specification.
-
-OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this specification by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this specification. OASIS may include such claims on its website, but disclaims any obligation to do so.
-
-OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Committee Specification or OASIS Standard, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.
-
-The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark for above guidance.
 
 -------
 
@@ -82,13 +85,13 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
 
 - [1 Introduction](#1-introduction)
   - [1.1 IPR Policy](#11-ipr-policy)
-  - [1.2 Normative References](#12-normative-references)
-  - [1.3 Non-Normative References](#13-non-normative-references)
-  - [1.4 Terminology](#14-terminology)
-  - [1.5 Document Conventions](#15-document-conventions)
-    - [1.5.1 Naming Conventions](#151-naming-conventions)
-    - [1.5.2 Font Colors and Style](#152-font-colors-and-style)
-    - [1.5.3 MQTT Data Representation](#153-mqtt-data-representation)
+  - [1.2 Glossary](#12-glossary)
+    - [1.2.1 Definitions of terms](#121-definitions-of-terms)
+    - [1.2.2 Acronyms and abbreviations](#122-acronyms-and-abbreviations)
+    - [1.2.3 Document conventions](#123-document-conventions)
+      - [1.2.3.1 Naming Conventions](#1231-naming-conventions)
+      - [1.2.3.2 Font Colors and Style](#1232-font-colors-and-style)
+      - [1.2.3.3 MQTT Data Representation](#1233-mqtt-data-representation)
 - [2 Operating Model](#2-operating-model)
   - [2.1 Publishers, Subscribers, and Brokers](#21-publishers-subscribers-and-brokers)
   - [2.2 Default Topic Structure](#22-default-topic-structure)
@@ -104,117 +107,107 @@ The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the own
   - [2.9 Clean Start Flag](#29-clean-start-flag)
   - [2.10 Session Expiry and Message Expiry Intervals](#210-session-expiry-and-message-expiry-intervals)
 - [3 Protocol Mapping](#3-protocol-mapping)
-  - [3.1 MQTT Control Packet Usage](#31-mqtt-control-packet-usage)
-    - [3.1.1 CONNECT](#311-connect)
-    - [3.1.2 CONNACK](#312-connack)
-    - [3.1.3 PUBLISH](#313-publish)
-    - [3.1.4 PUBACK](#314-puback)
-    - [3.1.5 PUBREC](#315-pubrec)
-    - [3.1.6 PUBREL](#316-pubrel)
-    - [3.1.7 PUBCOMP](#317-pubcomp)
-    - [3.1.8 SUBSCRIBE](#318-subscribe)
-    - [3.1.9 SUBACK](#319-suback)
-    - [3.1.10 UNSUBSCRIBE](#3110-unsubscribe)
-    - [3.1.11 UNSUBACK](#3111-unsuback)
-    - [3.1.12 PINGREQ](#3112-pingreq)
-    - [3.1.13 PINGRESP](#3113-pingresp)
-    - [3.1.14 DISCONNECT](#3114-disconnect)
-    - [3.1.15 AUTH](#3115-auth)
-- [4 Security Considerations](#4-security-considerations)
-- [5 Conformance](#5-conformance)
-- [Appendix A: Message Examples](#appendix-a-message-examples)
-  - [A.1 Example 1: Connect and Subscribe](#a1-example-1-connect-and-subscribe)
-      - [Figure A-CAS: Connect and Subscribe](#figure-a-cas-connect-and-subscribe)
-  - [A.2  Example 2: Command / Response Exchange](#a2-example-2-command--response-exchange)
-      - [Figure A-PRR: Publish Request and Response](#figure-a-prr-publish-request-and-response)
-  - [A.3 Example 3: Query Consumer Actuator Profiles](#a3-example-3-query-consumer-actuator-profiles)
-- [Appendix W: Operating Model Questions](#appendix-w-operating-model-questions)
-- [Appendix X: Acronyms](#appendix-x-acronyms)
-- [Appendix Y: Acknowledgments](#appendix-y-acknowledgments)
-- [Appendix Z: Revision History](#appendix-z-revision-history)
+  - [3.1 CONNECT Control Packet](#31-connect-control-packet)
+  - [3.2 CONNACK Control Packet](#32-connack-control-packet)
+  - [3.3 PUBLISH Control Packet](#33-publish-control-packet)
+  - [3.4 PUBACK Control Packet](#34-puback-control-packet)
+  - [3.5 PUBREC Control Packet](#35-pubrec-control-packet)
+  - [3.6 PUBREL Control Packet](#36-pubrel-control-packet)
+  - [3.7 PUBCOMP Control Packet](#37-pubcomp-control-packet)
+  - [3.8 SUBSCRIBE Control Packet](#38-subscribe-control-packet)
+  - [3.9 SUBACK Control Packet](#39-suback-control-packet)
+  - [3.10 UNSUBSCRIBE Control Packet](#310-unsubscribe-control-packet)
+  - [3.11 UNSUBACK Control Packet](#311-unsuback-control-packet)
+  - [3.12 PINGREQ Control Packet](#312-pingreq-control-packet)
+  - [3.13 PINGRESP Control Packet](#313-pingresp-control-packet)
+  - [3.14 DISCONNECT Control Packet](#314-disconnect-control-packet)
+  - [3.15 AUTH Control Packet](#315-auth-control-packet)
+- [4 Conformance](#4-conformance)
+- [Appendix A: References](#appendix-a-references)
+  - [A.1 Normative References](#a1-normative-references)
+  - [A.2 Informative References](#a2-informative-references)
+- [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations)
+- [Appendix C: Acknowledgments](#appendix-c-acknowledgments)
+  - [C.1 Special Thanks](#c1-special-thanks)
+  - [C.2 Participants](#c2-participants)
+- [Appendix D: Revision History](#appendix-d-revision-history)
+- [Appendix E: Examples](#appendix-e-examples)
+  - [E.1 Example 1: Connect and Subscribe](#e1-example-1-connect-and-subscribe)
+      - [Figure E-CAS: Connect and Subscribe](#figure-e-cas-connect-and-subscribe)
+  - [E.2  Example 2: Command / Response Exchange](#e2--example-2-command--response-exchange)
+      - [Figure E-PRR: Publish Request and Response](#figure-e-prr-publish-request-and-response)
+  - [E.3 Example 3: Query Consumer Actuator Profiles](#e3-example-3-query-consumer-actuator-profiles)
+    - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
+    - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
+  - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
+- [Appendix F: Notices](#appendix-f-notices)
+- [Appendix Z: Operating Model Questions](#appendix-z-operating-model-questions)
 
 -------
 
 # 1 Introduction
 _This section is non-normative._
 
-OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a command is encoded by an OpenC2 Producer (managing application) and transferred to an OpenC2 Consumer (managed device or virtualized function) using a secure transport protocol, and the Consumer can respond with status and any requested information.  
+OpenC2 is a suite of specifications that enables command and control of cyber defense systems and components.  OpenC2 typically uses a request-response paradigm where a request (i.e., command) is encoded by an OpenC2 Producer (managing application) and transferred to one or more OpenC2 Consumers (managed devices or virtualized functions) using a secure transfer protocol. The Consumers act on the request and respond with status and any other requested information.  
 
-This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 message's between Producers and Consumers. Version 5 of the MQTT Specification ([MQTT-v5.0](#mqtt-v50)) is used as it includes features useful for OpenC2 that are not available in [MQTT v3.1.1](#mqtt-v311).
+This specification describes OpenC2's use of the MQTT publish / subscribe messaging protocol to exchange OpenC2 messages between Producers and Consumers. Version 5 of the MQTT Specification [[MQTT-v5.0](#mqtt-v50)] is used as it includes features useful for OpenC2 that are not available in the previous version [[MQTT v3.1.1](#mqtt-v311)].
 
-## 1.1 IPR Policy
-This specification is provided under the [Non-Assertion](https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertion-Mode) Mode of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page ([https://www.oasis-open.org/committees/openc2/ipr.php](https://www.oasis-open.org/committees/openc2/ipr.php)).
+## 1.1 Changes from Earlier Versions
 
-## 1.2 Normative References
+The following changes have been implemented since CSD03:
 
-###### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
-###### [RFC5246] 
-Dierks, T. and E. Rescorla, "The Transport Layer Security (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/RFC5246, August 2008, <[https://www.rfc-editor.org/info/rfc5246](https://www.rfc-editor.org/info/rfc5246)>.
-###### [RFC7525]
-Sheffer, Y., Holz, R., and P. Saint-Andre, "Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May 2015, <https://www.rfc-editor.org/info/rfc7525>.
-###### [RFC7540]
-Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext Transfer Protocol Version 2 (HTTP/2)", RFC 7540, DOI 10.17487/RFC7540, May 2015, <https://www.rfc-editor.org/info/rfc7540>.
-###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
-###### [RFC8259]
-Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, http://www.rfc-editor.org/info/rfc8259
-###### [RFC8446]
-Rescorla, E., "The Transport Layer Security (TLS) Protocol Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018, <[http://www.rfc-editor.org/info/rfc8446](http://www.rfc-editor.org/info/rfc8446)>
-
-###### [OpenC2-Lang-v1.0]
-_Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
-
-###### [mqtt-v5.0]
-
-MQTT Version 5.0. Edited by Andrew Banks, Ed Briggs, Ken Borgendale, and Rahul Gupta. 07 March 2019. OASIS Standard. https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html. Latest version: https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html.
+* Restructured to match current OASIS template / outline
+* Added example illustrating `deny` action
+* Added example illustrating use of the paho MQTT python client
+* Eliminates an unneeded layer of indenture / numbering in Section 3
+* Moves the discussion of topic wildcard use into the Default Topic Structure section
+* Removed notes from Section 2.2
 
 
-## 1.3 Non-Normative References
+## 1.2 Glossary
 
-###### [RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
-###### [IACD]
-M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
-###### [mqtt-v3.1.1]
-MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
-###### [Sparkplug-B]
-Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
-
-## 1.4 Terminology
-
+### 1.2.1 Definitions of terms
 
 The terms defined in Section 1.2, _Terminology_ of the MQTT v5.0 specification 
 [[MQTT-v5.0](#mqtt-v50)] are applicable to this specification.
 
-The following terms defined in the OpenC2 Language Specification [[OpenC2-Lang-v1.0](#openc2-lang-v10)] are applicable to this specification:
-
+The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Language Specification [[OpenC2-Lang-v1.0](#openc2-lang-v10)] are applicable to this specification:
 
 * **Command**: A message defined by an action-target pair that is sent from a Producer and received by a Consumer.
 * **Consumer**: A managed device / application that receives Commands.  Note that a single device / application can have both Consumer and Producer capabilities.
+* **Message**: A content- and transport-independent set of elements conveyed between Consumers and Producers.
 * **Producer**: A manager application that sends Commands.
 * **Response**: A message from a Consumer to a Producer acknowledging a command or returning the requested resources or status to a previously received request.
 
+### 1.2.2 Acronyms and abbreviations
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[RFC2119](#rfc2119)] [[RFC8174](#rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
-A list of acronyms is provided in [Appendix X](#appendix-x-acronyms).
+| Acronym | Meaning |
+| :--: | :--- |
+| AKA | Also Known As |
+| AP | Actuator Profile |
+| JSON | JavaScript Object Notation |
+| MQTT | Message Queuing Telemetry Transport |
+| TBD | To Be Determined |
+| TBSL | To Be Specified Later |
 
-## 1.5 Document Conventions
 
-### 1.5.1 Naming Conventions
+### 1.2.3 Document conventions
+
+#### 1.2.3.1 Naming Conventions
+
 * [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words are in all uppercase.
 * All MQTT property names are in Initial Cap (e.g., User Property).
 
 > **NOTE:** need to do a scrub to ensure the foregoing statement is true.
 
-### 1.5.2 Font Colors and Style
+#### 1.2.3.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
 
-* A fixed width font is used for all type names, property names, and literals.
+* A `fixed width font` is used for all type names, property names, and literals.
 
 
-### 1.5.3 MQTT Data Representation
+#### 1.2.3.3 MQTT Data Representation
 
 Section 1.5 of the MQTT v5.0 specification
 [[MQTT-v5.0](#mqtt-v50)] defines data types relevant to the
@@ -230,7 +223,7 @@ Property is `"key:value"`.
 
 Per the MQTT specification sections 1.5.4 and 1.5.7 each string
 is encoded with a 2-byte length followed by the UTF-8 encoding of
-the string, so the general form of a UTF-8 String Pair is:  
+the string, so the general form of a User Property as a UTF-8 String Pair is:  
 
  * 1-byte identifier for User Property `[0x26]`
  * 2-byte length of first string
@@ -243,6 +236,8 @@ For the "key:value" example above, the encoding would be:
 ```
 [0x26][0x00][x03]key[0x00][x05]value
 ```
+
+
 
 
 # 2 Operating Model
@@ -274,9 +269,6 @@ in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers do not act in any OpenC2 role. 
 
 ## 2.2 Default Topic Structure
-
-> **NOTE:** a brief Slack discussion on this proposed topic structure can be found 
-[here](https://openc2-community.slack.com/archives/C5RF00U9Z/p1584121853014300).
 
 The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
 prefix on the topic names segregates OpenC2-related topics from other topics
@@ -312,6 +304,13 @@ Producer connected to the broker would subscribe using the
 following topic filters:
 * `oc2/rsp`
 * `oc2/rsp/[producer_id]`
+
+Topic wildcards are not normally utilized for OpenC2 but their
+use is not precluded. For example, implementers of OpenC2
+Consumers might elect to use a wildcard to subscribe to the
+command topics for all actuator profiles (`oc2/cmd/ap/#`) and
+filter received messages at the Consumer to identify relevant
+messages. An OpenC2 traffic logger might subscribe to `oc2/#`.
 
 ---
 
@@ -353,25 +352,12 @@ Consumer with identity `zulu` would publish the command to:
 
 * `oc2/cmd/device/zulu`
 
-Additional examples of publishing exchanges can be found in [Appendix A](#appendix-a-message-examples).
+Additional examples of publishing exchanges can be found in [Appendix E](#appendix-e-examples).
 
----
-
-> **NOTE** (from Duncan Sparrell on Slack):  I think a lot of 
-this depends on our model of APs within a ‘device’ (which 
-may be in a ‘device’) and what operates at which level (AP/
-inner device/outer device) which we haven’t discussed much. 
-And I think that discussion depend on the ‘lots of little 
-atomic APs’ or ‘fewer compound APs with optional pieceparts’ 
-(which BTW I’ll argue is just the lots of little atomic with 
-an added layer). I think the pub/sub discussion “informs” 
-the atomic/compound AP discussion but I also think reality 
-of todays tech informs the discussion and we should look 
-at how real world products work today
 
 ## 2.3 Subscriptions Options
 
-For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` (section 3.8.3.1). The available options are:
+For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` ([MQTT-V5.0](#mqtt-v50) specification section 3.8.3.1). The available options are:
 
 * `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
 * `No Local`: controls whether messages the Client publishes to this topic are published back to them
@@ -393,7 +379,7 @@ This section describes how OpenC2 messages are represented in MQTT `PUBLISH` con
 
 ### 2.4.1  Content Type and Serialization
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT properties to convey essential information about the message to the recipient:
+OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT `PUBLISH` control packet properties to convey essential information about the message to the recipient:
 
 * `Payload Format Indicator [Property 0x01]`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
 * `Content Type [Property 0x03]`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
@@ -427,11 +413,11 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
  ```
  
 A Producer sending an OpenC2 request _always_ includes its
-identifier in the message `from` field, allowing Consumers
-receiving the request to know its origin.  A Consumer sending a
+identifier in the message `from` field, allowing receiving Consumers
+to know the origin of the request.  A Consumer sending a
 response to an OpenC2 request _always_ includes its identifier in
 the message `from` field, allowing responses to the same request
-from different actuators to be identified by the Producer
+from different Consumers to be identified by the Producer
 receiving the responses. 
  
 When publishing an OpenC2 request, the Producer can use the `to`
@@ -497,14 +483,15 @@ OpenC2, it is only meaningful to the MQTT client and broker
 involved in the connection.
 
 OpenC2 Producers and Consumers using MQTT for message transfer
-should generate and store a random `ClientID` value that meets the
-constraints specified in [MQTT-v5.0](#mqtt-v50) Section 3.1.3.1,
-and retain that value for use when establishing connections to a
-broker. This `ClientID` should be generated prior to any connection
-to an MQTT broker, potentially as part of a Consumer
-initialization process. The `ClientID` for an OpenC2 Consumer is
-not required to have any meaningful relationship to any identity
-by which a Producer identifies that Consumer in OpenC2 messages.
+should generate and store a random `ClientID` value that meets
+the constraints specified in [MQTT-v5.0](#mqtt-v50) Section
+3.1.3.1, and retain that value for use when establishing
+connections to a broker. This `ClientID` should be generated
+prior to any connection to an MQTT broker, potentially as part of
+an initialization process. The `ClientID` for an OpenC2 Consumer
+is not required to have any meaningful relationship to any
+identity by which a Producer identifies that Consumer in OpenC2
+messages.
 
 ## 2.7 Keep-Alive Interval
 
@@ -524,9 +511,10 @@ receiving a control packet from the Client.
 This transfer specification leaves the selection of a `Keep
 Alive` interval to the implementer but defines a value of 5
 minutes (300 seconds) as the maximum value for _conformant_
-implementations. For reliability, an OpenC2 client should
-send an MQTT PINGREQ when 95% of the `Keep Alive` interval has
-expired without any other control packets being exchanged.
+implementations. For reliability, it is recommended that an
+OpenC2 client send an MQTT PINGREQ when 95% of the `Keep Alive`
+interval has expired without any other control packets being
+exchanged.
 
 ## 2.8  Will Message
 
@@ -542,7 +530,7 @@ As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
 Start_, the MQTT CONNECT control packet includes a flag, `Clean
 Start`, that tells the broker whether the client, identified by
 its ClientID as described in [Section
-2.6](#26-mqtt-client-identifier) desires a new session (`Clean
+2.6](#26-mqtt-client-identifier), desires a new session (`Clean
 Start` equals `1` [_true_]). In MQTT the setting of the `Clean
 Start` flag and the value of the `Session Expiry Interval` from
 the most recent CONNECT packet are relevant to how the broker
@@ -588,7 +576,7 @@ allows the broker to retain the client's subscriptions, and
 deliver buffered messages that have accumulated while the client
 was disconnected.  However, OpenC2 implementers using MQTT should
 be aware that MQTT broker resource constraints and `Message
-Exipiry Interval` settings from Producers may cause older traffic
+Expiry Interval` settings from Producers may cause older traffic
 to be discarded if clients are disconnected for extended periods.
 
 ## 2.10 Session Expiry and Message Expiry Intervals
@@ -606,12 +594,6 @@ to define reasonable values for these properties.
 
 # 3 Protocol Mapping
 
-> **TBSL**  The protocol mapping should be considered
-> tentative until consensus has been achieved on the
-> operating model.
-
-## 3.1 MQTT Control Packet Usage
-
 The three regions of MQTT control packets are represented in the
 tables in this section as follows:
 
@@ -625,7 +607,7 @@ specified herein are to be populated as defined in the [MQTT
 v5.0](#mqtt-v50) specification, or as determined by the
 implementer where applicable.
 
-### 3.1.1 CONNECT
+## 3.1 CONNECT Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
 CONNECT control packet, as specified in the [MQTT
@@ -660,7 +642,7 @@ This specification makes no recommendations regarding values for the following C
  * Topic Alias Maximum
  * Maximum Packet Size
 
-### 3.1.2 CONNACK
+## 3.2 CONNACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process the
 CONNACK control packet, as specified in the [MQTT
@@ -670,7 +652,7 @@ recommendations regarding values for the CONACK properties
 defined in section 3.2.2.3 of the [MQTT v5.0](#mqtt-v50)
 specification.
 
-### 3.1.3 PUBLISH
+## 3.3 PUBLISH Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
 PUBLISH control packet, as specified in the [MQTT
@@ -692,8 +674,13 @@ The PUBLISH packet parameters SHALL be set as follows:
 | VH | Content Type | `"application/openc2"`|
 | VH | User Property | `"msgType:[type]"` where `[type]` is one of `"req"`, `"rsp`", or `"ntf"`, as appropriate |
 | VH | User Property | `"encoding:[encoding]"` where `[encoding]` is one of  `"json"` or `"cbor"`, as appropriate |
+| PL | Payload | OpenC2 message of type specified by the `"msgType:[type]"` User Property, encoded as specified by the `"encoding:[encoding]"` User Property |
 
-This specification makes no recommendations regarding values for the following CONNECT properties:
+OpenC2 Producers and Consumers MUST transmit the encoded OpenC2 message in the payload of the PUBLISH control packet. 
+
+OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
+
+This specification makes no recommendations regarding values for the following PUBLISH control packet properties:
 
  * Response Topic
  * Correlation Data
@@ -701,14 +688,14 @@ This specification makes no recommendations regarding values for the following C
  * Topic Alias
 
 
-### 3.1.4 PUBACK
+## 3.4 PUBACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process  the
 PUBACK control packet, as specified in the [MQTT v5.0](#mqtt-v50)
 specification section 3.4, after publishing a message to the MQTT
 Broker.
 
-### 3.1.5 PUBREC
+## 3.5 PUBREC Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -717,7 +704,7 @@ OpenC2. Implementers who elect to use QoS Level 2 should
 implement the PUBREC packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.5.
 
-### 3.1.6 PUBREL
+## 3.6 PUBREL Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -726,7 +713,7 @@ OpenC2 . Implementers who elect to use QoS Level 2 should
 implement the PUBREL packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.6.
 
-### 3.1.7 PUBCOMP
+## 3.7 PUBCOMP Control Packet
 
 Consistent with the guidance in [Section
 2.5](#25-quality-of-service) of this specification to use QoS
@@ -735,7 +722,7 @@ OpenC2. Implementers who elect to use QoS Level 2 should
 implement the PUBCOMP packet as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.7.
 
-### 3.1.8 SUBSCRIBE
+## 3.8 SUBSCRIBE Control Packet
 
 Producers and Consumers MUST use the SUBSCRIBE control packet, as
 specified in the [MQTT v5.0](#mqtt-v50) specification section 3.8
@@ -749,13 +736,6 @@ of this specification. This means that:
   device.
 * Producers SHALL subscribe to the general response topic (`oc2/rsp`).
 * Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
-
-Topic wildcards are not normally utilized for OpenC2 but their
-use is not precluded. For example, implementers of OpenC2
-Consumers might elect to use a wildcard to subscribe to the
-command topics for all actuator profiles (`oc2/cmd/ap/#`) and
-filter received messages at the Consumer to identify relevant
-messages. An OpenC2 traffic logger might subscribe to `oc2/#`.
 
 When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
 
@@ -773,14 +753,14 @@ This specification makes no recommendations regarding values for the following S
 
  * Subscription Identifier
 
-### 3.1.9 SUBACK
+## 3.9 SUBACK Control Packet
 
 OpenC2 Producers and Consumers MUST receive and process the
 SUBACK control packet, as specified in the
 [MQTT v5.0](#mqtt-v50) specification section 3.9, after transmitting
 a SUBSCRIBE control packet to the MQTT Broker.
 
-### 3.1.10 UNSUBSCRIBE
+## 3.10 UNSUBSCRIBE Control Packet
 
 Under normal operating circumstances OpenC2 Producers and
 Consumers are not expected to unsubscribe from their respective
@@ -790,7 +770,7 @@ reason arises to unsubscribe from one or more topics, the OpenC2
 Producer or Consumer SHALL use the UNSUBSUBSCRIBE control packet
 as specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
 
-### 3.1.11 UNSUBACK
+## 3.11 UNSUBACK Control Packet
 
 Under normal operating circumstances OpenC2 Producers and
 Consumers are not expected to unsubscribe from their respective
@@ -801,7 +781,7 @@ Producer or Consumer SHALL receive and process an UNSUBACK
 control packet from the broker as specified in [MQTT
 v5.0](#mqtt-v50), Section 3.11.
 
-### 3.1.12 PINGREQ
+## 3.12 PINGREQ Control Packet
 
 OpenC2 Producers and Consumers MUST send a PINGREQ control packet
 to all MQTT brokers with which they are connected if they have
@@ -812,26 +792,94 @@ implementer has not otherwise specified a keep-alive interval,
 2.6](#26-keep-alive-interval) of this specification shall be
 used.
 
-### 3.1.13 PINGRESP
+## 3.13 PINGRESP Control Packet
 
 OpenC2 Producers and Consumers SHALL receive and process
 PINGRESP control packets from a broker as specified in [MQTT
 v5.0](#mqtt-v50), Section 3.13.
 
-### 3.1.14 DISCONNECT
+## 3.14 DISCONNECT Control Packet
 
 TBD
 
-### 3.1.15 AUTH
+## 3.15 AUTH Control Packet
 
 TBD
 
 
-# 4 Security Considerations
+# 4 Conformance
 
-For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS) and SHOULD use TLS v1.3. OpenC2 endpoint MQTT clients MUST accept TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD accept TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
+> **TBSL**  Conformance requirements will be developed once
+> the protocol mappings have been developed.
 
-OpenC2 endpoint MQTT clients MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
+
+(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
+For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
+
+See "Guidelines to Writing Conformance Clauses":  
+http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
+
+Remove this note before submitting for publication.)
+
+-------
+
+# Appendix A: References
+
+This appendix contains the normative and informative references that are used in this document. Normative references are specific (identified by date of publication and/or edition number or version number) and Informative references are either specific or non-specific.
+
+While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
+
+## A.1 Normative References
+
+The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
+
+###### [RFC2119]
+Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
+###### [RFC5246] 
+Dierks, T. and E. Rescorla, "The Transport Layer Security (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/RFC5246, August 2008, <[https://www.rfc-editor.org/info/rfc5246](https://www.rfc-editor.org/info/rfc5246)>.
+###### [RFC7525]
+Sheffer, Y., Holz, R., and P. Saint-Andre, "Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May 2015, <https://www.rfc-editor.org/info/rfc7525>.
+###### [RFC7540]
+Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext Transfer Protocol Version 2 (HTTP/2)", RFC 7540, DOI 10.17487/RFC7540, May 2015, <https://www.rfc-editor.org/info/rfc7540>.
+###### [RFC8174]
+Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+###### [RFC8259]
+Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, http://www.rfc-editor.org/info/rfc8259
+###### [RFC8446]
+Rescorla, E., "The Transport Layer Security (TLS) Protocol Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018, <[http://www.rfc-editor.org/info/rfc8446](http://www.rfc-editor.org/info/rfc8446)>
+
+###### [OpenC2-Lang-v1.0]
+_Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
+
+###### [mqtt-v5.0]
+
+MQTT Version 5.0. Edited by Andrew Banks, Ed Briggs, Ken Borgendale, and Rahul Gupta. 07 March 2019. OASIS Standard. https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html. Latest version: https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html.
+
+
+
+## A.2 Informative References
+
+###### [RFC3552]
+Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+###### [IACD]
+M. J. Herring, K. D. Willett, "Active Cyber Defense: A Vision for Real-Time Cyber Defense," Journal of Information Warfare, vol. 13, Issue 2, p. 80, April 2014.<br>Willett, Keith D., "Integrated Adaptive Cyberspace Defense: Secure Orchestration", International Command and Control Research and Technology Symposium, June 2015.
+###### [mqtt-v3.1.1]
+MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OASIS Standard. http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html. Latest version: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html.
+###### [OpenC2-SLPF-v1.0]
+Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0. Edited by Joe Brule, Duncan Sparrell and Alex Everett. 11 July 2019. Committee Specification 01. https://docs.oasis-open.org/openc2/oc2slpf/v1.0/cs01/oc2slpf-v1.0-cs01.html. Latest version: https://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html.
+###### [Sparkplug-B]
+Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
+
+
+
+
+
+
+# Appendix B. Safety, Security and Privacy Considerations
+
+For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS). Endpoint MQTT clients and MQTT brokers used for OpenC2 messaging MUST support TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD support TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
+
+OpenC2 endpoint MQTT clients and MQTT brokers MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
 
 The implementation and use of TLS SHOULD align with the best currently available security guidance, such as that provided in [[RFC7525](#rfc7525)]/BCP 195.
 
@@ -843,8 +891,7 @@ OpenC2 endpoint MQTT clients supporting TLS 1.3 MUST NOT implement zero round tr
 
 This specification recommends that the mechanisms available in MQTT v5.0 be given preference for implementing enhanced authentication of OpenC2 endpoints.
 
-
-OpenC2 messaging over unsecured MQTT SHOULD be restricted to non-operational testing purposes.
+OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-operational testing purposes.
 
 ---
 
@@ -879,23 +926,42 @@ Text on Security Considerations_, IETF
 
 > Remove this note before submitting for publication.)
 
-# 5 Conformance
 
-> **TBSL**  Conformance requirements will be developed once
-> the protocol mappings have been developed.
+------
 
+# Appendix C: Acknowledgments
 
-(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
-For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
+## C.1 Special Thanks
 
-See "Guidelines to Writing Conformance Clauses":  
-http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
+## C.2 Participants
+The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
-Remove this note before submitting for publication.)
+**OpenC2 TC Members:**
 
--------
+| First Name | Last Name | Company |
+| :--- | :--- | :--- |
+TBD | TBD | TBD
 
-# Appendix A: Message Examples
+---
+
+# Appendix D: Revision History
+| Revision | Date | Editor | Changes Made |
+| :--- | :--- | :--- | :--- |
+| WD01 | 2020-05-14 | David Lemire | Initial working draft |
+| WD02 | 2020-06-02 | David Lemire | Updates Operating Model section (2.0) and list of questions to be resolved. |
+| WD03 | 2020-06-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Initial presentation of example operating sequences and message. Presented as a CSD candidate at the 17 June 2020 TC meeting. |
+| WD03 / CSD01 | 2020-07-07 | David Lemire | WD03 approved by OpenC2 TC as CSD01 |
+| WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Presented as a CSD candidate at the 16 September 2020 TC meeting.|
+| WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
+| WD05 | 2021-01-19 | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
+| WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
+| WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
+| CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
+| WD08 | 2021-mm-dd | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
+---
+
+# Appendix E: Examples
+
 
 _This appendix is non-normative in its entirety._
 
@@ -918,7 +984,7 @@ addresses for convenience and readability.
 > suggestions for improving the presentation format.
 
 
-## A.1 Example 1: Connect and Subscribe
+## E.1 Example 1: Connect and Subscribe
 
 This example illustrates the message flows involved in the
 process of a Producer (i.e., an Orchestrator) and a Consumer each
@@ -939,28 +1005,28 @@ This example illustrates the following aspects of the operating model:
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
 * No use of MQTT "will" messages, [Section 2.8](#28--will-message)
 * Clean Start flag set to false, [Section 2.9](#29-clean-start-flag)
-* Optional use of username and password, [Section 3.1.1](#311-connect)
+* Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 
-#### Figure A-CAS: Connect and Subscribe
+#### Figure E-CAS: Connect and Subscribe
 
-![Connect and Subscribe Sequence](./images/a1-seq-con_sub.png)
+![Connect and Subscribe Sequence](./images/e1-seq-con_sub.png)
 
 
 The Producer and Consumer CONNECT packets for this example are as
 follows; the optional username and password fields of the CONNECT
 packets are populated in this example:
 
-![Producer and Consumer Connect Cackets](./images/a1-pkt-connect-packets.png)
+![Producer and Consumer Connect Cackets](./images/e1-pkt-connect-packets.png)
 
  
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example
 are shown below; `Subscription Options` are populated as
-specified in [section 3.1.8](#318-subscribe) of this
+specified in [section 3.8](#38-subscribe-control-packet) of this
 specification:
 
-![SUBSCRIBE and SUBACK](./images/a1-pkt-sub-and-suback.png)
+![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
 
-## A.2  Example 2: Command / Response Exchange
+## E.2  Example 2: Command / Response Exchange
 
 This example illustrates the message flows that occur for a
 notional but common process of an OpenC2 Producer publishing an
@@ -993,12 +1059,12 @@ This example illustrates the following aspects of the operating model:
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
-* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
-#### Figure A-PRR: Publish Request and Response
+#### Figure E-PRR: Publish Request and Response
 
-![Basic Interaction Sequence](./images/a2-seq-req_rsp.png)
+![Basic Interaction Sequence](./images/e2-seq-req_rsp.png)
 
 The `PUBLISH` and `PUBACK` control packets for the command
 portion of this example are illustrated below. The packet contents
@@ -1010,11 +1076,11 @@ is assigned by the initiator of each exchange. The payload of
 `"(JSON-encoded openc2 request)"` is a placeholder for a
 meaningful OpenC2 request message.
 
-![PUBLISH and PUBACK](./images/a2-pkt-pub-and-puback.png)
+![PUBLISH and PUBACK](./images/e2-pkt-pub-and-puback.png)
 
 
 
-## A.3 Example 3: Query Consumer Actuator Profiles
+## E.3 Example 3: Query Consumer Actuator Profiles
 
 This example illustrates the packaging of OpenC2 requests in MQTT
 PUBLISH control packets.  The scenario is a request containing an
@@ -1036,7 +1102,7 @@ actuator profiles, as follows:
     to those illustrated in Example 2. This example only includes
     the PUBLISH control packets containing the OpenC2 request and
     response messages.
- 1. The `response_requested` aregument is omitted from the
+ 1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
  1. For compactness these examples use a simplified `request_id`
@@ -1049,7 +1115,7 @@ This example illustrates the following aspects of the operating model:
 * Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.1.3](#313-publish)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `query`
@@ -1083,7 +1149,7 @@ nessages in the control packet payloads use condensed formatting
   }
 }
 ```
-![Producer Request](./images/a3-pkt-producer-req.png)
+![Producer Request](./images/e3-pkt-producer-req.png)
 
 
 ### Query Response -- Consumers to Producer 
@@ -1114,7 +1180,7 @@ _Consumer 1:_
 }
 ```
 
-![Consumer 1 Response](./images/a3-pkt-cnsmr1-rsp.png)
+![Consumer 1 Response](./images/e3-pkt-cnsmr1-rsp.png)
 
 
 _Consumer 2:_
@@ -1142,7 +1208,7 @@ _Consumer 2:_
 }
 ```
 
-![Consumer 2 Response](./images/a3-pkt-cnsmr2-rsp.png)
+![Consumer 2 Response](./images/e3-pkt-cnsmr2-rsp.png)
 
 _Consumer 3:_
 
@@ -1171,11 +1237,146 @@ _Consumer 3:_
 
 ```
 
-![Consumer 3 Response](./images/a3-pkt-cnsmr3-rsp.png)
+![Consumer 3 Response](./images/e3-pkt-cnsmr3-rsp.png)
+
+## E.4 OpenC2 Deny Example
+
+This example illustrates the execution of a common  OpenC2
+requests using MQTT PUBLISH control packets.  The example is a
+deny action for a particular IP connection, as described in the
+[Stateless Packet Filtering AP](#openc2-slpf-v10), Section
+A.1.1.This example primarily indicates the content of the PUBLISH
+control packets. For simplicity the exchange illustrated only
+includes one Producer and one Consumer.
+
+
+ **NOTES:** 
+ 1. No sequence diagram is included as the PUBLISH / PUBACK
+    sequences among Producer, Consumer, and Broker are similar
+    to those illustrated in Example 2. This example only includes
+    the PUBLISH control packets containing the OpenC2 request and
+    response messages.
+ 1. The `response_requested` aregument is omitted from the
+    `query` request message so the Consumers exhibit the default
+    behavior of sending a complete response.
+ 1. For compactness these examples use a simplified `request_id`
+    rather than the UUID_v4 format recommended for OpenC2.
+ 
+
+This example illustrates the following aspects of the operating model:
+
+* Default topic structure, [Section 2.2](#22-default-topic-structure)
+* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+
+
+The Producer initiates this process by publishing a `deny`
+request to `oc2/cmd/slpf`. The OpenC2 request message contents
+and corresponding MQTT PUBLISH control packet are shown below,
+followed by the Consumer reply.The JSON nessages in the control
+packet payloads use condensed formatting (white space minimized).
+
+### Deny Action -- Producer to Consumer
+
+
+``` json
+
+{
+  "headers": {
+    "request_id": "ghk479",
+    "created": 1610483630,
+    "from": "Producer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "request": {
+        "action": "deny",
+        "target": {
+          "ipv4_connection": {
+            "protocol": "tcp",
+            "src_addr": "1.2.3.4",
+            "src_port": 10996,
+            "dst_addr": "198.2.3.4",
+            "dst_port": 80
+          }
+        },
+        "args": {
+          "start_time": 1534775460000,
+          "duration": 500,
+          "response_requested": "ack",
+          "slpf": {
+            "drop_process": "none"
+          }
+        },
+        "actuator": {
+          "slpf": {
+            "asset_id": "30"
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+![Producer Request](./images/e4-pkt-producer-req.png)
+
+### Deny Response -- Consumer to Producer 
+
+The consumer response is as follows:
+
+``` json
+{
+  "headers": {
+    "request_id": "ghk479",
+    "created": 1610483633,
+    "from": "Consumer1@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 102
+      }
+    }
+  }
+}
+```
+
+![Consumer 1 Response](./images/e4-pkt-cnsmr1-rsp.png)
+
+
+---
+
+# Appendix F: Notices
+
+
+Copyright © OASIS Open 2021. All Rights Reserved.
+
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr) may be found at the OASIS website.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
+
+\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
+
+\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
+
+\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
+
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark for above guidance.
 
 
 
-# Appendix W: Operating Model Questions
+
+
+# Appendix Z: Operating Model Questions
 
 > NOTE: This appendix contains the questions originally used to help drive the operating model described in [Section 2, Operating Model](#2-operating-model).  The intent is that this Appendix will be deleted prior to public review of this specification.
 
@@ -1265,44 +1466,4 @@ operating model, the corresponding question(s) should be deleted.
 
 > - Is there a need to describe a state model for the Producer or Consumer?
 >   * **Proposed:** There is no need to define a unique state model for OpenC2 over MQTT.
-
-
-
-
-
-# Appendix X: Acronyms
-
-| Acronym | Meaning |
-| :--: | :--- |
-| AKA | Also Known As |
-| AP | Actuator Profile |
-| JSON | JavaScript Object Notation |
-| TBD | To Be Determined |
-| TBSL | To Be Specified Later |
-
-------
-
-# Appendix Y: Acknowledgments
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
-
-**OpenC2 TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-TBD | TBD | TBD
-
----
-
-# Appendix Z: Revision History
-| Revision | Date | Editor | Changes Made |
-| :--- | :--- | :--- | :--- |
-| WD01 | 2020-05-14 | David Lemire | Initial working draft |
-| WD02 | 2020-06-02 | David Lemire | Updates Operating Model section (2.0) and list of questions to be resolved. |
-| WD03 | 2020-06-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Initial presentation of example operating sequences and message. Presented as a CSD candidate at the 17 June 2020 TC meeting. |
-| WD03 / CSD01 | 2020-07-07 | David Lemire | WD03 approved by OpenC2 TC as CSD01 |
-| WD04 | 2020-09-15 | David Lemire | Further updates Operating Model section (2.0) and list of questions to be resolved. Updated presentation of example operating sequences and messages. Initial presentation of specifics for MQTT control packet types. Presented as a CSD candidate at the 16 September 2020 TC meeting.|
-| WD04 / CSD02 | 2020-09-24 | David Lemire | WD04 approved as CSD02 by electronic ballot |
-| WD05 | 2021-01-19 | David Lemire | Specification updated to use MQTT v5.0 in place of MQTT v3.1.1. |
-| WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
-| WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 
