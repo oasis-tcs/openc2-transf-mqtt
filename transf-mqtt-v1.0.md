@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 07
-## 08 February 2021
+## Working Draft 08
+## 15 April 2021
 
 
 
