@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 07
-## 08 February 2021
+## Working Draft 08
+## 15 April 2021
 
 
 
@@ -84,7 +84,7 @@ For complete copyright information please see the Notices section in the Appendi
 # Table of Contents
 
 - [1 Introduction](#1-introduction)
-  - [1.1 IPR Policy](#11-ipr-policy)
+  - [1.1 Changes from Earlier Versions](#11-changes-from-earlier-versions)
   - [1.2 Glossary](#12-glossary)
     - [1.2.1 Definitions of terms](#121-definitions-of-terms)
     - [1.2.2 Acronyms and abbreviations](#122-acronyms-and-abbreviations)
@@ -140,6 +140,8 @@ For complete copyright information please see the Notices section in the Appendi
     - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
     - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
   - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
+    - [Deny Action -- Producer to Consumer](#deny-action----producer-to-consumer)
+    - [Deny Response -- Consumer to Producer](#deny-response----consumer-to-producer)
 - [Appendix F: Notices](#appendix-f-notices)
 - [Appendix Z: Operating Model Questions](#appendix-z-operating-model-questions)
 
@@ -154,11 +156,10 @@ This specification describes OpenC2's use of the MQTT publish / subscribe messag
 
 ## 1.1 Changes from Earlier Versions
 
-The following changes have been implemented since CSD03:
+The following changes have been implemented since WD07/CSD03:
 
 * Restructured to match current OASIS template / outline
 * Added example illustrating `deny` action
-* Added example illustrating use of the paho MQTT python client
 * Eliminates an unneeded layer of indenture / numbering in Section 3
 * Moves the discussion of topic wildcard use into the Default Topic Structure section
 * Removed notes from Section 2.2
@@ -188,6 +189,7 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 | AP | Actuator Profile |
 | JSON | JavaScript Object Notation |
 | MQTT | Message Queuing Telemetry Transport |
+| RFC | Request For Comment |
 | TBD | To Be Determined |
 | TBSL | To Be Specified Later |
 
@@ -957,7 +959,10 @@ TBD | TBD | TBD
 | WD06 | 2021-02-08 | David Lemire | Refinements from WD05. Candidate for CSD at February 2021 TC meeting. Was uploaded without updating revision history |
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
-| WD08 | 2021-mm-dd | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
+| WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
+
+
+
 ---
 
 # Appendix E: Examples
