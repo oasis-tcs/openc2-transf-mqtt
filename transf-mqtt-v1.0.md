@@ -596,16 +596,9 @@ to define reasonable values for these properties.
 
 # 3 Protocol Mapping
 
-The three regions of MQTT control packets are represented in the
-tables in this section as follows:
-
-* FH = Fixed Header
-* VH = Variable Header
-* PL = Payload
-
-Only the fields and properties of concern to OpenC2 messaging
-over MQTT are specified. Values for fields and properties not
-specified herein are to be populated as defined in the [MQTT
+This section defines specific requirements for populating MQTT
+control packets. Values for fields and properties not specified
+herein are to be populated as defined in the [MQTT
 v5.0](#mqtt-v50) specification, or as determined by the
 implementer where applicable.
 
