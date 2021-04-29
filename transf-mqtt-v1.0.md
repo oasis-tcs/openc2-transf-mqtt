@@ -690,10 +690,10 @@ to subscribe to a set of topics consistent with the default topic
 structure defined in [Section 2.2](#22-default-topic-structure)
 of this specification. This means that:
 
-* Consumers SHALL subscribe to topics for all actuator profiles
-  the Consumer implements, the all-commands topic
-  (`oc2/cmd/all`), and an individual topic for that Consumer
-  device.
+* Consumers SHALL subscribe to 
+  * topics for all actuator profiles the Consumer implements, 
+  * the all-commands topic (`oc2/cmd/all`), and
+  * an individual topic for that Consumer device (`oc2/cmd/device/[device_id]`).
 * Producers SHALL subscribe to the general response topic (`oc2/rsp`).
 * Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
 
@@ -711,9 +711,7 @@ for a `Maximum QoS` of 2 if supported by their implementation.
 
 This specification makes no recommendations regarding values for the following SUBSCRIBE properties:
 
- * Subscription Identifier
-
-
+ * `Subscription Identifier`
 
 ## 3.4 PINGREQ Control Packet
 
