@@ -639,15 +639,6 @@ This specification makes no recommendations regarding values for the following C
  * `Username flag`
  * `Password flag`
 
-## 3.2 CONNACK Control Packet
-
-OpenC2 Producers and Consumers MUST receive and process the
-CONNACK control packet, as specified in the [MQTT
-v5.0](#mqtt-v50) specification section 3.2, after requesting  a
-connection to the MQTT Broker. This specification makes no
-recommendations regarding values for the CONACK properties
-defined in section 3.2.2.3 of the [MQTT v5.0](#mqtt-v50)
-specification.
 
 ## 3.3 PUBLISH Control Packet
 
@@ -685,39 +676,7 @@ This specification makes no recommendations regarding values for the following P
  * Topic Alias
 
 
-## 3.4 PUBACK Control Packet
 
-OpenC2 Producers and Consumers MUST receive and process  the
-PUBACK control packet, as specified in the [MQTT v5.0](#mqtt-v50)
-specification section 3.4, after publishing a message to the MQTT
-Broker.
-
-## 3.5 PUBREC Control Packet
-
-Consistent with the guidance in [Section
-2.5](#25-quality-of-service) of this specification to use QoS
-Level 1, the PUBREC control packet is not normally utilized for
-OpenC2. Implementers who elect to use QoS Level 2 should
-implement the PUBREC packet as specified in the [MQTT
-v5.0](#mqtt-v50) specification section 3.5.
-
-## 3.6 PUBREL Control Packet
-
-Consistent with the guidance in [Section
-2.5](#25-quality-of-service) of this specification to use QoS
-Level 1, the PUBREL control packet is not normally utilized for
-OpenC2 . Implementers who elect to use QoS Level 2 should
-implement the PUBREL packet as specified in the [MQTT
-v5.0](#mqtt-v50) specification section 3.6.
-
-## 3.7 PUBCOMP Control Packet
-
-Consistent with the guidance in [Section
-2.5](#25-quality-of-service) of this specification to use QoS
-Level 1, the PUBCOMP control packet is not normally utilized for
-OpenC2. Implementers who elect to use QoS Level 2 should
-implement the PUBCOMP packet as specified in the [MQTT
-v5.0](#mqtt-v50) specification section 3.7.
 
 ## 3.8 SUBSCRIBE Control Packet
 
@@ -750,33 +709,7 @@ This specification makes no recommendations regarding values for the following S
 
  * Subscription Identifier
 
-## 3.9 SUBACK Control Packet
 
-OpenC2 Producers and Consumers MUST receive and process the
-SUBACK control packet, as specified in the
-[MQTT v5.0](#mqtt-v50) specification section 3.9, after transmitting
-a SUBSCRIBE control packet to the MQTT Broker.
-
-## 3.10 UNSUBSCRIBE Control Packet
-
-Under normal operating circumstances OpenC2 Producers and
-Consumers are not expected to unsubscribe from their respective
-default topic selections, as described in [Section
-2.2](#22-default-topic-structure) of this specification. If a
-reason arises to unsubscribe from one or more topics, the OpenC2
-Producer or Consumer SHALL use the UNSUBSUBSCRIBE control packet
-as specified in [MQTT v5.0](#mqtt-v50), Section 3.10.
-
-## 3.11 UNSUBACK Control Packet
-
-Under normal operating circumstances OpenC2 Producers and
-Consumers are not expected to unsubscribe from their respective
-default topic selections, as described in [Section
-2.2](#22-default-topic-structure) of this specification. If a
-reason arises to unsubscribe from one or more topics, the OpenC2
-Producer or Consumer SHALL receive and process an UNSUBACK
-control packet from the broker as specified in [MQTT
-v5.0](#mqtt-v50), Section 3.11.
 
 ## 3.12 PINGREQ Control Packet
 
@@ -789,20 +722,27 @@ implementer has not otherwise specified a keep-alive interval,
 2.6](#26-keep-alive-interval) of this specification shall be
 used.
 
-## 3.13 PINGRESP Control Packet
+## 3.15 Other Control Packets
 
-OpenC2 Producers and Consumers SHALL receive and process
-PINGRESP control packets from a broker as specified in [MQTT
-v5.0](#mqtt-v50), Section 3.13.
+This specification makes no requirements or recommendations
+regarding the use of the following MQTT control packets:
 
-## 3.14 DISCONNECT Control Packet
+* CONNACK
+* PUBACK
+* PUBREC
+* PUBREL
+* PUBCOMP
+* SUBACK
+* UNSUBSCRIBE
+* UNSUBACK
+* PINGRESP
+* DISCONNECT
+* AUTH
 
-TBD
-
-## 3.15 AUTH Control Packet
-
-TBD
-
+As required OpenC2 Producers and Consumers MUST create and
+transmit or receive and process these control packets as
+specified in their respective sections of the
+[MQTTv5.0](#mqtt-v50) specification.
 
 # 4 Conformance
 
