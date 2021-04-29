@@ -616,33 +616,28 @@ CONNECT control packet, as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.1, to establish a
 connection to the MQTT Broker.
 
-The following fields of the CONNECT control packet SHALL be populated
-as specified:
+OpenC2 Producers and Consumers MUST populate the following CONNECT control packet fields as specified:
 
-| Region | Field / Property | Value |
-|:-:|:-:|:-:|
-| VH | Connect Flags | (bitmap) |
-|  | Clean Session | 0 |
-|  | Will Flag | 0 |
-|  | Will QoS | 0 |
-|  | Will Retain | 0 |
-|  | User Name Flag | TBD |
-|  | Password Flag | TBD |
-| VH | Keep Alive  | Number <= 300 (seconds) |
-| VH | Session Expiry  | TBD |
-| PL | Client Identifier | client-generated ID |
-| PL | Username | TBD  |
-| PL | Password | TBD |
+* `Clean Session` = FALSE
+* `Will Flat` = FALSE
+* `Will QoS` = 0 (zero)
+* `Will Retain` = FALSE
+* `Keep Alive` = Number <= 300 (seconds)
+* `Client Identifier` = client-generated identifier string
 
+OpenC2 Producers and Consumers MUST NOT populate any of the CONNECT payload fields related to the MQTT `Will Message`.
 
 This specification makes no recommendations regarding values for the following CONNECT properties:
 
- * Authentication Method
- * Authentication Data
- * Request Problem Information
- * Receive Maximum
- * Topic Alias Maximum
- * Maximum Packet Size
+ * `Authentication Method`
+ * `Authentication Data`
+ * `Request Problem Information`
+ * `Receive Maximum`
+ * `Session Expiry`
+ * `Topic Alias Maximum`
+ * `Maximum Packet Size`
+ * `Username flag`
+ * `Password flag`
 
 ## 3.2 CONNACK Control Packet
 
