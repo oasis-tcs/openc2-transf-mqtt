@@ -640,7 +640,7 @@ This specification makes no recommendations regarding values for the following C
  * `Password flag`
 
 
-## 3.3 PUBLISH Control Packet
+## 3.2 PUBLISH Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
 PUBLISH control packet, as specified in the [MQTT
@@ -678,7 +678,7 @@ This specification makes no recommendations regarding values for the following P
 
 
 
-## 3.8 SUBSCRIBE Control Packet
+## 3.3 SUBSCRIBE Control Packet
 
 Producers and Consumers MUST use the SUBSCRIBE control packet, as
 specified in the [MQTT v5.0](#mqtt-v50) specification section 3.8
@@ -711,7 +711,7 @@ This specification makes no recommendations regarding values for the following S
 
 
 
-## 3.12 PINGREQ Control Packet
+## 3.4 PINGREQ Control Packet
 
 OpenC2 Producers and Consumers MUST send a PINGREQ control packet
 to all MQTT brokers with which they are connected if they have
@@ -722,7 +722,7 @@ implementer has not otherwise specified a keep-alive interval,
 2.6](#26-keep-alive-interval) of this specification shall be
 used.
 
-## 3.15 Other Control Packets
+## 3.5 Other Control Packets
 
 This specification makes no requirements or recommendations
 regarding the use of the following MQTT control packets:
