@@ -387,8 +387,13 @@ OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  
 * `Content Type [Property 0x03]`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
 
 * `User Property [Property 0x26]`:  two User Properties (UTF-8 string pairs) are defined to further specify the message format:
-  * `"msgType"`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are  `"req"` (request), `"rsp"` (response), or `"ntf"` (notification)
-  * `"encoding"`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are `"json"` and `"cbor"`.
+  * Key: `"msgType"`:  a UTF-8 string used to identify the type of OpenC2 message, as described in section 3.2 of the OpenC2 Language Specification.  Legal values are:
+     * `"req"` (request), 
+     * `"rsp"` (response), or 
+     * `"ntf"` (notification)
+  * Key: `"encoding"`:  a UTF-8 string used to identify the specific text or binary encoding of the message. Legal values are:
+    * `"json"`, and 
+    * `"cbor"`
 
 The specifics of serializing OpenC2 messages are defined in other OpenC2 specifications.
 
