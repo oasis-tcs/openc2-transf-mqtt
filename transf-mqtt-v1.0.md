@@ -108,20 +108,10 @@ For complete copyright information please see the Notices section in the Appendi
   - [2.10 Session Expiry and Message Expiry Intervals](#210-session-expiry-and-message-expiry-intervals)
 - [3 Protocol Mapping](#3-protocol-mapping)
   - [3.1 CONNECT Control Packet](#31-connect-control-packet)
-  - [3.2 CONNACK Control Packet](#32-connack-control-packet)
-  - [3.3 PUBLISH Control Packet](#33-publish-control-packet)
-  - [3.4 PUBACK Control Packet](#34-puback-control-packet)
-  - [3.5 PUBREC Control Packet](#35-pubrec-control-packet)
-  - [3.6 PUBREL Control Packet](#36-pubrel-control-packet)
-  - [3.7 PUBCOMP Control Packet](#37-pubcomp-control-packet)
-  - [3.8 SUBSCRIBE Control Packet](#38-subscribe-control-packet)
-  - [3.9 SUBACK Control Packet](#39-suback-control-packet)
-  - [3.10 UNSUBSCRIBE Control Packet](#310-unsubscribe-control-packet)
-  - [3.11 UNSUBACK Control Packet](#311-unsuback-control-packet)
-  - [3.12 PINGREQ Control Packet](#312-pingreq-control-packet)
-  - [3.13 PINGRESP Control Packet](#313-pingresp-control-packet)
-  - [3.14 DISCONNECT Control Packet](#314-disconnect-control-packet)
-  - [3.15 AUTH Control Packet](#315-auth-control-packet)
+  - [3.2 PUBLISH Control Packet](#32-publish-control-packet)
+  - [3.3 SUBSCRIBE Control Packet](#33-subscribe-control-packet)
+  - [3.4 PINGREQ Control Packet](#34-pingreq-control-packet)
+  - [3.5 Other Control Packets](#35-other-control-packets)
 - [4 Conformance](#4-conformance)
 - [Appendix A: References](#appendix-a-references)
   - [A.1 Normative References](#a1-normative-references)
@@ -142,8 +132,11 @@ For complete copyright information please see the Notices section in the Appendi
   - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
     - [Deny Action -- Producer to Consumer](#deny-action----producer-to-consumer)
     - [Deny Response -- Consumer to Producer](#deny-response----consumer-to-producer)
+  - [E.5 Paho Python Client Examples](#e5-paho-python-client-examples)
+    - [E.5.1 Connecting](#e51-connecting)
+    - [E.5.2 Subscribing](#e52-subscribing)
+    - [E.5.3 Publishing](#e53-publishing)
 - [Appendix F: Notices](#appendix-f-notices)
-- [Appendix Z: Operating Model Questions](#appendix-z-operating-model-questions)
 
 -------
 
@@ -804,8 +797,8 @@ MQTT Version 3.1.1. Edited by Andrew Banks and Rahul Gupta. 29 October 2014. OAS
 Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0. Edited by Joe Brule, Duncan Sparrell and Alex Everett. 11 July 2019. Committee Specification 01. https://docs.oasis-open.org/openc2/oc2slpf/v1.0/cs01/oc2slpf-v1.0-cs01.html. Latest version: https://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html.
 ###### [Sparkplug-B]
 Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.2, October 2019, https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf
-
-
+###### [Paho]
+Eclipse Foundation Paho MQTT Client Library, https://www.eclipse.org/paho/
 
 
 
@@ -1288,8 +1281,8 @@ The consumer response is as follows:
 
 ## E.5 Paho Python Client Examples
 
-This set of examples illustrates the use of the paho python MQTT
-client to utilize MQTTv5 as described in this specification. The
+This set of examples illustrates the use of the [paho python MQTT
+client](#paho) to utilize MQTTv5 as described in this specification. The
 paho client documentation [https://pypi.org/project/paho-mqtt/]
 currently does not include explanations for how to access MQTTv5
 features, so this example has been constructed based on
