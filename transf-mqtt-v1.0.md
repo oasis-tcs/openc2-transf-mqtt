@@ -1287,6 +1287,231 @@ The consumer response is as follows:
 ![Consumer 1 Response](./images/e4-pkt-cnsmr1-rsp.png)
 
 
+## E.5 Paho Python Client Examples
+
+This set of examples illustrates the use of the paho python MQTT
+client to utilize MQTTv5 as described in this specification. The
+paho client documentation [https://pypi.org/project/paho-mqtt/]
+currently does not include explanations for how to access MQTTv5
+features, so this example has been constructed based on
+examination of the client source
+[https://github.com/eclipse/paho.mqtt.python/tree/master/src/paho/mqtt].
+
+As described in the client documentation, the basic approach to
+using the paho client is:
+
+* Create a client instance
+* Connect to a broker using one of the connect*() functions
+* Call one of the loop*() functions to maintain network traffic flow with the broker
+* Use subscribe() to subscribe to a topic and receive messages
+* Use publish() to publish messages to the broker
+* Use disconnect() to disconnect from the broker
+
+The paho client’s MQTTv5 features also depend on the use of the
+`Properties` class to specify properties to include in the
+PUBLISH packet, and the `SubscribeOptions` class to specify the
+appropriate options when subscribing to topics. 
+
+This example focuses on those aspects of client use that leverage
+MQTTv5 features, and does not attempt to illustrate a complete
+working solution.
+
+### E.5.1 Connecting
+
+This example illustrates the process of connecting to an MQTT
+broker and subscribing to topic filters appropriate for a client
+that implements the stateless packet filter actuator profile
+(AP).  The example illustrates the following aspects of the
+operating model:
+
+* Randomly generated MQTT ClientID, Section 2.6
+* Recommended 5 minute keep-alive interval, Section 2.7
+* No use of MQTT "will" messages, Section 2.8
+* `Clean Start` flag set to false, Section 2.9
+* Optional use of username and password, Section 3.1
+* Use of TLS 1.2 or higher, Appendix B
+
+``` python
+import json
+import ssl
+from typing import Any, Dict
+from paho.mqtt import client as mqtt
+from paho.mqtt.properties import Properties
+
+
+# MQTT functions
+def mqtt_on_connect(client: mqtt.Client, userdata: Any, flags: dict, rc: int, properties: Properties = None) -> None:
+   """
+   MQTT Callback for when client receives connection-acknowledgement response from MQTT server.
+   :param client: Class instance of connection to server
+   :param userdata: User-defined data passed to callbacks
+   :param flags: Response flags sent by broker
+   :param rc: Connection result, Successful = 0
+   """
+   print(f"Connected with result code {rc} -> {mqtt.connack_string(rc)}, properties: {properties}")
+   # Subscribing in on_connect() allows us to renew subscriptions if disconnected
+
+   if rc == 0 and isinstance(userdata, list):
+       if not all(isinstance(t, str) for t in userdata):
+           print("Error in on_connect. Expected topic to be of type a list of strings.")
+           return
+       (host, port) = client.socket().getpeername()
+       print(f"{host}:{port} listening on `{'`, `'.join(t.lower() for t in userdata)}`")
+       # See E.5.2
+        client.subscribe([(t.lower(), SUBSCRIBE_OPTIONS) for t in userdata])
+
+
+
+def mqtt_on_message(client: mqtt.Client, userdata: Any, msg: mqtt.MQTTMessage) -> None:
+   """
+   MQTT Callback for when a PUBLISH message is received from the server.
+   :param client: Class instance of connection to server.
+   :param userdata: User-defined data passed to callbacks
+   :param msg: Contains payload, topic, qos, retain
+   """
+   try:
+       # Load message as JSON; EXAMPLE: DO NOT HARD CODE
+       payload = json.loads(msg.payload)
+       print(f'Received: {payload}')
+       # Process message as needed
+
+   except Exception as e:
+       print(f"Received: {msg.payload}")
+       print(f"MQTT message error: {e}")
+
+client = mqtt.Client(
+   # client_id per section 2.6 of this spec
+   client_id=self.client_id,
+   # Subscriptions topics, Topics based on SLPF actuator profile
+   userdata=['oc2/cmd/all', f'oc2/cmd/device/{dev_id}', 'oc2/cmd/ap/slpf'],
+   protocol=mqtt.MQTTv5,
+   transport='tcp'
+)
+
+# Auth, if necessary
+client.username_pw_set(
+   username='USER',
+   password='PASSWORD'
+)
+
+# TLS, if necessary
+client.tls_set(
+   ca_certs='PATH/TO/CA_CERT',
+   certfile='PATH/TO/CERT_FILE',
+   keyfile='PATH/TO/KEY_FILE',
+   tls_version=ssl.PROTOCOL_TLSv1_2
+)
+
+# Set callbacks
+client.on_connect = mqtt_on_connect
+client.on_message = mqtt_on_message
+
+try:
+   client.connect(
+       host='host',
+       port='port',
+       keepalive=300,
+       clean_start=mqtt.MQTT_CLEAN_START_FIRST_ONLY
+   )
+except Exception as e:
+   print(f'MQTT Error: {e}')
+
+print(f'Connect to MQTT broker: host:port')
+client.loop_start()
+```
+
+
+
+
+### E.5.2 Subscribing
+
+This example provides supporting detail for the E.5.1 example
+regarding certain aspects of establishing subscriptions using the
+paho client. This code illustrates the following aspects of the
+operating model:
+
+* Default topic structure, Section 2.2
+* Subscription options settings, Section 2.3
+
+``` python
+# Addition from E.5.1
+from paho.mqtt.subscribeoptions import SubscribeOptions
+
+
+SUBSCRIBE_OPTIONS = SubscribeOptions(
+   qos=1,
+   noLocal=True,
+   retainAsPublished=True,
+  retainHandling=subscribeoptions.SubscribeOptions.RETAIN_SEND_ON_SUBSCRIBE
+)
+
+TOPICS = [
+  ('oc2/cmd/all', SUBSCRIBE_OPTIONS),
+  (f'oc2/cmd/device/{dev_id}', SUBSCRIBE_OPTIONS),
+  ('oc2/cmd/ap/slpf', SUBSCRIBE_OPTIONS)
+]
+
+client.subscribe(TOPICS)
+```
+
+
+### E.5.3 Publishing
+
+This example illustrates the creation and publishing of a message
+using the paho client once a broker connection has been
+established as in E.5.1.  This code illustrates the following
+aspects of the operating model:
+
+* Default topic structure, Section 2.2
+* Recommended use of QoS 1, Section 2.5
+* Properties to convey OpenC2 message type and serialization, Section 2.4
+* `PUBLISH` control packet flags, Section 3.3
+
+``` python
+# Addition from E.5.1
+from paho.mqtt.packettypes import PacketTypes
+
+msg = {
+  "headers": {
+    "request_id": "abc123",
+    "created": 1610483630,
+    "from": "slpf@example.com"
+  },
+  "body": {
+    "openc2": {
+      "response": {
+        "status": 200,
+        "status_text": "OK - the Command has succeeded.",
+        "results": {
+          "profiles": ["slpf", "x-acme"]
+        }
+      }
+    }
+  }
+}
+
+# configure MQTT PUBLISH Packet Properties
+# in accordance with section 3.3 of this spec
+publish_props = properties.Properties(PacketTypes.PUBLISH)
+# Format Indicator - Binary=0, UTF-8=1
+publish_props.PayloadFormatIndicator = 1
+# Content-Type
+publish_props.ContentType = "application/openc2"
+# User Property for Message Type
+publish_props.UserProperty = ("msgType", "rsp")
+# User Property for Message Encoding
+publish_props.UserProperty = ("encoding", "json")
+
+client.publish(
+   "oc2/rsp",
+   payload=json.dumps(msg),
+   qos=1,
+   retain=False,
+   properties=publish_props
+)
+```
+
+
 ---
 
 # Appendix F: Notices
