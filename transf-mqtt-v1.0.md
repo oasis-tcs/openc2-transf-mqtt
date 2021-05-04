@@ -221,7 +221,7 @@ In this specification, the UTF-8 String Pair data type
 ([[MQTT-v5.0](#mqtt-v50)], section 1.5.7) is of particular
 interest, as MQTT v5.0 User Properties are utilized. Within this
 document, the representation for a UTF-8 String Pair User
-Property is `"key:value"`.
+Property is `"key":"value"`.
 
 Per the MQTT specification sections 1.5.4 and 1.5.7 each string
 is encoded with a 2-byte length followed by the UTF-8 encoding of
@@ -562,7 +562,7 @@ following table.
     <td align="center"><b>No</b></td>
   </tr>
   <tr>
-    <td rowspan="2" align="center">Clean<br>Start<br>Flag</td>
+    <td rowspan="2" align="center"><b>Clean<br>Start<br>Flag</b></td>
     <td>True (1)</td>
     <td><ul>
     <li>No prior state to discard<li>New subscriptions required
@@ -657,15 +657,15 @@ OpenC2 Producers and Consumers MUST populate the following CONNECT control packe
   * for binary message encodings = `0`
   * for UTF-8 message encodings = `1`
 * Content Type =  `"application/openc2"`
-* User Property for message type = `"msgType:[type]"` where 
+* User Property for message type = `"msgType":"[type]"` where 
   * `[type]` = `"req"` when publishing OpenC2 requests
   * `[type]` = `"rsp` when publishing OpenC2 responses
   * `[type]` = `"ntf"` when publishing OpenC2 notifications
-* User Property for message encoding = `"encoding:[encoding]"` where
+* User Property for message encoding = `"encoding":"[encoding]"` where
   * `[encoding]` = `"json"` for JSON-encoded messages using UTF-8 
   * `[encoding]` = `"cbor"` for CBOR-encoded binary messages 
 
-OpenC2 Producers and Consumers MUST populate the PUBLIC control packet payload with an OpenC2 message of type specified by the `"msgType:[type]"` User Property, encoded as specified by the `"encoding:[encoding]"` User Property.
+OpenC2 Producers and Consumers MUST populate the PUBLIC control packet payload with an OpenC2 message of type specified by the `"msgType":"[type]"` User Property, encoded as specified by the `"encoding":"[encoding]"` User Property.
 
 OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
 
