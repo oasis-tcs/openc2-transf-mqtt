@@ -2,8 +2,8 @@
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 08
-## 15 April 2021
+## Working Draft 09
+## DD MMM 2021
 
 
 
@@ -156,13 +156,11 @@ This specification describes OpenC2's use of the MQTT publish / subscribe messag
 
 ## 1.1 Changes from Earlier Versions
 
-The following changes have been implemented since WD07/CSD03:
+The following changes have been implemented since WD08:
 
-* Restructured to match current OASIS template / outline
-* Added example illustrating `deny` action
-* Eliminates an unneeded layer of indenture / numbering in Section 3
-* Moves the discussion of topic wildcard use into the Default Topic Structure section
-* Removed notes from Section 2.2
+* Simplified presentation of protocol requirements in Section 3
+* Added example illustrating use of paho python MQTT client
+* Removed operating model questions (Appendix Z)
 
 
 ## 1.2 Glossary
@@ -895,6 +893,7 @@ TBD | TBD | TBD
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
+| WD09 | 2021-XX-XX | David Lemire | Simplified Section 3;<br> Added paho python client example;<br>Removed operating model questions (Appendix Z);<br> Numerous small edits and corrections  |
 
 
 
