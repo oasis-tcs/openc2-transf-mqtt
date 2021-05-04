@@ -616,8 +616,8 @@ connection to the MQTT Broker.
 
 OpenC2 Producers and Consumers MUST populate the following CONNECT control packet fields as specified:
 
-* `Clean Session` = FALSE
-* `Will Flat` = FALSE
+* `Clean Start` = FALSE
+* `Will Flag` = FALSE
 * `Will QoS` = 0 (zero)
 * `Will Retain` = FALSE
 * `Keep Alive` = Number <= 300 (seconds)
@@ -704,8 +704,8 @@ When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscr
 
 As defined in [Section 2.4](#24-quality-of-service) of this
 specification, subscribers MUST specify a `Maximum QoS` level of
-at least 1 when subscribing to topics. Implementers SHOULD allow
-for a `Maximum QoS` of 2 if supported by their implementation.
+at least `1` when subscribing to topics. Implementers SHOULD allow
+for a `Maximum QoS` of `2` if supported by their implementation.
 
 This specification makes no recommendations regarding values for the following SUBSCRIBE properties:
 
