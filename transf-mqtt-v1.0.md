@@ -879,6 +879,14 @@ Text on Security Considerations_, IETF
 
 ## C.1 Special Thanks
 
+The editor would like to thank the following individuals for their support in the development of this specification:
+
+* Jerome Czachor, Huntington Ingalls Industries, Technical Solutions
+* Ha Ram Yoon, Huntington Ingalls Industries, Technical Solutions
+* Patrick Connole, Praxis Engineering Technologies, LLC
+* Mason Mirarcy, Praxis Engineering Technologies, LLC
+
+
 ## C.2 Participants
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
