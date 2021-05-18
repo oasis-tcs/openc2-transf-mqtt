@@ -945,7 +945,7 @@ This example illustrates the message flows involved in the
 process of a Producer (i.e., an Orchestrator) and a Consumer each
 connecting to the MQTT broker as clients and subscribing to the
 appropriate channels for each, in accordance with the default
-topic model. The message flows are depicted in Figure A-CAS. The
+topic model. The message flows are depicted in Figure E-1. The
 Producer is assigned the username `orch01`. The Consumer is
 assigned the username `zulu01` and supports the notional actuator
 profiles `alpha` and `iota`. No OpenC2-specific content appears
@@ -962,7 +962,7 @@ This example illustrates the following aspects of the operating model:
 * Clean Start flag set to false, [Section 2.9](#29-clean-start-flag)
 * Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 
-#### Figure E-CAS: Connect and Subscribe
+#### Figure E-1: Connect and Subscribe
 
 ![Connect and Subscribe Sequence](./images/e1-seq-con_sub.png)
 
@@ -1017,7 +1017,7 @@ This example illustrates the following aspects of the operating model:
 * PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
-#### Figure E-PRR: Publish Request and Response
+#### Figure E-2: Publish Request and Response
 
 ![Basic Interaction Sequence](./images/e2-seq-req_rsp.png)
 
@@ -1026,7 +1026,7 @@ portion of this example are illustrated below. The packet contents
 between the Producer and the Broker, and between the Broker and
 the Consumers are the same in each `PUBLISH / PUBACK` exchange,
 with the exception that the `packetId` field will differ for each
-of the three publishing exchanges in Figure A-PRR, as that value
+of the three publishing exchanges in Figure E-2, as that value
 is assigned by the initiator of each exchange. The payload of
 `"(JSON-encoded openc2 request)"` is a placeholder for a
 meaningful OpenC2 request message.
