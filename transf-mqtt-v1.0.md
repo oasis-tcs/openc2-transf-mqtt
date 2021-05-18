@@ -925,10 +925,10 @@ This example illustrates the following aspects of the operating model:
 * Client and broker roles, [Section 2.1](#21-publishers-subscribers-and-brokers)
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Subscription options settings, [Section 2.3](#23-subscriptions-options)
-* Randomly generated MQTT ClientID, [Section 2.6](#26-mqtt-client-identifier)
+* Randomly generated MQTT `ClientID`, [Section 2.6](#26-mqtt-client-identifier)
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
 * No use of MQTT "will" messages, [Section 2.8](#28--will-message)
-* Clean Start flag set to false, [Section 2.9](#29-clean-start-flag)
+* `Clean Start` flag set to false, [Section 2.9](#29-clean-start-flag)
 * Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 
 #### Figure E-1: Connect and Subscribe
@@ -936,17 +936,17 @@ This example illustrates the following aspects of the operating model:
 ![Connect and Subscribe Sequence](./images/e1-seq-con_sub.png)
 
 
-The Producer and Consumer CONNECT packets for this example are as
-follows; the optional username and password fields of the CONNECT
+The Producer and Consumer `CONNECT` packets for this example are as
+follows; the optional username and password fields of the `CONNECT`
 packets are populated in this example:
 
 ![Producer and Consumer Connect Cackets](./images/e1-pkt-connect-packets.png)
 
  
-The Consumer SUBSCRIBE and corresponding Broker SUBACK packets for this example
-are shown below; `Subscription Options` are populated as
-specified in [section 3.8](#38-subscribe-control-packet) of this
-specification:
+The Consumer `SUBSCRIBE` and corresponding Broker `SUBACK`
+packets for this example are shown below; `Subscription Options`
+are populated as specified in [section
+3.8](#38-subscribe-control-packet) of this specification:
 
 ![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
 
@@ -955,7 +955,7 @@ specification:
 This example illustrates the message flows that occur for a
 notional but common process of an OpenC2 Producer publishing an
 OpenC2 request to multiple Consumers. The focus of this example
-is the use of MQTT PUBLISH and PUBACK control packets for the
+is the use of MQTT `PUBLISH` and `PUBACK` control packets for the
 message flows. No meaningful OpenC2 content appears in any of the
 messages in this example. 
 
@@ -975,15 +975,16 @@ request message so the consumers exhibit the OpenC2 default
 behavior of sending a complete response.
 
 The command and response messages in the sequence diagram shown
-in Figure A-PRR are published with a QoS of 1, which requires the
-recipient to respond to the PUBLISH packet with a PUBACK packet.
+in Figure E-2 are published with a QoS of 1, which requires the
+recipient to respond to the `PUBLISH` packet with a `PUBACK`
+packet.
 
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 #### Figure E-2: Publish Request and Response
@@ -1007,7 +1008,7 @@ meaningful OpenC2 request message.
 ## E.3 Example 3: Query Consumer Actuator Profiles
 
 This example illustrates the packaging of OpenC2 requests in MQTT
-PUBLISH control packets.  The scenario is a request containing an
+`PUBLISH` control packets.  The scenario is a request containing an
 OpenC2 `query` action sent over MQTT to retrieve the list of
 actuator profiles supported by a set of Consumers. This example
 includes three Consumers that implement several different
@@ -1021,10 +1022,10 @@ actuator profiles, as follows:
   software bill of materials (SBOM) APs (`edr` and `sbom`)
 
  **NOTES:** 
- 1. No sequence diagram is included as the PUBLISH / PUBACK
+ 1. No sequence diagram is included as the `PUBLISH / PUBACK`
     sequences among Producers, Consumers, and Brokers are similar
     to those illustrated in Example 2. This example only includes
-    the PUBLISH control packets containing the OpenC2 request and
+    the `PUBLISH` control packets containing the OpenC2 request and
     response messages.
  1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
@@ -1036,16 +1037,16 @@ actuator profiles, as follows:
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Packaging of OpenC2 messages in `PUBLISH` control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `query`
 request to `oc2/cmd/all`. The OpenC2 request message contents and
-corresponding MQTT PUBLISH control packet are shown below,
-followed by the Consumer replies. The PUBLISH control packet
+corresponding MQTT `PUBLISH` control packet are shown below,
+followed by the Consumer replies. The `PUBLISH` control packet
 fields and OpenC2 message content that varies among the packets
 is shown in red in the packet examples for clarity, and the JSON
 nessages in the control packet payloads use condensed formatting
@@ -1166,19 +1167,19 @@ _Consumer 3:_
 ## E.4 OpenC2 Deny Example
 
 This example illustrates the execution of a common  OpenC2
-requests using MQTT PUBLISH control packets.  The example is a
+requests using MQTT `PUBLISH` control packets.  The example is a
 deny action for a particular IP connection, as described in the
 [Stateless Packet Filtering AP](#openc2-slpf-v10), Section
-A.1.1. This example primarily indicates the content of the PUBLISH
+A.1.1. This example primarily indicates the content of the `PUBLISH`
 control packets. For simplicity the exchange illustrated only
 includes one Producer and one Consumer.
 
 
  **NOTES:** 
- 1. No sequence diagram is included as the PUBLISH / PUBACK
+ 1. No sequence diagram is included as the `PUBLISH / PUBACK`
     sequences among Producer, Consumer, and Broker are similar
     to those illustrated in Example 2. This example only includes
-    the PUBLISH control packets containing the OpenC2 request and
+    the `PUBLISH` control packets containing the OpenC2 request and
     response messages.
  1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
@@ -1190,15 +1191,15 @@ includes one Producer and one Consumer.
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Packaging of OpenC2 messages in `PUBLISH` control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `deny`
 request to `oc2/cmd/slpf`. The OpenC2 request message contents
-and corresponding MQTT PUBLISH control packet are shown below,
+and corresponding MQTT `PUBLISH` control packet are shown below,
 followed by the Consumer reply.The JSON nessages in the control
 packet payloads use condensed formatting (white space minimized).
 
@@ -1308,7 +1309,7 @@ that implements the stateless packet filter actuator profile
 (AP).  The example illustrates the following aspects of the
 operating model:
 
-* Randomly generated MQTT ClientID, Section 2.6
+* Randomly generated MQTT `ClientID`, Section 2.6
 * Recommended 5 minute keep-alive interval, Section 2.7
 * No use of MQTT "will" messages, Section 2.8
 * `Clean Start` flag set to false, Section 2.9
