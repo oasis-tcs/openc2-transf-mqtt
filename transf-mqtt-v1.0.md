@@ -154,6 +154,7 @@ The following changes have been implemented since WD08:
 * Simplified presentation of protocol requirements in Section 3
 * Added example illustrating use of paho python MQTT client
 * Removed operating model questions (Appendix Z)
+* Numerous minor edits, corrections, and consistency fixes
 
 
 ## 1.2 Glossary
@@ -611,10 +612,10 @@ connection to the MQTT Broker.
 OpenC2 Producers and Consumers MUST populate the following
 `CONNECT` control packet fields as specified:
 
-* `Clean Start` = FALSE
-* `Will Flag` = FALSE
-* `Will QoS` = 0 (zero)
-* `Will Retain` = FALSE
+* `Clean Start` = `0 (FALSE)`
+* `Will Flag` = `0 (FALSE)`
+* `Will QoS` = `00 (zero)`
+* `Will Retain` = `0 (FALSE)`
 * `Keep Alive` = Number <= 300 (seconds)
 * `Client Identifier` = client-generated identifier string, as described in [Section 2.6, MQTT Client Identifier](#26-mqtt-client-identifier)
 
@@ -650,7 +651,7 @@ specification.
 OpenC2 Producers and Consumers MUST populate the following
 `PUBLISH` control packet fields as specified:
 * `QoS` = `1` (minimum, 2 if so determined by the implementer)
-* `Retain` = `0` (FALSE)
+* `Retain` = `0 (FALSE)`
 * `Payload Format Indicator`
   * for binary message encodings = `0`
   * for UTF-8 message encodings = `1`
@@ -703,10 +704,10 @@ means that:
 When subscribing to topics OpenC2 Producers and Consumers SHOULD
 populate subscription options for each topic as follows:
 
-* `Maximum QoS: 2`
-* `No Local: 1 (true)`
-* `Retain as Published: 1` 
-* `Retain Handling: 0` 
+* `Maximum QoS`: `2`
+* `No Local`: `1`
+* `Retain as Published`: `1` 
+* `Retain Handling`: `00` 
 
 As defined in [Section 2.4](#24-quality-of-service) of this
 specification, subscribers MUST specify a `Maximum QoS` level of
