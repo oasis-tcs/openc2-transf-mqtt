@@ -539,9 +539,10 @@ Start` equals `1` [_true_]). In MQTT the setting of the `Clean
 Start` flag and the value of the `Session Expiry Interval` from
 the most recent `CONNECT` packet are relevant to how the broker
 handles client state.  The behavior is summarized in the
-following table.
+Table 2.
 
 
+#### **Table 2: Clean Start Behavior** 
 
 <table border="4 px">
 <thead>
