@@ -265,18 +265,20 @@ Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers 
 
 ## 2.2 Default Topic Structure
 
-The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
-prefix on the topic names segregates OpenC2-related topics from other topics
-that might exist on the same broker. Topic name components in brackets (e.g.,
-`[actuator_profile]`) are placeholders for specific values that would be used in
-implementation.  For example, a device that implements the Stateless Packeting
-Filter AP would subscribe to `oc2/cmd/ap/slpf`. In addition, each Consumer
-subscribes to its own device-specific topic using a device identifier (annotated
-as `[device_id]`) that is assumed to be known to the OpenC2 Producer(s) that can command that
-Consumer. The determination of device identifiers is beyond the scope of this
-specification.
+The MQTT topic structure shown in Table 1 is used to exchange OpenC2
+messages. The "oc2" prefix on the topic names segregates
+OpenC2-related topics from other topics that might exist on the
+same broker. Topic name components in brackets (e.g.,
+`[actuator_profile]`) are placeholders for specific values that
+would be used in implementation.  For example, a device that
+implements the Stateless Packeting Filter AP would subscribe to
+`oc2/cmd/ap/slpf`. In addition, each Consumer subscribes to its
+own device-specific topic using a device identifier (annotated as
+`[device_id]`) that is assumed to be known to the OpenC2
+Producer(s) that can command that Consumer. The determination of
+device identifiers is beyond the scope of this specification.
 
-#### **Table DTS: Default Topic Structure** 
+#### **Table 1: Default Topic Structure** 
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
