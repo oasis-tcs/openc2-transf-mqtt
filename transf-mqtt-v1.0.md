@@ -474,7 +474,7 @@ between 1 and 23 bytes long containing only letters and numbers
 (MQTT servers are permitted to accept longer `ClientIDs`).  The
 MQTT specification also permits brokers to accept `CONNECT`
 control packets without a `ClientID`, in which case the broker
-created and assigns its own `ClientID` to the connection. MQTT
+creates and assigns its own `ClientID` to the connection. MQTT
 clients are obligated to use the broker-assigned `ClientID` if
 one is included in the `CONACK` control packet.
 [MQTT-v5.0](#mqtt-v50) provides no further definition regarding
