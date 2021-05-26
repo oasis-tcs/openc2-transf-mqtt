@@ -737,17 +737,11 @@ specified in their respective sections of the
 
 # 4 Conformance
 
-> **TBSL**  Conformance requirements will be developed once
-> the protocol mappings have been developed.
+An OpenC2 MQTT client conforms to this specification only if it satisfies all of the statements below:
 
-
-(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
-For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
-
-See "Guidelines to Writing Conformance Clauses":  
-http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
-
-Remove this note before submitting for publication.)
+ 1. Satisfies the conformance requirements for an MQTT Client as defined in Section 7.1.2, MQTT Client Conformance Clause, of the [MQTTv5.0](#mqtt-v50) specification.
+ 2. Satisfies all of the MUST / SHALL requirements in [Section 3, Protocol Mapping](#3-protocol-mapping) of this specification.
+ 3. Satisfies all of the MUST / SHALL requirements in [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations) of this specification.
 
 -------
 
