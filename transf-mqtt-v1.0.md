@@ -194,7 +194,6 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 * [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words are in all uppercase.
 * All MQTT property names are in Initial Cap (e.g., User Property).
 
-> **NOTE:** need to do a scrub to ensure the foregoing statement is true.
 
 #### 1.2.3.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
