@@ -901,11 +901,21 @@ MQTT control packet examples in this appendix present packet
 contents relevant to the function(s) being illustrated but do not
 include all required control packet contents (e.g., computed
 length fields are not listed, bitmapped flags are written out to
-convey intent rather than presented as bitmaps). Packet examples use a color code to distinguish fields populated based on requirements contained in this specification from fields left to the implementer's discretion or based on requirements from the [MQTTv5.0](#mqtt-v50) specification, as follows:
+convey intent rather than presented as bitmaps). Packet examples
+use a color code to distinguish fields populated based on
+requirements contained in this specification from fields left to
+the implementer's discretion or based on requirements from the
+[MQTTv5.0](#mqtt-v50) specification, as follows:
 
- * Green background and `(r)` appended to the field name in indicates the value for that field is *required*, based on MUST/SHALL requirements contained in this specification.
- * Yellow background and `(s)` appended to the field name in indicates the value for that field is *suggested*, based on MAY/SHOULD requirements contained in this specification.
- * White background indicates that the value should be determined by the implementor, guided by the [MQTTv5.0](#mqtt-v50) specification.
+ * Green background and `(r)` appended to the field name in
+   indicates the value for that field is *required*, based on
+   MUST/SHALL requirements contained in this specification.
+ * Yellow background and `(s)` appended to the field name in
+   indicates the value for that field is *suggested*, based on
+   MAY/SHOULD requirements contained in this specification.
+ * White background indicates that the value should be determined
+   by the implementor, guided by the [MQTTv5.0](#mqtt-v50)
+   specification.
 
 This notation is illustrated in Figure E-1.
 
@@ -921,6 +931,11 @@ of the `from` and `to` strings. The examples in this Appendix
 populate these fields with notional Producer and Consumer email
 addresses for convenience and readability.
 
+The message format in the OpenC2 Language Specification includes
+a `request_id` used to distinguish messages, and the recommended
+content for the `request_id` is a UUID v4.  The examples in this
+appendix use `uuid_x`, where `x` is a number, as a shorthand for
+actual UUIDs, which should be used in operation.
 
 
 ## E.1 Example 1: Connect and Subscribe
