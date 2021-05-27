@@ -908,14 +908,16 @@ the implementer's discretion or based on requirements from the
 [MQTTv5.0](#mqtt-v50) specification, as follows:
 
  * Green background and `(r)` appended to the field name in
-   indicates the value for that field is *required*, based on
-   MUST/SHALL requirements contained in this specification.
+   control packet illustrations indicates the value for that
+   field is *required*, based on MUST/SHALL requirements
+   contained in this specification.
  * Yellow background and `(s)` appended to the field name in
-   indicates the value for that field is *suggested*, based on
-   MAY/SHOULD requirements contained in this specification.
- * White background indicates that the value should be determined
-   by the implementor, guided by the [MQTTv5.0](#mqtt-v50)
-   specification.
+   control packet illustrations indicates the value for that
+   field is *suggested*, based on MAY/SHOULD requirements
+   contained in this specification.
+ * White background in control packet illustrations indicates
+   that the value should be determined by the implementor, guided
+   by the [MQTTv5.0](#mqtt-v50) specification.
 
 This notation is illustrated in Figure E-1.
 
