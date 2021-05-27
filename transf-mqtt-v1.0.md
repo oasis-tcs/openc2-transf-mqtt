@@ -1487,7 +1487,7 @@ from paho.mqtt.packettypes import PacketTypes
 
 msg = {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_3",
     "created": 1610483630,
     "from": "slpf@example.com"
   },
