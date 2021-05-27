@@ -154,6 +154,7 @@ The following changes have been implemented since WD08:
 * Simplified presentation of protocol requirements in Section 3
 * Added example illustrating use of paho python MQTT client
 * Removed operating model questions (Appendix Z)
+* Enhanced example graphics to highlight requirements from this specification
 
 
 ## 1.2 Glossary
