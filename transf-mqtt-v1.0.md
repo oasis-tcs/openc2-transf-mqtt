@@ -1239,7 +1239,7 @@ packet payloads use condensed formatting (white space minimized).
 
 {
   "headers": {
-    "request_id": "ghk479",
+    "request_id": "uuid_2",
     "created": 1610483630,
     "from": "Producer1@example.com"
   },
@@ -1284,7 +1284,7 @@ The consumer response is as follows:
 ``` json
 {
   "headers": {
-    "request_id": "ghk479",
+    "request_id": "uuid_2",
     "created": 1610483633,
     "from": "Consumer1@example.com"
   },
