@@ -1085,7 +1085,7 @@ nessages in the control packet payloads use condensed formatting
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483630,
     "from": "Producer1@example.com"
   },
@@ -1115,7 +1115,7 @@ _Consumer 1:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483633,
     "from": "Consumer1@example.com"
   },
@@ -1142,7 +1142,7 @@ _Consumer 2:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483632,
     "from": "Consumer2@example.com"
   },
@@ -1170,7 +1170,7 @@ _Consumer 3:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483632,
     "from": "Consumer3@example.com"
   },
