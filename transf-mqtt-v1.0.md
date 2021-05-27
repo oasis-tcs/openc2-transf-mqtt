@@ -911,9 +911,6 @@ of the `from` and `to` strings. The examples in this Appendix
 populate these fields with notional Producer and Consumer email
 addresses for convenience and readability.
 
-> **EDITOR'S NOTE:** Example message creation and presentation
-> format are work-in-progress. The editor welcomes
-> suggestions for improving the presentation format.
 
 
 ## E.1 Example 1: Connect and Subscribe
