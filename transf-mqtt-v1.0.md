@@ -394,13 +394,25 @@ OpenC2 messages transferred using MQTT utilize the
 `OpcenC2-Message` structure defined in Section 3.2 of
 [OpenC2-Lang-v1.0](#openc2-lang-v10).
 
- ```
-OpenC2-Message = Record
-    1 headers     Headers optional
-    2 body        Body
-    3 signature   String optional
+ ``` 
+Message = Record
+  1 headers       Headers optional
+  2 body          Body
+  3 signature     String optional
 
+Headers = Map{1..*}
+  1 request_id    String optional
+  2 created       ls:Date-Time optional
+  3 from          String optional
+  4 to            String [0..*]
 
+Body = Choice
+  1 openc2        OpenC2-Content
+
+OpenC2-Content = Choice
+  1 request       OpenC2-Command
+  2 response      OpenC2-Response
+  3 notification  OpenC2-Event  
  ```
  
 A Producer sending an OpenC2 request _always_ includes its
