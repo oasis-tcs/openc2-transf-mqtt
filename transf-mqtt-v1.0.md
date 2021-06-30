@@ -154,6 +154,7 @@ The following changes have been implemented since WD08:
 * Simplified presentation of protocol requirements in Section 3
 * Added example illustrating use of paho python MQTT client
 * Removed operating model questions (Appendix Z)
+* Enhanced example graphics to highlight requirements from this specification
 * Added draft conformance section
 
 
@@ -896,7 +897,29 @@ MQTT control packet examples in this appendix present packet
 contents relevant to the function(s) being illustrated but do not
 include all required control packet contents (e.g., computed
 length fields are not listed, bitmapped flags are written out to
-convey intent rather than presented as bitmaps).
+convey intent rather than presented as bitmaps). Packet examples
+use a color code to distinguish fields populated based on
+requirements contained in this specification from fields left to
+the implementer's discretion or based on requirements from the
+[MQTTv5.0](#mqtt-v50) specification, as follows:
+
+ * Green background and `(r)` appended to the field name in
+   control packet illustrations indicates the value for that
+   field is *required*, based on MUST/SHALL requirements
+   contained in this specification.
+ * Yellow background and `(s)` appended to the field name in
+   control packet illustrations indicates the value for that
+   field is *suggested*, based on MAY/SHOULD requirements
+   contained in this specification.
+ * White background in control packet illustrations indicates
+   that the value should be determined by the implementor, guided
+   by the [MQTTv5.0](#mqtt-v50) specification.
+
+This notation is illustrated in Figure E-1.
+
+#### Figure E-1: Color Code for Packet Examples
+![Color Code](./images/e0-color-code.png)
+
 
 The OpenC2 Language Specification defines the `from` and `to`
 fields in OpenC2 messages as strings containing "Authenticated
@@ -906,9 +929,11 @@ of the `from` and `to` strings. The examples in this Appendix
 populate these fields with notional Producer and Consumer email
 addresses for convenience and readability.
 
-> **EDITOR'S NOTE:** Example message creation and presentation
-> format are work-in-progress. The editor welcomes
-> suggestions for improving the presentation format.
+The message format in the OpenC2 Language Specification includes
+a `request_id` used to distinguish messages, and the recommended
+content for the `request_id` is a UUID v4.  The examples in this
+appendix use `uuid_x`, where `x` is a number, as a shorthand for
+actual UUIDs, which should be used in operation.
 
 
 ## E.1 Example 1: Connect and Subscribe
@@ -1058,7 +1083,7 @@ nessages in the control packet payloads use condensed formatting
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483630,
     "from": "Producer1@example.com"
   },
@@ -1088,7 +1113,7 @@ _Consumer 1:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483633,
     "from": "Consumer1@example.com"
   },
@@ -1115,7 +1140,7 @@ _Consumer 2:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483632,
     "from": "Consumer2@example.com"
   },
@@ -1143,7 +1168,7 @@ _Consumer 3:_
 ``` json
 {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_1",
     "created": 1610483632,
     "from": "Consumer3@example.com"
   },
@@ -1212,7 +1237,7 @@ packet payloads use condensed formatting (white space minimized).
 
 {
   "headers": {
-    "request_id": "ghk479",
+    "request_id": "uuid_2",
     "created": 1610483630,
     "from": "Producer1@example.com"
   },
@@ -1257,7 +1282,7 @@ The consumer response is as follows:
 ``` json
 {
   "headers": {
-    "request_id": "ghk479",
+    "request_id": "uuid_2",
     "created": 1610483633,
     "from": "Consumer1@example.com"
   },
@@ -1460,7 +1485,7 @@ from paho.mqtt.packettypes import PacketTypes
 
 msg = {
   "headers": {
-    "request_id": "abc123",
+    "request_id": "uuid_3",
     "created": 1610483630,
     "from": "slpf@example.com"
   },
