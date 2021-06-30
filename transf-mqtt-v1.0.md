@@ -64,7 +64,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
+Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
@@ -95,7 +95,7 @@ For complete copyright information please see the Notices section in the Appendi
 - [2 Operating Model](#2-operating-model)
   - [2.1 Publishers, Subscribers, and Brokers](#21-publishers-subscribers-and-brokers)
   - [2.2 Default Topic Structure](#22-default-topic-structure)
-      - [**Table 1: Default Topic Structure**](#table-1-default-topic-structure)
+      - [**Table DTS: Default Topic Structure**](#table-dts-default-topic-structure)
   - [2.3 Subscriptions Options](#23-subscriptions-options)
   - [2.4 OpenC2 Message Format](#24-openc2-message-format)
     - [2.4.1  Content Type and Serialization](#241--content-type-and-serialization)
@@ -105,7 +105,6 @@ For complete copyright information please see the Notices section in the Appendi
   - [2.7 Keep-Alive Interval](#27-keep-alive-interval)
   - [2.8  Will Message](#28--will-message)
   - [2.9 Clean Start Flag](#29-clean-start-flag)
-      - [**Table 2: Clean Start Behavior**](#table-2-clean-start-behavior)
   - [2.10 Session Expiry and Message Expiry Intervals](#210-session-expiry-and-message-expiry-intervals)
 - [3 Protocol Mapping](#3-protocol-mapping)
   - [3.1 CONNECT Control Packet](#31-connect-control-packet)
@@ -124,9 +123,9 @@ For complete copyright information please see the Notices section in the Appendi
 - [Appendix D: Revision History](#appendix-d-revision-history)
 - [Appendix E: Examples](#appendix-e-examples)
   - [E.1 Example 1: Connect and Subscribe](#e1-example-1-connect-and-subscribe)
-      - [Figure E-1: Connect and Subscribe](#figure-e-1-connect-and-subscribe)
+      - [Figure E-CAS: Connect and Subscribe](#figure-e-cas-connect-and-subscribe)
   - [E.2  Example 2: Command / Response Exchange](#e2--example-2-command--response-exchange)
-      - [Figure E-2: Publish Request and Response](#figure-e-2-publish-request-and-response)
+      - [Figure E-PRR: Publish Request and Response](#figure-e-prr-publish-request-and-response)
   - [E.3 Example 3: Query Consumer Actuator Profiles](#e3-example-3-query-consumer-actuator-profiles)
     - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
     - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
@@ -155,7 +154,7 @@ The following changes have been implemented since WD08:
 * Simplified presentation of protocol requirements in Section 3
 * Added example illustrating use of paho python MQTT client
 * Removed operating model questions (Appendix Z)
-* Numerous minor edits, corrections, and consistency fixes
+* Added draft conformance section
 
 
 ## 1.2 Glossary
@@ -194,6 +193,7 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 * [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words are in all uppercase.
 * All MQTT property names are in Initial Cap (e.g., User Property).
 
+> **NOTE:** need to do a scrub to ensure the foregoing statement is true.
 
 #### 1.2.3.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
@@ -225,7 +225,7 @@ the string, so the general form of a User Property as a UTF-8 String Pair is:
  * 2-byte length of second string
  * UTF-8 encoding of second string
 
-For the "key":"value" example above, the encoding would be:
+For the "key:value" example above, the encoding would be:
 
 ```
 [0x26][0x00][x03]key[0x00][x05]value
@@ -251,12 +251,11 @@ both Producers and Consumers act as both publishers and subscribers:
 * Producers publish Requests and subscribe to receive Responses
 * Consumers subscribe to receive Requests and publish Responses
 
-The MQTT broker providing publish / subscribe services and the
-MQTT client software used by Producers and Consumers are beyond
-the scope of this specification, but are assumed to be conformant
-with the MQTT v5.0 specification [[MQTT-v5.0](#mqtt-v50)]. In the
-context of OpenC2, and in accordance with the Terminology section
-(1.2) of [[MQTT-V5.0](#mqtt-v50)]:
+The MQTT broker and MQTT client software used by Producers 
+and Consumers are beyond the scope of this specification, but
+are assumed to be conformant with the MQTT v5.0 specification 
+[[MQTT-v5.0](#mqtt-v50)]. In the context of OpenC2, and
+in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 
 * MQTT Brokers are Servers
 * OpenC2 Producers and Consumer are Clients
@@ -265,20 +264,18 @@ Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers 
 
 ## 2.2 Default Topic Structure
 
-The MQTT topic structure shown in Table 1 is used to exchange OpenC2
-messages. The "oc2" prefix on the topic names segregates
-OpenC2-related topics from other topics that might exist on the
-same broker. Topic name components in brackets (e.g.,
-`[actuator_profile]`) are placeholders for specific values that
-would be used in implementation.  For example, a device that
-implements the Stateless Packeting Filter AP would subscribe to
-`oc2/cmd/ap/slpf`. In addition, each Consumer subscribes to its
-own device-specific topic using a device identifier (annotated as
-`[device_id]`) that is assumed to be known to the OpenC2
-Producer(s) that can command that Consumer. The determination of
-device identifiers is beyond the scope of this specification.
+The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
+prefix on the topic names segregates OpenC2-related topics from other topics
+that might exist on the same broker. Topic name components in brackets (e.g.,
+`[actuator_profile]`) are placeholders for specific values that would be used in
+implementation.  For example, a device that implements the Stateless Packeting
+Filter AP would subscribe to `oc2/cmd/ap/slpf`. In addition, each Consumer
+subscribes to its own device-specific topic using a device identifier (annotated
+as `[device_id]`) that is assumed to be known to the OpenC2 Producer(s) that can command that
+Consumer. The determination of device identifiers is beyond the scope of this
+specification.
 
-#### **Table 1: Default Topic Structure** 
+#### **Table DTS: Default Topic Structure** 
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
@@ -354,7 +351,7 @@ Additional examples of publishing exchanges can be found in [Appendix E](#append
 
 ## 2.3 Subscriptions Options
 
-For each `Topic Filter` in the `SUBSCRIBE` control packet the Client specifies a set of `Subscription Options` ([MQTT-V5.0](#mqtt-v50) specification section 3.8.3.1). The available options are:
+For each `Topic Filter` in the SUBSCRIBE control packet the Client specifies a set of `Subscription Options` ([MQTT-V5.0](#mqtt-v50) specification section 3.8.3.1). The available options are:
 
 * `Maximum QoS`: the maximum QoS level at which the Server can send Application Messages to the Client
 * `No Local`: controls whether messages the Client publishes to this topic are published back to them
@@ -414,13 +411,13 @@ listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
  }
  ```
  
-A Producer sending an OpenC2 request over MQTT _always_ includes
-its identifier in the message `from` field, allowing receiving
-Consumers to know the origin of the request.  A Consumer sending
-a response to an OpenC2 request over MQTT _always_ includes its
-identifier in the message `from` field, allowing responses to the
-same request from different Consumers to be identified by the
-Producer receiving the responses. 
+A Producer sending an OpenC2 request _always_ includes its
+identifier in the message `from` field, allowing receiving Consumers
+to know the origin of the request.  A Consumer sending a
+response to an OpenC2 request _always_ includes its identifier in
+the message `from` field, allowing responses to the same request
+from different Consumers to be identified by the Producer
+receiving the responses. 
  
 When publishing an OpenC2 request, the Producer can use the `to`
 field as a filter to provide finer-grained control over which
@@ -445,7 +442,7 @@ Levels and Protocol Flows_ defines three quality of service
   arrive exactly once. 
 
 QoS 1 is appropriate for most OpenC2 applications and should
-be utilized as the default.  Implementers have the option
+be specified as the default.  Implementers have the option
 of electing to use QoS 2 where the additional overhead is
 justified by application requirements. QoS 0 is not
 recommended for use in OpenC2 messaging.
@@ -467,18 +464,16 @@ duplicate requests or responses are received.
 
 As described in [MQTT-v5.0](#mqtt-v50), Section 3.1, _CONNECT –
 Connection Request_, the Client Identifier (`ClientID`) is a
-required field in the `CONNECT` control packet. Further
+required field in the CONNECT control packet. Further
 requirements are contained in Section 3.1.3.1, _Client Identifier
 (ClientID)_, which defines the `ClientID` as a UTF-8 string
 between 1 and 23 bytes long containing only letters and numbers
-(MQTT servers are permitted to accept longer `ClientIDs`).  The
-MQTT specification also permits brokers to accept `CONNECT`
-control packets without a `ClientID`, in which case the broker
-creates and assigns its own `ClientID` to the connection. MQTT
-clients are obligated to use the broker-assigned `ClientID` if
-one is included in the `CONACK` control packet.
-[MQTT-v5.0](#mqtt-v50) provides no further definition regarding
-the format or assignment of `ClientIDs`. 
+(MQTT servers may accept longer `ClientIDs`).  The MQTT
+specification also permits brokers to accept CONNECT control
+packets without a `ClientID`, in which case the broker assigns
+its own `ClientID` to the connection, which the client is
+obligated to use. [MQTT-v5.0](#mqtt-v50) provides no further
+definition regarding the format or assignment of `ClientIDs`. 
 
 The `ClientID` serves to identify the client to the broker so
 that the broker can maintain state information about the
@@ -499,16 +494,16 @@ messages.
 
 ## 2.7 Keep-Alive Interval
 
-The MQTT `CONNECT` control packet includes a `Keep Alive` property
+The MQTT CONNECT control packet includes a `Keep Alive` property
 ([MQTT-v5.0](#mqtt-v50) section 3.1.2.10) that defines a time
 interval within which a Client connected to a Broker is expected
 to send a control packet of any type to the Broker to prevent the
-Broker from disconnecting from the Client. The `PINGREQ` control
+Broker from disconnecting from the Client. The PINGREQ control
 packet can be sent if the Client has no other traffic to process.
 The MQTT specification notes that "The actual value of the Keep
 Alive is application specific; typically this is a few minutes.
 The maximum value is 18 hours 12 minutes and 15 seconds." Per the
-MQTT specification the Broker will close the network connection
+MQTT specifciation the Broker will close the network connection
 if 1.5 times the `Keep Alive` interval has passed without
 receiving a control packet from the Client.
 
@@ -516,13 +511,13 @@ This transfer specification leaves the selection of a `Keep
 Alive` interval to the implementer but defines a value of 5
 minutes (300 seconds) as the maximum value for _conformant_
 implementations. For reliability, it is recommended that an
-OpenC2 client send an MQTT `PINGREQ` when 95% of the `Keep Alive`
+OpenC2 client send an MQTT PINGREQ when 95% of the `Keep Alive`
 interval has expired without any other control packets being
 exchanged.
 
 ## 2.8  Will Message
 
-The `CONNECT` control packet, described in [MQTT-v5.0](#mqtt-v50),
+The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
 Section 3.1, provides a `Will Message` feature that enables connected
 clients to store a message on the broker to be published to a
 client-specified topic when the client's network connection is
@@ -531,18 +526,17 @@ closed. OpenC2 does not use the MQTT `Will Message` feature.
 ## 2.9 Clean Start Flag
 
 As described in [MQTT-v5.0](#mqtt-v50), section 3.1.2.4, _Clean
-Start_, the MQTT `CONNECT` control packet includes a flag, `Clean
+Start_, the MQTT CONNECT control packet includes a flag, `Clean
 Start`, that tells the broker whether the client, identified by
-its `ClientID` as described in [Section
+its ClientID as described in [Section
 2.6](#26-mqtt-client-identifier), desires a new session (`Clean
 Start` equals `1` [_true_]). In MQTT the setting of the `Clean
 Start` flag and the value of the `Session Expiry Interval` from
-the most recent `CONNECT` packet are relevant to how the broker
+the most recent CONNECT packet are relevant to how the broker
 handles client state.  The behavior is summarized in the
-Table 2.
+following table.
 
 
-#### **Table 2: Clean Start Behavior** 
 
 <table border="4 px">
 <thead>
@@ -586,10 +580,10 @@ to be discarded if clients are disconnected for extended periods.
 
 ## 2.10 Session Expiry and Message Expiry Intervals
 
-The MQTT v5.0 `CONNECT` control packet includes a `Session Expiry
+The MQTT v5.0 CONNECT control packet includes a `Session Expiry
 Interval` property that informs the broker how long the Client's
 session state is to be retained when the session is disconnected.
-The MQTT v5.0 `PUBLISH` control packet includes a `Message Expiry
+The MQTT v5.0 PUBLISH control packet includes a `Message Expiry
 Interval` property that specifies the lifetime of the Application
 Message in seconds. This transfer specification makes no
 recommendations regarding appropriate values for either expiry
@@ -608,25 +602,22 @@ implementer where applicable.
 ## 3.1 CONNECT Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
-`CONNECT` control packet, as specified in the [MQTT
+CONNECT control packet, as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.1, to establish a
 connection to the MQTT Broker.
 
-OpenC2 Producers and Consumers MUST populate the following
-`CONNECT` control packet fields as specified:
+OpenC2 Producers and Consumers MUST populate the following CONNECT control packet fields as specified:
 
-* `Clean Start` = `0 (FALSE)`
-* `Will Flag` = `0 (FALSE)`
-* `Will QoS` = `00 (zero)`
-* `Will Retain` = `0 (FALSE)`
+* `Clean Start` = FALSE
+* `Will Flag` = FALSE
+* `Will QoS` = 0 (zero)
+* `Will Retain` = FALSE
 * `Keep Alive` = Number <= 300 (seconds)
-* `Client Identifier` = client-generated identifier string, as described in [Section 2.6, MQTT Client Identifier](#26-mqtt-client-identifier)
+* `Client Identifier` = client-generated identifier string
 
-OpenC2 Producers and Consumers MUST NOT populate any of the
-`CONNECT` payload fields related to the MQTT `Will Message`.
+OpenC2 Producers and Consumers MUST NOT populate any of the CONNECT payload fields related to the MQTT `Will Message`.
 
-This specification makes no recommendations regarding values for
-the following `CONNECT` properties:
+This specification makes no recommendations regarding values for the following CONNECT properties:
 
  * `Authentication Method`
  * `Authentication Data`
@@ -642,19 +633,18 @@ the following `CONNECT` properties:
 ## 3.2 PUBLISH Control Packet
 
 OpenC2 Producers and Consumers MUST create and transmit the
-`PUBLISH` control packet, as specified in the [MQTT
+PUBLISH control packet, as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.3, to publish messages
 using the MQTT broker.  
 
-Topic selection for publishing OpenC2 request and response
-messages MUST apply the default topic structure principles
-described in [Section 2.2](##22-default-topic-structure) of this
-specification.
+Topic selection for publishing OpenC2
+request and response messages MUST apply the default topic
+structure principles described in [Section
+2.2](##22-default-topic-structure) of this specification.
 
-OpenC2 Producers and Consumers MUST populate the following
-`PUBLISH` control packet fields as specified:
-* `QoS` = `1` (minimum, 2 if so determined by the implementer)
-* `Retain` = `0 (FALSE)`
+OpenC2 Producers and Consumers MUST populate the following CONNECT control packet fields as specified:
+* `QoS` = `1` (minimum, 2 of so determined by the implementer)
+* `Retain` = `0` (FALSE)
 * `Payload Format Indicator`
   * for binary message encodings = `0`
   * for UTF-8 message encodings = `1`
@@ -667,17 +657,11 @@ OpenC2 Producers and Consumers MUST populate the following
   * `[encoding]` = `"json"` for JSON-encoded messages using UTF-8 
   * `[encoding]` = `"cbor"` for CBOR-encoded binary messages 
 
-OpenC2 Producers and Consumers MUST populate the `PUBLISH`
-control packet payload with an OpenC2 message of the type
-specified by the `"msgType":"[type]"` User Property, encoded as
-specified by the `"encoding":"[encoding]"` User Property.
+OpenC2 Producers and Consumers MUST populate the PUBLIC control packet payload with an OpenC2 message of type specified by the `"msgType":"[type]"` User Property, encoded as specified by the `"encoding":"[encoding]"` User Property.
 
-OpenC2 Producers and Consumers MUST populate the `from:` field of
-the OpenC2 message with the identity of the publisher of the
-message, as described in [Section
-2.4.2](#242-openc2-message-structure).
+OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
 
-This specification makes no recommendations regarding values for the following `PUBLISH` control packet properties:
+This specification makes no recommendations regarding values for the following PUBLISH control packet properties:
 
  * `Message Expiry Interval`
  * `Response Topic`
@@ -690,12 +674,11 @@ This specification makes no recommendations regarding values for the following `
 
 ## 3.3 SUBSCRIBE Control Packet
 
-Producers and Consumers MUST use the `SUBSCRIBE` control packet,
-as specified in the [MQTT v5.0](#mqtt-v50) specification section
-3.8 to subscribe to a set of topics consistent with the default
-topic structure defined in [Section
-2.2](#22-default-topic-structure) of this specification. This
-means that:
+Producers and Consumers MUST use the SUBSCRIBE control packet, as
+specified in the [MQTT v5.0](#mqtt-v50) specification section 3.8
+to subscribe to a set of topics consistent with the default topic
+structure defined in [Section 2.2](#22-default-topic-structure)
+of this specification. This means that:
 
 * Consumers SHALL subscribe to 
   * topics for all actuator profiles the Consumer implements, 
@@ -704,33 +687,30 @@ means that:
 * Producers SHALL subscribe to the general response topic (`oc2/rsp`).
 * Producers SHOULD subscribe to their individual response topic (`oc2/rsp/[producer_id]`)
 
-When subscribing to topics OpenC2 Producers and Consumers SHOULD
-populate subscription options for each topic as follows:
+When subscribing to topics OpenC2 Producers and Consumers SHOULD populate subscription options for each topic as follows:
 
-* `Maximum QoS`: `2`
-* `No Local`: `1`
-* `Retain as Published`: `1` 
-* `Retain Handling`: `00` 
+* `Maximum QoS: 2`
+* `No Local: 1 (true)`
+* `Retain as Published: 1` 
+* `Retain Handling: 0` 
 
 As defined in [Section 2.4](#24-quality-of-service) of this
 specification, subscribers MUST specify a `Maximum QoS` level of
-at least `1` when subscribing to topics. Implementers SHOULD
-allow for a `Maximum QoS` of `2` if supported by their
-implementation.
+at least `1` when subscribing to topics. Implementers SHOULD allow
+for a `Maximum QoS` of `2` if supported by their implementation.
 
-This specification makes no recommendations regarding values for
-the following `SUBSCRIBE` properties:
+This specification makes no recommendations regarding values for the following SUBSCRIBE properties:
 
  * `Subscription Identifier`
 
 ## 3.4 PINGREQ Control Packet
 
-OpenC2 Producers and Consumers MUST send a `PINGREQ` control
-packet to all MQTT brokers to which they are connected if they
-have not processed any other control packets with 95% of the
+OpenC2 Producers and Consumers MUST send a PINGREQ control packet
+to all MQTT brokers with which they are connected if they have
+not processed any other control packets with 95% of the
 keep-alive interval defined by the implementer.  If the
 implementer has not otherwise specified a keep-alive interval,
-95% of the value described in [Section
+95% of the value specified in [Section
 2.6](#26-keep-alive-interval) of this specification shall be
 used.
 
@@ -739,17 +719,17 @@ used.
 This specification makes no requirements or recommendations
 regarding the use of the following MQTT control packets:
 
-* `CONNACK`
-* `PUBACK`
-* `PUBREC`
-* `PUBREL`
-* `PUBCOMP`
-* `SUBACK`
-* `UNSUBSCRIBE`
-* `UNSUBACK`
-* `PINGRESP`
-* `DISCONNECT`
-* `AUTH`
+* CONNACK
+* PUBACK
+* PUBREC
+* PUBREL
+* PUBCOMP
+* SUBACK
+* UNSUBSCRIBE
+* UNSUBACK
+* PINGRESP
+* DISCONNECT
+* AUTH
 
 As required OpenC2 Producers and Consumers MUST create and
 transmit or receive and process these control packets as
@@ -758,17 +738,11 @@ specified in their respective sections of the
 
 # 4 Conformance
 
-> **TBSL**  Conformance requirements will be developed once
-> the protocol mappings have been developed.
+An OpenC2 MQTT client conforms to this specification only if it satisfies all of the statements below:
 
-
-(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process#wpComponentsConfClause) requires that a specification approved by the TC at the Committee Specification Public Review Draft, Committee Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
-For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2017-05-26#dConformanceClause).
-
-See "Guidelines to Writing Conformance Clauses":  
-http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
-
-Remove this note before submitting for publication.)
+ 1. Satisfies the conformance requirements for an MQTT Client as defined in Section 7.1.2, MQTT Client Conformance Clause, of the [MQTTv5.0](#mqtt-v50) specification.
+ 2. Satisfies all of the MUST / SHALL requirements in [Section 3, Protocol Mapping](#3-protocol-mapping) of this specification.
+ 3. Satisfies all of the MUST / SHALL requirements in [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations) of this specification.
 
 -------
 
@@ -842,19 +816,45 @@ This specification recommends that the mechanisms available in MQTT v5.0 be give
 
 OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-operational testing purposes.
 
+---
 
+> (Note: OASIS strongly recommends that Technical
+Committees consider issues that could affect
+security when implementing their specification and
+document them for implementers and adopters. For
+some purposes, you may find it required, e.g. if
+you apply for IANA registration.
+
+> While it may not be immediately obvious how your
+specification might make systems vulnerable to
+attack, most specifications, because they involve
+communications between systems, message formats,
+or system settings, open potential channels for
+exploit. For example, IETF [[RFC3552](#rfc3552)]
+lists “eavesdropping, replay, message insertion,
+deletion, modification, and man-in-the-middle” as
+well as potential denial of service attacks as
+threats that must be considered and, if
+appropriate, addressed in IETF RFCs. 
+
+> In addition to considering and describing
+foreseeable risks, this section should include
+guidance on how implementers and adopters can
+protect against these risks.
+
+> We encourage editors and TC members concerned with
+this subject to read _Guidelines for Writing RFC
+Text on Security Considerations_, IETF
+[[RFC3552](#rfc3552)], for more information.
+
+> Remove this note before submitting for publication.)
+
+
+------
 
 # Appendix C: Acknowledgments
 
 ## C.1 Special Thanks
-
-The editor would like to thank the following individuals for their support in the development of this specification:
-
-* Jerome Czachor, Huntington Ingalls Industries, Technical Solutions
-* Ha Ram Yoon, Huntington Ingalls Industries, Technical Solutions
-* Patrick Connole, Praxis Engineering Technologies, LLC
-* Mason Mirarcy, Praxis Engineering Technologies, LLC
-
 
 ## C.2 Participants
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
@@ -906,6 +906,9 @@ of the `from` and `to` strings. The examples in this Appendix
 populate these fields with notional Producer and Consumer email
 addresses for convenience and readability.
 
+> **EDITOR'S NOTE:** Example message creation and presentation
+> format are work-in-progress. The editor welcomes
+> suggestions for improving the presentation format.
 
 
 ## E.1 Example 1: Connect and Subscribe
@@ -914,7 +917,7 @@ This example illustrates the message flows involved in the
 process of a Producer (i.e., an Orchestrator) and a Consumer each
 connecting to the MQTT broker as clients and subscribing to the
 appropriate channels for each, in accordance with the default
-topic model. The message flows are depicted in Figure E-1. The
+topic model. The message flows are depicted in Figure A-CAS. The
 Producer is assigned the username `orch01`. The Consumer is
 assigned the username `zulu01` and supports the notional actuator
 profiles `alpha` and `iota`. No OpenC2-specific content appears
@@ -925,28 +928,28 @@ This example illustrates the following aspects of the operating model:
 * Client and broker roles, [Section 2.1](#21-publishers-subscribers-and-brokers)
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Subscription options settings, [Section 2.3](#23-subscriptions-options)
-* Randomly generated MQTT `ClientID`, [Section 2.6](#26-mqtt-client-identifier)
+* Randomly generated MQTT ClientID, [Section 2.6](#26-mqtt-client-identifier)
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
 * No use of MQTT "will" messages, [Section 2.8](#28--will-message)
-* `Clean Start` flag set to false, [Section 2.9](#29-clean-start-flag)
+* Clean Start flag set to false, [Section 2.9](#29-clean-start-flag)
 * Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 
-#### Figure E-1: Connect and Subscribe
+#### Figure E-CAS: Connect and Subscribe
 
 ![Connect and Subscribe Sequence](./images/e1-seq-con_sub.png)
 
 
-The Producer and Consumer `CONNECT` packets for this example are as
-follows; the optional username and password fields of the `CONNECT`
+The Producer and Consumer CONNECT packets for this example are as
+follows; the optional username and password fields of the CONNECT
 packets are populated in this example:
 
 ![Producer and Consumer Connect Cackets](./images/e1-pkt-connect-packets.png)
 
  
-The Consumer `SUBSCRIBE` and corresponding Broker `SUBACK`
-packets for this example are shown below; `Subscription Options`
-are populated as specified in [section
-3.8](#38-subscribe-control-packet) of this specification:
+The Consumer SUBSCRIBE and Broker SUBACK packets for this example
+are shown below; `Subscription Options` are populated as
+specified in [section 3.8](#38-subscribe-control-packet) of this
+specification:
 
 ![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
 
@@ -955,7 +958,7 @@ are populated as specified in [section
 This example illustrates the message flows that occur for a
 notional but common process of an OpenC2 Producer publishing an
 OpenC2 request to multiple Consumers. The focus of this example
-is the use of MQTT `PUBLISH` and `PUBACK` control packets for the
+is the use of MQTT PUBLISH and PUBACK control packets for the
 message flows. No meaningful OpenC2 content appears in any of the
 messages in this example. 
 
@@ -975,19 +978,18 @@ request message so the consumers exhibit the OpenC2 default
 behavior of sending a complete response.
 
 The command and response messages in the sequence diagram shown
-in Figure E-2 are published with a QoS of 1, which requires the
-recipient to respond to the `PUBLISH` packet with a `PUBACK`
-packet.
+in Figure A-PRR are published with a QoS of 1, which requires the
+recipient to respond to the PUBLISH packet with a PUBACK packet.
 
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
-* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
-#### Figure E-2: Publish Request and Response
+#### Figure E-PRR: Publish Request and Response
 
 ![Basic Interaction Sequence](./images/e2-seq-req_rsp.png)
 
@@ -996,7 +998,7 @@ portion of this example are illustrated below. The packet contents
 between the Producer and the Broker, and between the Broker and
 the Consumers are the same in each `PUBLISH / PUBACK` exchange,
 with the exception that the `packetId` field will differ for each
-of the three publishing exchanges in Figure E-2, as that value
+of the three publishing exchanges in Figure A-PRR, as that value
 is assigned by the initiator of each exchange. The payload of
 `"(JSON-encoded openc2 request)"` is a placeholder for a
 meaningful OpenC2 request message.
@@ -1008,7 +1010,7 @@ meaningful OpenC2 request message.
 ## E.3 Example 3: Query Consumer Actuator Profiles
 
 This example illustrates the packaging of OpenC2 requests in MQTT
-`PUBLISH` control packets.  The scenario is a request containing an
+PUBLISH control packets.  The scenario is a request containing an
 OpenC2 `query` action sent over MQTT to retrieve the list of
 actuator profiles supported by a set of Consumers. This example
 includes three Consumers that implement several different
@@ -1022,10 +1024,10 @@ actuator profiles, as follows:
   software bill of materials (SBOM) APs (`edr` and `sbom`)
 
  **NOTES:** 
- 1. No sequence diagram is included as the `PUBLISH / PUBACK`
+ 1. No sequence diagram is included as the PUBLISH / PUBACK
     sequences among Producers, Consumers, and Brokers are similar
     to those illustrated in Example 2. This example only includes
-    the `PUBLISH` control packets containing the OpenC2 request and
+    the PUBLISH control packets containing the OpenC2 request and
     response messages.
  1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
@@ -1037,16 +1039,16 @@ actuator profiles, as follows:
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Packaging of OpenC2 messages in `PUBLISH` control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `query`
 request to `oc2/cmd/all`. The OpenC2 request message contents and
-corresponding MQTT `PUBLISH` control packet are shown below,
-followed by the Consumer replies. The `PUBLISH` control packet
+corresponding MQTT PUBLISH control packet are shown below,
+followed by the Consumer replies. The PUBLISH control packet
 fields and OpenC2 message content that varies among the packets
 is shown in red in the packet examples for clarity, and the JSON
 nessages in the control packet payloads use condensed formatting
@@ -1167,21 +1169,21 @@ _Consumer 3:_
 ## E.4 OpenC2 Deny Example
 
 This example illustrates the execution of a common  OpenC2
-requests using MQTT `PUBLISH` control packets.  The example is a
+requests using MQTT PUBLISH control packets.  The example is a
 deny action for a particular IP connection, as described in the
 [Stateless Packet Filtering AP](#openc2-slpf-v10), Section
-A.1.1. This example primarily indicates the content of the `PUBLISH`
+A.1.1.This example primarily indicates the content of the PUBLISH
 control packets. For simplicity the exchange illustrated only
 includes one Producer and one Consumer.
 
 
  **NOTES:** 
- 1. No sequence diagram is included as the `PUBLISH / PUBACK`
+ 1. No sequence diagram is included as the PUBLISH / PUBACK
     sequences among Producer, Consumer, and Broker are similar
     to those illustrated in Example 2. This example only includes
-    the `PUBLISH` control packets containing the OpenC2 request and
+    the PUBLISH control packets containing the OpenC2 request and
     response messages.
- 1. The `response_requested` argument is omitted from the
+ 1. The `response_requested` aregument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
  1. For compactness these examples use a simplified `request_id`
@@ -1191,15 +1193,15 @@ includes one Producer and one Consumer.
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Packaging of OpenC2 messages in `PUBLISH` control packet payloads, [Section 2.4](#24-openc2-message-format)
+* Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* `PUBLISH` control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `deny`
 request to `oc2/cmd/slpf`. The OpenC2 request message contents
-and corresponding MQTT `PUBLISH` control packet are shown below,
+and corresponding MQTT PUBLISH control packet are shown below,
 followed by the Consumer reply.The JSON nessages in the control
 packet payloads use condensed formatting (white space minimized).
 
@@ -1309,7 +1311,7 @@ that implements the stateless packet filter actuator profile
 (AP).  The example illustrates the following aspects of the
 operating model:
 
-* Randomly generated MQTT `ClientID`, Section 2.6
+* Randomly generated MQTT ClientID, Section 2.6
 * Recommended 5 minute keep-alive interval, Section 2.7
 * No use of MQTT "will" messages, Section 2.8
 * `Clean Start` flag set to false, Section 2.9
@@ -1521,4 +1523,3 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 \[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark for above guidance.
-
