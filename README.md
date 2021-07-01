@@ -27,19 +27,14 @@ This repository is organized with three branches:
  change. Contributors to the work product should 
  target their inputs to the Working branch.
 
- * The *_Releases_* branch contains incremental 
- releases (i.e., Working Drafts [WDs]) of the work 
- product. The current contents of the Working 
- branch are merged into the Releases branch to 
- create a WD. 
 
- * The *_Master_* branch contains TC-approved 
+ * The *_Published_* branch contains TC-approved 
 [Committee Specification](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dCommitteeSpec) (CS) or [OASIS Standard](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dOASISstandard) 
 versions of the work product. Until the first CS 
 is approved, the Master branch will not contain 
 a complete version of the work product.
 
-![Branching /  Versioning Strategy](images/versioning-concept.png)
+![Branching /  Versioning Strategy](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/images/versioning-concept.png)
 
 <div>
 <h3>Contributions</h3>
