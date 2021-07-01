@@ -14,7 +14,7 @@
 
 The repository is designed to support TC members' work on a formal specification that describes the use of Message Queuing Telemetry Transport (MQTT) as a transfer mechanism for OpenC2 messages. MQTT provides a lightweight publish/subscribe reliable messaging transport protocol suitable for communication in M2M/IoT contexts where a small code footprint is required and/or network bandwidth is at a premium.  This specification provides guidance to the OpenC2 implementation community when utilizing MQTT for OpenC2 message transport.
 
-The provisional Work Product title for the work is: "Specification for Transfer of OpenC2 Messages via MQTT, Version 1.0", edited by Danny Martinez (G2) and Joseph Brule (NSA). The specification explains the transfer of OpenC2 command and response messages using MQTT.
+The provisional Work Product title for the work is: "Specification for Transfer of OpenC2 Messages via MQTT, Version 1.0", edited by David Lemire (HII). The specification explains the transfer of OpenC2 command and response messages using MQTT.
 </div>
 
 ### Branching Strategy
