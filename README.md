@@ -19,7 +19,7 @@ The provisional Work Product title for the work is: "Specification for Transfer 
 
 ### Branching Strategy
 
-This repository is organized with three branches:
+This repository is organized with two fundamental branches:
 
  * The *_Working_* branch contains work product 
  material that is actively being developed, and 
