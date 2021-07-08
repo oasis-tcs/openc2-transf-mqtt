@@ -1460,8 +1460,9 @@ regarding certain aspects of establishing subscriptions using the
 paho client. This code illustrates the following aspects of the
 operating model:
 
-* Default topic structure, Section 2.2
-* Subscription options settings, Section 2.3
+* Default topic structure, [Section2.2](#22-default-topic-structure)
+* Subscription options settings, [Section 2.3](#23-subscriptions-options)
+
 
 ``` python
 # Addition from E.5.1
