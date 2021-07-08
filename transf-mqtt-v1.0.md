@@ -246,11 +246,12 @@ both Producers and Consumers act as both publishers and subscribers:
 * Producers publish Requests and subscribe to receive Responses
 * Consumers subscribe to receive Requests and publish Responses
 
-The MQTT broker and MQTT client software used by Producers 
-and Consumers are beyond the scope of this specification, but
-are assumed to be conformant with the MQTT v5.0 specification 
-[[MQTT-v5.0](#mqtt-v50)]. In the context of OpenC2, and
-in accordance with the Terminology section (1.2) of [[MQTT-V5.0](#mqtt-v50)]:
+The MQTT client software used by Producers and Consumers and all
+MQTT brokers used for OpenC2 message transfer are beyond the
+scope of this specification, but are assumed to be conformant
+with the MQTT v5.0 specification [[MQTT-v5.0](#mqtt-v50)]. In the
+context of OpenC2, and in accordance with the Terminology section
+(1.2) of [[MQTT-V5.0](#mqtt-v50)]:
 
 * MQTT Brokers are Servers
 * OpenC2 Producers and Consumer are Clients
@@ -259,7 +260,7 @@ Brokers facilitate the transfer of OpenC2 messages but in their role as Brokers 
 
 ## 2.2 Default Topic Structure
 
-The MQTT topic structure below is used to exchange OpenC2 messages. The "oc2"
+The MQTT topic structure described below is used to exchange OpenC2 messages. The "oc2"
 prefix on the topic names segregates OpenC2-related topics from other topics
 that might exist on the same broker. Topic name components in brackets (e.g.,
 `[actuator_profile]`) are placeholders for specific values that would be used in
@@ -275,7 +276,7 @@ specification.
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
 | `oc2/cmd/ap/[actuator_profile]`| Used to send OpenC2 commands to all instances of specified Actuator Profile.  |  Pub | Sub   |
-| `oc2/cmd/device/[device_id]` | Used to send OpenC2 commands to all APs within a specific device.  | Pub | Sub |
+| `oc2/cmd/device/[device_id]` | Used to send OpenC2 commands to a specific device. Routing to APs within the device is a local matter.  | Pub | Sub |
 | `oc2/rsp`  | Used to return OpenC2 response messages.  | Sub | Pub |
 | `oc2/rsp/[producer_id]`  | Used to return OpenC2 response messages to a specific producer.  | Sub | Pub |
 
@@ -364,11 +365,11 @@ The following values are recommended for `Subscription Options` for OpenC2 appli
 
 ## 2.4 OpenC2 Message Format
 
-This section describes how OpenC2 messages are represented in MQTT `PUBLISH` control packets.
+This section describes how OpenC2 messages are represented in MQTT PUBLISH control packets.
 
 ### 2.4.1  Content Type and Serialization
 
-OpenC2 messages are conveyed in the payload of MQTT `PUBLISH` control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT `PUBLISH` control packet properties to convey essential information about the message to the recipient:
+OpenC2 messages are conveyed in the payload of MQTT PUBLISH control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT PUBLISH control packet properties to convey essential information about the message to the recipient:
 
 * `Payload Format Indicator [Property 0x01]`:  This property is used to distinguish binary vs. UTF-8 encoded strings for the payload format, as specified in section 3.3.2.3.2 of the MQTT specification, and should be set as appropriate for the message serialization used.
 * `Content Type [Property 0x03]`: a UTF-8 Encoded String describing the content of the Application Message. For OpenC2 messages, the string `"application/openc2"` is used.
@@ -504,7 +505,7 @@ packet can be sent if the Client has no other traffic to process.
 The MQTT specification notes that "The actual value of the Keep
 Alive is application specific; typically this is a few minutes.
 The maximum value is 18 hours 12 minutes and 15 seconds." Per the
-MQTT specifciation the Broker will close the network connection
+MQTT specification the Broker will close the network connection
 if 1.5 times the `Keep Alive` interval has passed without
 receiving a control packet from the Client.
 
@@ -565,7 +566,7 @@ following table.
   <tr>
     <td>False (0)</td>
     <td><ul><li>No prior state to discard<li>New subscriptions required</ul></td>
-    <td><ul><li>Prior state retained<li>Previous subscriptions remain<li>Buffered messages delivered</td>
+    <td><ul><li>Prior state retained<li>Previous subscriptions retained<li>Buffered messages delivered</td>
   </tr>
 </tbody>
 </table>
@@ -1018,7 +1019,7 @@ This example illustrates the following aspects of the operating model:
 
 ![Basic Interaction Sequence](./images/e2-seq-req_rsp.png)
 
-The `PUBLISH` and `PUBACK` control packets for the command
+The PUBLISH and `PUBACK` control packets for the command
 portion of this example are illustrated below. The packet contents
 between the Producer and the Broker, and between the Broker and
 the Consumers are the same in each `PUBLISH / PUBACK` exchange,
@@ -1477,7 +1478,7 @@ aspects of the operating model:
 * Default topic structure, Section 2.2
 * Recommended use of QoS 1, Section 2.5
 * Properties to convey OpenC2 message type and serialization, Section 2.4
-* `PUBLISH` control packet flags, Section 3.3
+* PUBLISH control packet flags, Section 3.3
 
 ``` python
 # Addition from E.5.1
