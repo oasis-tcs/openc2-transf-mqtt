@@ -852,8 +852,20 @@ restricted to non-operational testing purposes.
 
 ## C.1 Special Thanks
 
+The editor thanks the members of the Huntington-Ingalls
+Industries OpenC2 software team for their assistance with
+prototyping the capabilities defined in this specification:
+
+* Jerome Czachor, Huntington-Ingalls Industries
+* Ha Ram Yoon, Huntington-Ingalls Industries
+* Mason Mirarchi, Praxis Engineering
+* Patrick Connole, Praxis Engineering
+
+
 ## C.2 Participants
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
+The following individuals are acknowledged for providing
+comments, suggested text, and/or participation in CSD ballots or
+face-to-face meetings: 
 
 **OpenC2 TC Members:**
 
@@ -877,7 +889,7 @@ TBD | TBD | TBD
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
-| WD09 | 2021-XX-XX | David Lemire | Simplified Section 3;<br> Added paho python client example;<br>Removed operating model questions (Appendix Z);<br> Numerous small edits and corrections  |
+| WD09 | 2021-XX-XX | David Lemire | Simplified Section 3;<br> Added paho python client example;<br>Added conformance section;<br> Corrected message format to align with in-development Language Specification;<br> Numerous small edits and corrections  |
 
 
 
