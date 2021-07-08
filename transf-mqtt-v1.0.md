@@ -810,54 +810,40 @@ Eclipse Foundation Paho MQTT Client Library, https://www.eclipse.org/paho/
 
 # Appendix B. Safety, Security and Privacy Considerations
 
-For operational use transferring OpenC2 messages, all connections between OpenC2 endpoint (i.e., Producer and Consumer) MQTT clients and brokers MUST use Transport Layer Security (TLS). Endpoint MQTT clients and MQTT brokers used for OpenC2 messaging MUST support TLS version 1.2 [[RFC5246](#rfc5246)] connections or higher for confidentiality, identification, and authentication when sending OpenC2 Messages over MQTT, and SHOULD support TLS Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
+For operational use transferring OpenC2 messages, all connections
+between OpenC2 endpoint (i.e., Producer and Consumer) MQTT
+clients and brokers MUST use Transport Layer Security (TLS).
+Endpoint MQTT clients and MQTT brokers used for OpenC2 messaging
+MUST support TLS version 1.2 [[RFC5246](#rfc5246)] connections or
+higher for confidentiality, integrity, and authentication
+when sending OpenC2 Messages over MQTT, and SHOULD support TLS
+Version 1.3 [[RFC8446](#rfc8446)] or higher connections.
 
-OpenC2 endpoint MQTT clients and MQTT brokers MUST NOT support any version of TLS prior to v1.2 and MUST NOT support any version of Secure Sockets Layer (SSL). 
+OpenC2 endpoint MQTT clients and MQTT brokers MUST NOT support
+any version of TLS prior to v1.2 and MUST NOT support any version
+of Secure Sockets Layer (SSL). 
 
-The implementation and use of TLS SHOULD align with the best currently available security guidance, such as that provided in [[RFC7525](#rfc7525)]/BCP 195.
+The implementation and use of TLS SHOULD align with the best
+currently available security guidance, such as that provided in
+[[RFC7525](#rfc7525)]/BCP 195.
 
-The TLS session MUST use non-NULL ciphersuites for authentication, integrity, and confidentiality.  Sessions MAY be renegotiated within these constraints.
+The TLS session MUST use non-NULL ciphersuites for
+authentication, integrity, and confidentiality.  Sessions MAY be
+renegotiated within these constraints.
 
-OpenC2 endpoint MQTT clients supporting TLS v1.2 MUST NOT use any of the blacklisted ciphersuites identified in Appendix A of [[RFC7540](#rfc7540)]. 
+OpenC2 endpoint MQTT clients supporting TLS v1.2 MUST NOT use any
+of the blacklisted ciphersuites identified in Appendix A of
+[[RFC7540](#rfc7540)]. 
 
-OpenC2 endpoint MQTT clients supporting TLS 1.3 MUST NOT implement zero round trip time resumption (0-RTT).
+OpenC2 endpoint MQTT clients supporting TLS 1.3 MUST NOT
+implement zero round trip time resumption (0-RTT).
 
-This specification recommends that the mechanisms available in MQTT v5.0 be given preference for implementing enhanced authentication of OpenC2 endpoints.
+This specification recommends that the mechanisms available in
+MQTT v5.0 be given preference for implementing enhanced
+authentication of OpenC2 endpoints.
 
-OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-operational testing purposes.
-
----
-
-> (Note: OASIS strongly recommends that Technical
-Committees consider issues that could affect
-security when implementing their specification and
-document them for implementers and adopters. For
-some purposes, you may find it required, e.g. if
-you apply for IANA registration.
-
-> While it may not be immediately obvious how your
-specification might make systems vulnerable to
-attack, most specifications, because they involve
-communications between systems, message formats,
-or system settings, open potential channels for
-exploit. For example, IETF [[RFC3552](#rfc3552)]
-lists “eavesdropping, replay, message insertion,
-deletion, modification, and man-in-the-middle” as
-well as potential denial of service attacks as
-threats that must be considered and, if
-appropriate, addressed in IETF RFCs. 
-
-> In addition to considering and describing
-foreseeable risks, this section should include
-guidance on how implementers and adopters can
-protect against these risks.
-
-> We encourage editors and TC members concerned with
-this subject to read _Guidelines for Writing RFC
-Text on Security Considerations_, IETF
-[[RFC3552](#rfc3552)], for more information.
-
-> Remove this note before submitting for publication.)
+OpenC2 messaging over unsecured MQTT connections SHOULD be
+restricted to non-operational testing purposes.
 
 
 ------
