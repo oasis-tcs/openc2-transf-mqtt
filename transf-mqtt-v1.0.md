@@ -1025,10 +1025,10 @@ This example illustrates the following aspects of the operating model:
 
 ![Basic Interaction Sequence](./images/e2-seq-req_rsp.png)
 
-The PUBLISH and `PUBACK` control packets for the command
+The PUBLISH and PUBACK control packets for the command
 portion of this example are illustrated below. The packet contents
 between the Producer and the Broker, and between the Broker and
-the Consumers are the same in each `PUBLISH / PUBACK` exchange,
+the Consumers are the same in each PUBLISH / PUBACK exchange,
 with the exception that the `packetId` field will differ for each
 of the three publishing exchanges in Figure A-PRR, as that value
 is assigned by the initiator of each exchange. The payload of
