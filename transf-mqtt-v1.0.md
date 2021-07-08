@@ -393,38 +393,44 @@ The specifics of serializing OpenC2 messages are defined in other OpenC2 specifi
 ### 2.4.2 OpenC2 Message Structure
 
 OpenC2 messages transferred using MQTT utilize the
-`OpenC2-Message` structure containing the message elements
-listed in Section 3.2 of [OpenC2-Lang-v1.0](#openc2-lang-v10).
+`OpcenC2-Message` structure defined in Section 3.2 of
+[OpenC2-Lang-v1.0](#openc2-lang-v10).
 
- ```
- OpenC2-Message = Record {
-     1 content         Content,                  // Message body as specified by msg_type (the ID/Name of Content)
-     2 request_id      String optional,          // A unique identifier created by Producer and copied by Consumer into responses
-     3 created         Date-Time optional,       // Creation date/time of the content
-     4 from            String optional,          // Authenticated identifier of the creator of / authority for a request
-     5 to              ArrayOf(String) optional  // Authenticated identifier(s) of the authorized recipient(s) of a message
- }
- 
- Content = Choice {
-     1 request         OpenC2-Command,           // The initiator of a two-way message exchange.
-     2 response        OpenC2-Response,          // A response linked to a request in a two-way message exchange.
-     3 notification    OpenC2-Notification       // A (one-way) message that is not a request or response.  (Placeholder)
- }
+ ``` 
+Message = Record
+  1 headers       Headers optional
+  2 body          Body
+  3 signature     String optional
+
+Headers = Map{1..*}
+  1 request_id    String optional
+  2 created       ls:Date-Time optional
+  3 from          String optional
+  4 to            String [0..*]
+
+Body = Choice
+  1 openc2        OpenC2-Content
+
+OpenC2-Content = Choice
+  1 request       OpenC2-Command
+  2 response      OpenC2-Response
+  3 notification  OpenC2-Event  
  ```
  
 A Producer sending an OpenC2 request _always_ includes its
-identifier in the message `from` field, allowing receiving Consumers
-to know the origin of the request.  A Consumer sending a
-response to an OpenC2 request _always_ includes its identifier in
-the message `from` field, allowing responses to the same request
-from different Consumers to be identified by the Producer
-receiving the responses. 
+identifier in the message headers `from` field, allowing
+receiving Consumers to know the origin of the request.  A
+Consumer sending a response to an OpenC2 request _always_
+includes its identifier in the message headers `from` field,
+allowing responses to the same request from different Consumers
+to be identified by the Producer receiving the responses. 
  
-When publishing an OpenC2 request, the Producer can use the `to`
-field as a filter to provide finer-grained control over which
-Consumers should process any particular message than is provided
-by the MQTT Topic Structure and Client topic subscriptions.
-Consumers have no requirement to populate the `to` field.
+When publishing an OpenC2 request, the Producer can use the
+message headers `to` field as a filter to provide finer-grained
+control over which Consumers should process any particular
+message than is provided by the MQTT Topic Structure and Client
+topic subscriptions. Consumers have no requirement to populate
+the message headers `to` field.
 
 
 
