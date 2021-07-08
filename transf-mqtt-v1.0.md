@@ -1493,10 +1493,10 @@ using the paho client once a broker connection has been
 established as in E.5.1.  This code illustrates the following
 aspects of the operating model:
 
-* Default topic structure, Section 2.2
-* Recommended use of QoS 1, Section 2.5
-* Properties to convey OpenC2 message type and serialization, Section 2.4
-* PUBLISH control packet flags, Section 3.3
+* Default topic structure, [Section2.2](#22-default-topic-structure)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
+* Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
+* PUBLISH control packet flags, [Section 3.2](#32-publish-control-packet)
 
 ``` python
 # Addition from E.5.1
