@@ -637,33 +637,41 @@ This specification makes no recommendations regarding values for the following C
 OpenC2 Producers and Consumers MUST create and transmit the
 PUBLISH control packet, as specified in the [MQTT
 v5.0](#mqtt-v50) specification section 3.3, to publish messages
-using the MQTT broker.  
+using the MQTT broker.
 
-Topic selection for publishing OpenC2
-request and response messages MUST apply the default topic
-structure principles described in [Section
-2.2](##22-default-topic-structure) of this specification.
+Topic selection for publishing OpenC2 request and response
+messages MUST apply the default topic structure principles
+described in [Section 2.2](##22-default-topic-structure) of this
+specification.
 
-OpenC2 Producers and Consumers MUST populate the following CONNECT control packet fields as specified:
+OpenC2 Producers and Consumers MUST populate the following
+PUBLISH control packet fields as specified:
 * `QoS` = `1` (minimum, 2 of so determined by the implementer)
 * `Retain` = `0` (FALSE)
 * `Payload Format Indicator`
   * for binary message encodings = `0`
   * for UTF-8 message encodings = `1`
 * Content Type =  `"application/openc2"`
-* User Property for message type = `"msgType":"[type]"` where 
+* User Property for message type = `"msgType":[type]` where 
   * `[type]` = `"req"` when publishing OpenC2 requests
-  * `[type]` = `"rsp` when publishing OpenC2 responses
+  * `[type]` = `"rsp"` when publishing OpenC2 responses
   * `[type]` = `"ntf"` when publishing OpenC2 notifications
-* User Property for message encoding = `"encoding":"[encoding]"` where
+* User Property for message encoding = `"encoding":[encoding]` where
   * `[encoding]` = `"json"` for JSON-encoded messages using UTF-8 
   * `[encoding]` = `"cbor"` for CBOR-encoded binary messages 
 
-OpenC2 Producers and Consumers MUST populate the PUBLIC control packet payload with an OpenC2 message of type specified by the `"msgType":"[type]"` User Property, encoded as specified by the `"encoding":"[encoding]"` User Property.
+OpenC2 Producers and Consumers MUST populate the PUBLISH control
+packet payload with an OpenC2 message of type specified by the
+`"msgType":[type]` User Property, encoded as specified by the
+`"encoding":[encoding]` User Property.
 
-OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
+OpenC2 Producers and Consumers MUST populate the `from:` field of
+the OpenC2 message with the identity of the publisher of the
+message, as described in [Section
+2.4.2](#242-openc2-message-structure).
 
-This specification makes no recommendations regarding values for the following PUBLISH control packet properties:
+This specification makes no recommendations regarding values for
+the following PUBLISH control packet properties:
 
  * `Message Expiry Interval`
  * `Response Topic`
