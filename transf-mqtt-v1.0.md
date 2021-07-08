@@ -1064,8 +1064,6 @@ actuator profiles, as follows:
  1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
- 1. For compactness these examples use a simplified `request_id`
-    rather than the UUID_v4 format recommended for OpenC2.
  
 
 This example illustrates the following aspects of the operating model:
@@ -1087,6 +1085,10 @@ nessages in the control packet payloads use condensed formatting
 (white space minimized).
 
 ### Query Action -- Producer to Consumers 
+
+The following OpenC2 request message is published by the Producer
+and delivered to all Consumers subscribed to `oc2/cmd/all`.
+
 ``` json
 {
   "headers": {
@@ -1117,6 +1119,9 @@ The consumer responses are as follows:
 
 _Consumer 1:_
 
+The following OpenC2 response message is published by Consumer 1
+and delivered to the Producer on the `oc2/rsp` topic.
+
 ``` json
 {
   "headers": {
@@ -1143,6 +1148,9 @@ _Consumer 1:_
 
 
 _Consumer 2:_
+
+The following OpenC2 response message is published by Consumer 2
+and delivered to the Producer on the `oc2/rsp` topic.
 
 ``` json
 {
@@ -1171,6 +1179,8 @@ _Consumer 2:_
 
 _Consumer 3:_
 
+The following OpenC2 response message is published by Consumer 2
+and delivered to the Producer on the `oc2/rsp` topic.
 
 ``` json
 {
