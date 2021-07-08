@@ -28,8 +28,6 @@ https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.pdf
 [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
 
 #### Chairs:
-Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-
 Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
@@ -64,7 +62,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
+Version 1.0_. Edited by David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
@@ -153,16 +151,16 @@ The following changes have been implemented since WD08:
 
 * Simplified presentation of protocol requirements in Section 3
 * Added example illustrating use of paho python MQTT client
-* Removed operating model questions (Appendix Z)
 * Enhanced example graphics to highlight requirements from this specification
-* Added draft conformance section
+* Added conformance section
+* Updated message format to align with current OpenC2 Language Specification
 
 
 ## 1.2 Glossary
 
 ### 1.2.1 Definitions of terms
 
-The terms defined in Section 1.2, _Terminology_ of the MQTT v5.0 specification 
+The terms defined in Section 1.2, _Terminology_, of the MQTT v5.0 specification 
 [[MQTT-v5.0](#mqtt-v50)] are applicable to this specification.
 
 The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Language Specification [[OpenC2-Lang-v1.0](#openc2-lang-v10)] are applicable to this specification:
@@ -183,23 +181,19 @@ The following terms defined in Section 1.2, _Terminology_, of the OpenC2 Languag
 | JSON | JavaScript Object Notation |
 | MQTT | Message Queuing Telemetry Transport |
 | RFC | Request For Comment |
-| TBD | To Be Determined |
-| TBSL | To Be Specified Later |
 
 
 ### 1.2.3 Document conventions
 
 #### 1.2.3.1 Naming Conventions
 
-* [[RFC2119](#rfc2119)]/[[RFC8174](#rfc8174)] key words are in all uppercase.
-* All MQTT property names are in Initial Cap (e.g., User Property).
-
-> **NOTE:** need to do a scrub to ensure the foregoing statement is true.
+* All MQTT control packet names are in ALL CAPS (e.g., CONNECT, PINGREQ)
+* All MQTT property names are in Initial Cap and use a fixed-width font (e.g., `User Property`).
 
 #### 1.2.3.2 Font Colors and Style
 The following color, font and font style conventions are used in this document:
 
-* A `fixed width font` is used for all type names, property names, and literals.
+* A `fixed-width font` is used for all type names, property names, and literals.
 
 
 #### 1.2.3.3 MQTT Data Representation
@@ -229,7 +223,7 @@ the string, so the general form of a User Property as a UTF-8 String Pair is:
 For the "key:value" example above, the encoding would be:
 
 ```
-[0x26][0x00][x03]key[0x00][x05]value
+[0x26][0x00][0x03]key[0x00][0x05]value
 ```
 
 
@@ -437,7 +431,7 @@ the message headers `to` field.
 ## 2.5 Quality of Service
 
 [MQTT-v5.0](#mqtt-v50) Section 4.3, _Quality of Service
-Levels and Protocol Flows_ defines three quality of service
+Levels and Protocol Flows_, defines three quality of service
 (QoS) levels:
 
 - **QoS 0: "At most once"**, where messages are delivered
@@ -456,7 +450,7 @@ recommended for use in OpenC2 messaging.
 
 In accordance with the above, the requirements of
 [MQTT-v5.0](#mqtt-v50) Section 4.3.2, _QoS 1: At least
-once delivery_ apply to OpenC2 Producers and Consumers when
+once delivery_, apply to OpenC2 Producers and Consumers when
 publishing messages to the MQTT broker.
 
 As described in [MQTT-v5.0](#mqtt-v50) Section 4.6, _Message
@@ -747,9 +741,9 @@ specified in their respective sections of the
 
 An OpenC2 MQTT client conforms to this specification only if it satisfies all of the statements below:
 
- 1. Satisfies the conformance requirements for an MQTT Client as defined in Section 7.1.2, MQTT Client Conformance Clause, of the [MQTTv5.0](#mqtt-v50) specification.
- 2. Satisfies all of the MUST / SHALL requirements in [Section 3, Protocol Mapping](#3-protocol-mapping) of this specification.
- 3. Satisfies all of the MUST / SHALL requirements in [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations) of this specification.
+ 1. Satisfies the conformance requirements for an MQTT Client as defined in Section 7.1.2, _MQTT Client Conformance Clause_, of the [MQTTv5.0](#mqtt-v50) specification.
+ 2. Satisfies all of the MUST / SHALL requirements in [Section 3, _Protocol Mapping_](#3-protocol-mapping) of this specification.
+ 3. Satisfies all of the MUST / SHALL requirements in [Appendix B. _Safety, Security and Privacy Considerations_](#appendix-b-safety-security-and-privacy-considerations) of this specification.
 
 -------
 
@@ -1203,7 +1197,7 @@ This example illustrates the execution of a common  OpenC2
 requests using MQTT PUBLISH control packets.  The example is a
 deny action for a particular IP connection, as described in the
 [Stateless Packet Filtering AP](#openc2-slpf-v10), Section
-A.1.1.This example primarily indicates the content of the PUBLISH
+A.1.1. This example primarily indicates the content of the PUBLISH
 control packets. For simplicity the exchange illustrated only
 includes one Producer and one Consumer.
 
