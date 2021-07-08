@@ -537,10 +537,9 @@ its ClientID as described in [Section
 Start` equals `1` [_true_]). In MQTT the setting of the `Clean
 Start` flag and the value of the `Session Expiry Interval` from
 the most recent CONNECT packet are relevant to how the broker
-handles client state.  The behavior is summarized in the
-following table.
+handles client state.  The behavior is summarized in Table 2-2.
 
-
+#### **Table 2-2: Clean Start and Session Expiry** 
 
 <table border="4 px">
 <thead>
