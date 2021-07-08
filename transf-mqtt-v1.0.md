@@ -1210,11 +1210,11 @@ and delivered to the Producer on the `oc2/rsp` topic.
 
 ## E.4 OpenC2 Deny Example
 
-This example illustrates the execution of a common  OpenC2
+This example illustrates the execution of a common OpenC2
 requests using MQTT PUBLISH control packets.  The example is a
-deny action for a particular IP connection, as described in the
-[Stateless Packet Filtering AP](#openc2-slpf-v10), Section
-A.1.1. This example primarily indicates the content of the PUBLISH
+`deny` action for a particular IP connection, as described in the
+[Stateless Packet Filtering AP](#openc2-slpf-v10), Section A.1.1.
+This example primarily indicates the content of the PUBLISH
 control packets. For simplicity the exchange illustrated only
 includes one Producer and one Consumer.
 
@@ -1228,8 +1228,6 @@ includes one Producer and one Consumer.
  1. The `response_requested` aregument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
- 1. For compactness these examples use a simplified `request_id`
-    rather than the UUID_v4 format recommended for OpenC2.
  
 
 This example illustrates the following aspects of the operating model:
@@ -1249,6 +1247,8 @@ packet payloads use condensed formatting (white space minimized).
 
 ### Deny Action -- Producer to Consumer
 
+The following OpenC2 request message is published by the Producer
+and delivered to all Consumers subscribed to `oc2/cmd/slpf`.
 
 ``` json
 
@@ -1294,7 +1294,8 @@ packet payloads use condensed formatting (white space minimized).
 
 ### Deny Response -- Consumer to Producer 
 
-The consumer response is as follows:
+The following OpenC2 response message is published by the
+Consumer 1 and delivered to the Producer on the `oc2/rsp` topic.
 
 ``` json
 {
