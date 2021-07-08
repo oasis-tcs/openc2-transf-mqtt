@@ -1354,12 +1354,12 @@ that implements the stateless packet filter actuator profile
 (AP).  The example illustrates the following aspects of the
 operating model:
 
-* Randomly generated MQTT ClientID, Section 2.6
-* Recommended 5 minute keep-alive interval, Section 2.7
-* No use of MQTT "will" messages, Section 2.8
-* `Clean Start` flag set to false, Section 2.9
-* Optional use of username and password, Section 3.1
-* Use of TLS 1.2 or higher, Appendix B
+* Randomly generated MQTT ClientID, [Section 2.6](#26-mqtt-client-identifier)
+* Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
+* No use of MQTT "will" messages, [Section 2.8](#28--will-message)
+* `Clean Start` flag set to false, [Section 2.9](#29-clean-start-flag)
+* Optional use of username and password, [Section 3.1](#31-connect-control-packet)
+* Use of TLS 1.2 or higher, [Appendix B](#appendix-b-safety-security-and-privacy-considerations)
 
 ``` python
 import json
