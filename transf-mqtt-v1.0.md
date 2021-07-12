@@ -675,7 +675,10 @@ OpenC2 Producers and Consumers MUST populate the PUBLIC control packet payload w
 
 OpenC2 Producers and Consumers MUST populate the `from:` field of the OpenC2 message with the identity of the publisher of the message, as described in [Section 2.4.2](#242-openc2-message-structure).
 
-OpenC2 Producers MUST NOT use the MQTT PUBLIC control packet's `Response Topic` header. OpenC2 Consumers MUST publish responses to the defined response topics described in [Section 2.2](#22-default-topic-structure).
+OpenC2 Producers MUST NOT use the MQTT PUBLISH control packet's
+`Response Topic` header. OpenC2 Consumers MUST publish responses
+to the defined response topics described in [Section
+2.2](#22-default-topic-structure).
 
 This specification makes no recommendations regarding values for the following PUBLISH control packet properties:
 
