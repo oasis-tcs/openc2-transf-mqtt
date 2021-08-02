@@ -299,6 +299,13 @@ following topic filters:
 * `oc2/rsp`
 * `oc2/rsp/[producer_id]`
 
+The inclusion of predefined response topics in the default topic
+scheme eliminates any need for an OpenC2 Producer to use the
+PUBLISH control packet's `Response Topic` header (described in
+[MQTTv5](#mqtt-v50) sections 3.3.2.3.5 and 4.10) to inform
+Consumers where to direct reply messages. The `Response Topic`
+field is not used for OpenC2 messaging over MQTT.
+
 Topic wildcards are not normally utilized for OpenC2 but their
 use is not precluded. For example, implementers of OpenC2
 Consumers might elect to use a wildcard to subscribe to the
@@ -673,11 +680,20 @@ the OpenC2 message with the identity of the publisher of the
 message, as described in [Section
 2.4.2](#242-openc2-message-structure).
 
+OpenC2 Producers MUST NOT use the MQTT PUBLISH control packet's
+`Response Topic` header when publishing OpenC2 request messages.
+OpenC2 Consumers MUST publish responses to the defined response
+topics described in [Section 2.2](#22-default-topic-structure).
+
+> NOTE: the preceding prohibition applies only to the use of
+> `Response Topic` in OpenC2 messaging and does not apply to
+> other MQTT messaging by clients associated with OpenC2
+> Producers and Consumers.
+
 This specification makes no recommendations regarding values for
 the following PUBLISH control packet properties:
 
  * `Message Expiry Interval`
- * `Response Topic`
  * `Correlation Data`
  * `Subscription Identifier`
  * `Topic Alias`
