@@ -120,21 +120,14 @@ For complete copyright information please see the Notices section in the Appendi
   - [C.2 Participants](#c2-participants)
 - [Appendix D: Revision History](#appendix-d-revision-history)
 - [Appendix E: Examples](#appendix-e-examples)
-      - [Figure E-1: Color Code for Packet Examples](#figure-e-1-color-code-for-packet-examples)
+    - [Figure E-1: Color Code for Packet Examples](#figure-e-1-color-code-for-packet-examples)
   - [E.1 Example 1: Connect and Subscribe](#e1-example-1-connect-and-subscribe)
       - [Figure E-2: Connect and Subscribe](#figure-e-2-connect-and-subscribe)
   - [E.2  Example 2: Command / Response Exchange](#e2--example-2-command--response-exchange)
       - [Figure E-3: Publish Request and Response](#figure-e-3-publish-request-and-response)
   - [E.3 Example 3: Query Consumer Actuator Profiles](#e3-example-3-query-consumer-actuator-profiles)
-    - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
-    - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
   - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
-    - [Deny Action -- Producer to Consumer](#deny-action----producer-to-consumer)
-    - [Deny Response -- Consumer to Producer](#deny-response----consumer-to-producer)
   - [E.5 Paho Python Client Examples](#e5-paho-python-client-examples)
-    - [E.5.1 Connecting](#e51-connecting)
-    - [E.5.2 Subscribing](#e52-subscribing)
-    - [E.5.3 Publishing](#e53-publishing)
 - [Appendix F: Notices](#appendix-f-notices)
 
 -------
@@ -275,7 +268,7 @@ own device-specific topic using a device identifier (annotated as
 Producer(s) that can command that Consumer. The determination of
 device identifiers is beyond the scope of this specification.
 
-#### **Table 2-1: Default Topic Structure** 
+#### Table 2-1: Default Topic Structure 
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
@@ -548,7 +541,7 @@ Start` flag and the value of the `Session Expiry Interval` from
 the most recent CONNECT packet are relevant to how the broker
 handles client state.  The behavior is summarized in Table 2-2.
 
-#### **Table 2-2: Clean Start and Session Expiry** 
+#### Table 2-2: Clean Start and Session Expiry
 
 <table border="4 px">
 <thead>
