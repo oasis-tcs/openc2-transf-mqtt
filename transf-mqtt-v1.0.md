@@ -833,13 +833,37 @@ OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-ope
 The editor wishes to thank the members of the Huntington-Ingalls Industries (HII) OpenC2 software team for assistance with testing and improving the presentation of concepts in this specification.
 
 ## C.2 Participants
-The following individuals have participated in the creation of this specification and are gratefully acknowledged:
 
-**OpenC2 TC Members:**
+The following OpenC2 TC members are acknowledged for providing comments, suggested text, and/or participation in CSD ballots or face-to-face meetings during the development of this specification:
 
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-TBD | TBD | TBD
+* Michelle Barry, AT&T
+* Joe Brule, National Security Agency
+* Marco Caselli, Siemens AG
+* Toby Considine, University of North Carolina at Chapel Hill
+* Martin Evandt, University of Oslo
+* Alex Everett, University of North Carolina at Chapel Hill
+* David Girard, Trend Micro
+* John-Mark Gurney, Copado
+* Stephanie Hazlewood, IBM
+* Christian Hunt, Copado
+* Dan Johnson, sFractal Consulting LLC
+* David Kemp, National Security Agency
+* Anthony Librera, AT&T
+* Patrick Maroney, AT&T
+* Daniel Martinez, Huntington Ingalls Industries
+* Vasileios Mavroeidis, University of Oslo
+* Chris Ricard, Financial Services Information Sharing and Analysis Center (FS-ISAC)
+* Daniel Riedel, Copado
+* Michael Rosa, National Security Agency
+* Duane Skeen, Northrop Grumman
+* Calvin Smith, Northrop Grumman
+* Duncan Sparrell, sFractal Consulting LLC
+* Michael Stair, AT&T
+* Andrew Storms, Copado
+* Gerald Stueve, Fornetix
+* Bill Trost, AT&T
+* Drew Varner, NineFX, Inc.
+
 
 ---
 
