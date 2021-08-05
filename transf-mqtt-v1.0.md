@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 09
-## DD MMM 2021
+## xx August 2021
 
 
 
@@ -27,9 +27,7 @@ https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.pdf
 #### Technical Committee:
 [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
 
-#### Chairs:
-Joe Brule (jmbrule@radium.ncsc.mil), [National Security Agency](https://www.nsa.gov/)
-
+#### Chair:
 Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
@@ -64,7 +62,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by Joe Brule and David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
+Version 1.0_. Edited by David Lemire. 5 August 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
 
 -------
@@ -155,7 +153,8 @@ The following changes have been implemented since WD08:
 * Added example illustrating use of paho python MQTT client
 * Removed operating model questions (Appendix Z)
 * Enhanced example graphics to highlight requirements from this specification
-* Added draft conformance section
+* Added conformance section
+* Added prohibition against use of MQTT `Response Topic` feature
 
 
 ## 1.2 Glossary
@@ -823,38 +822,6 @@ This specification recommends that the mechanisms available in MQTT v5.0 be give
 
 OpenC2 messaging over unsecured MQTT connections SHOULD be restricted to non-operational testing purposes.
 
----
-
-> (Note: OASIS strongly recommends that Technical
-Committees consider issues that could affect
-security when implementing their specification and
-document them for implementers and adopters. For
-some purposes, you may find it required, e.g. if
-you apply for IANA registration.
-
-> While it may not be immediately obvious how your
-specification might make systems vulnerable to
-attack, most specifications, because they involve
-communications between systems, message formats,
-or system settings, open potential channels for
-exploit. For example, IETF [[RFC3552](#rfc3552)]
-lists “eavesdropping, replay, message insertion,
-deletion, modification, and man-in-the-middle” as
-well as potential denial of service attacks as
-threats that must be considered and, if
-appropriate, addressed in IETF RFCs. 
-
-> In addition to considering and describing
-foreseeable risks, this section should include
-guidance on how implementers and adopters can
-protect against these risks.
-
-> We encourage editors and TC members concerned with
-this subject to read _Guidelines for Writing RFC
-Text on Security Considerations_, IETF
-[[RFC3552](#rfc3552)], for more information.
-
-> Remove this note before submitting for publication.)
 
 
 ------
@@ -862,6 +829,8 @@ Text on Security Considerations_, IETF
 # Appendix C: Acknowledgments
 
 ## C.1 Special Thanks
+
+The editor wishes to thank the members of the Huntington-Ingalls Industries (HII) OpenC2 software team for assistance with testing and improving the presentation of concepts in this specification.
 
 ## C.2 Participants
 The following individuals have participated in the creation of this specification and are gratefully acknowledged:
@@ -888,7 +857,7 @@ TBD | TBD | TBD
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
-| WD09 | 2021-XX-XX | David Lemire | Simplified Section 3;<br> Added paho python client example;<br>Removed operating model questions (Appendix Z);<br> Numerous small edits and corrections  |
+| WD09 | 2021-08-xx | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C: Acknowledgements;<br> Numerous small edits and corrections  |
 
 
 
