@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 09
-## DD MMM 2021
+## xx August 2021
 
 
 
@@ -27,7 +27,7 @@ https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.pdf
 #### Technical Committee:
 [OASIS Open Command and Control (OpenC2) TC](https://www.oasis-open.org/committees/openc2/)
 
-#### Chairs:
+#### Chair:
 Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
@@ -62,8 +62,7 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by David Lemire. 17 February 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html.
+Version 1.0_. Edited by David Lemire. 5 August 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
 
 -------
 
@@ -121,21 +120,14 @@ For complete copyright information please see the Notices section in the Appendi
   - [C.2 Participants](#c2-participants)
 - [Appendix D: Revision History](#appendix-d-revision-history)
 - [Appendix E: Examples](#appendix-e-examples)
-      - [Figure E-1: Color Code for Packet Examples](#figure-e-1-color-code-for-packet-examples)
+    - [Figure E-1: Color Code for Packet Examples](#figure-e-1-color-code-for-packet-examples)
   - [E.1 Example 1: Connect and Subscribe](#e1-example-1-connect-and-subscribe)
       - [Figure E-2: Connect and Subscribe](#figure-e-2-connect-and-subscribe)
   - [E.2  Example 2: Command / Response Exchange](#e2--example-2-command--response-exchange)
       - [Figure E-3: Publish Request and Response](#figure-e-3-publish-request-and-response)
   - [E.3 Example 3: Query Consumer Actuator Profiles](#e3-example-3-query-consumer-actuator-profiles)
-    - [Query Action -- Producer to Consumers](#query-action----producer-to-consumers)
-    - [Query Response -- Consumers to Producer](#query-response----consumers-to-producer)
   - [E.4 OpenC2 Deny Example](#e4-openc2-deny-example)
-    - [Deny Action -- Producer to Consumer](#deny-action----producer-to-consumer)
-    - [Deny Response -- Consumer to Producer](#deny-response----consumer-to-producer)
   - [E.5 Paho Python Client Examples](#e5-paho-python-client-examples)
-    - [E.5.1 Connecting](#e51-connecting)
-    - [E.5.2 Subscribing](#e52-subscribing)
-    - [E.5.3 Publishing](#e53-publishing)
 - [Appendix F: Notices](#appendix-f-notices)
 
 -------
@@ -155,6 +147,7 @@ The following changes have been implemented since WD08:
 * Added example illustrating use of paho python MQTT client
 * Enhanced example graphics to highlight requirements from this specification
 * Added conformance section
+* Added prohibition against use of MQTT `Response Topic` feature
 * Updated message format to align with current OpenC2 Language Specification
 
 
@@ -275,7 +268,7 @@ own device-specific topic using a device identifier (annotated as
 Producer(s) that can command that Consumer. The determination of
 device identifiers is beyond the scope of this specification.
 
-#### **Table 2-1: Default Topic Structure** 
+#### Table 2-1: Default Topic Structure 
 | Topic  | Purpose   | Producer | Consumer |
 |---|---|:---:|:---:|
 | `oc2/cmd/all`| Used to send OpenC2 commands to all devices connected to this MQTT fabric.  |  Pub | Sub   |
@@ -548,7 +541,7 @@ Start` flag and the value of the `Session Expiry Interval` from
 the most recent CONNECT packet are relevant to how the broker
 handles client state.  The behavior is summarized in Table 2-2.
 
-#### **Table 2-2: Clean Start and Session Expiry** 
+#### Table 2-2: Clean Start and Session Expiry
 
 <table border="4 px">
 <thead>
@@ -882,15 +875,39 @@ prototyping the capabilities defined in this specification:
 
 
 ## C.2 Participants
-The following individuals are acknowledged for providing
-comments, suggested text, and/or participation in CSD ballots or
-face-to-face meetings: 
 
-**OpenC2 TC Members:**
+The following OpenC2 TC members are acknowledged for providing
+comments, suggested text, and/or participation in CSD ballots 
+or face-to-face meetings during the development of this specification:
 
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-TBD | TBD | TBD
+* Michelle Barry, AT&T
+* Joe Brule, National Security Agency
+* Marco Caselli, Siemens AG
+* Toby Considine, University of North Carolina at Chapel Hill
+* Martin Evandt, University of Oslo
+* Alex Everett, University of North Carolina at Chapel Hill
+* David Girard, Trend Micro
+* John-Mark Gurney, Copado
+* Stephanie Hazlewood, IBM
+* Christian Hunt, Copado
+* Dan Johnson, sFractal Consulting LLC
+* David Kemp, National Security Agency
+* Anthony Librera, AT&T
+* Patrick Maroney, AT&T
+* Daniel Martinez, Huntington Ingalls Industries
+* Vasileios Mavroeidis, University of Oslo
+* Chris Ricard, Financial Services Information Sharing and Analysis Center (FS-ISAC)
+* Daniel Riedel, Copado
+* Michael Rosa, National Security Agency
+* Duane Skeen, Northrop Grumman
+* Calvin Smith, Northrop Grumman
+* Duncan Sparrell, sFractal Consulting LLC
+* Michael Stair, AT&T
+* Andrew Storms, Copado
+* Gerald Stueve, Fornetix
+* Bill Trost, AT&T
+* Drew Varner, NineFX, Inc.
+
 
 ---
 
@@ -908,7 +925,7 @@ TBD | TBD | TBD
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
-| WD09 | 2021-XX-XX | David Lemire | Simplified Section 3;<br> Added paho python client example;<br>Added conformance section;<br> Corrected message format to align with in-development Language Specification;<br> Numerous small edits and corrections  |
+| WD09 | 2021-08-xx | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C: Acknowledgements;<br> Numerous small edits and corrections  |
 
 
 
