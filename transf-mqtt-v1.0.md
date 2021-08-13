@@ -3,7 +3,7 @@
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
 ## Working Draft 09
-## xx August 2021
+## 13 August 2021
 
 
 
@@ -925,7 +925,7 @@ or face-to-face meetings during the development of this specification:
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
-| WD09 | 2021-08-xx | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C: Acknowledgements;<br> Numerous small edits and corrections  |
+| WD09 | 2021-08-13 | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C: Acknowledgements;<br> Numerous small edits and corrections  |
 
 
 
