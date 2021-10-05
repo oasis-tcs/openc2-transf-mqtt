@@ -657,7 +657,7 @@ using the MQTT broker.
 
 Topic selection for publishing OpenC2 request and response
 messages MUST apply the default topic structure principles
-described in [Section 2.2](##22-default-topic-structure) of this
+described in [Section 2.2](#22-default-topic-structure) of this
 specification.
 
 OpenC2 Producers and Consumers MUST populate the following
@@ -750,7 +750,7 @@ not processed any other control packets with 95% of the
 keep-alive interval defined by the implementer.  If the
 implementer has not otherwise specified a keep-alive interval,
 95% of the value specified in [Section
-2.6](#26-keep-alive-interval) of this specification shall be
+2.7](#27-keep-alive-interval) of this specification shall be
 used.
 
 ## 3.5 Other Control Packets
@@ -1033,7 +1033,7 @@ packets are populated in this example:
  
 The Consumer SUBSCRIBE and Broker SUBACK packets for this example
 are shown below; `Subscription Options` are populated as
-specified in [section 3.8](#38-subscribe-control-packet) of this
+specified in [section 3.3](#33-subscribe-control-packet) of this
 specification:
 
 ![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
@@ -1069,8 +1069,8 @@ recipient to respond to the PUBLISH packet with a PUBACK packet.
 This example illustrates the following aspects of the operating model:
 
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
-* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
+* Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
 * PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
@@ -1125,7 +1125,7 @@ This example illustrates the following aspects of the operating model:
 * Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.2](#32-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `query`
@@ -1289,7 +1289,7 @@ This example illustrates the following aspects of the operating model:
 * Packaging of OpenC2 messages in PUBLISH control packet payloads, [Section 2.4](#24-openc2-message-format)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.2](#32-publish-control-packet)
 
 
 The Producer initiates this process by publishing a `deny`
@@ -1409,7 +1409,7 @@ operating model:
 
 * Randomly generated MQTT ClientID, [Section 2.6](#26-mqtt-client-identifier)
 * Recommended 5 minute keep-alive interval, [Section 2.7](#27-keep-alive-interval)
-* No use of MQTT "will" messages, [Section 2.8](#28--will-message)
+* No use of MQTT "will" messages, [Section 2.8](#28-will-message)
 * `Clean Start` flag set to false, [Section 2.9](#29-clean-start-flag)
 * Optional use of username and password, [Section 3.1](#31-connect-control-packet)
 * Use of TLS 1.2 or higher, [Appendix B](#appendix-b-safety-security-and-privacy-considerations)
