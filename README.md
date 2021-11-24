@@ -13,7 +13,7 @@ This specification provides guidance to the OpenC2 implementation community when
 
 OpenC2 work product repositories are organized a bit differently than typical open source software project repositories:
 
-* The **Published** (default) branch represents the current, stable, approved version of the work product. If the product hasn't progressed past an OASIS Committee Specification Draft (CSD), this branch is essentially empty
+* The **Published** (default) branch represents the current, stable, approved version of the work product. If the product hasn't progressed past an [OASIS Committee Specification Draft (CSD)](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#committeeDraft), this branch is essentially empty
 * The **Working** branch is where all work-in-progress content is captured, and is the place to go for the [current working version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md) of this work product
 
 <h3>Description</h3>
