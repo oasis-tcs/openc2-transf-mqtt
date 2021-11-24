@@ -1,4 +1,4 @@
-![OpenC2](images/openc2-logo_web.png?s=33)
+![OpenC2](images/mqtt-logo-header.png)
 <div>
 <h2>README</h2>
 
