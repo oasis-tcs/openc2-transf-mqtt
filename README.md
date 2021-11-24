@@ -32,6 +32,8 @@ than typical open source software project repositories:
   version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md)
   of this work product
 
+More information about the TC's repository organizing conventions can be found in our [Documentation Norms](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/Documentation-Norms.md#433-configure-repository).
+
 <h3>Description</h3>
 
 <p>This GitHub repository supports development of content and change tracking for the OpenC2 MQTT transfer specification as new working draft level revisions are created and the associated CSDs mature. 
