@@ -1,14 +1,21 @@
 ![OpenC2](images/mqtt-logo-header.png)
-<div>
-<h2>README</h2>
+<h2>An OASIS Work Product Repository</h2>
 
-<p>Members of the <a href="https://www.oasis-open.org/committees/openc2/">OASIS Open Command and Control (OpenC2) TC</a> create and manage technical content in this TC GitHub repository ( <a href="https://github.com/oasis-tcs/openc2-transf-mqtt">https://github.com/oasis-tcs/openc2-transf-mqtt</a> ) as part of the TC's chartered work (<i>i.e.</i>, the program of work and deliverables described in its <a href="https://www.oasis-open.org/committees/openc2/charter.php">charter</a>).</p>
+Members of the OASIS Open Command and Control (OpenC2) Technical Committee use this GitHub repository as part of the TC's chartered work. Contributors must be Members of the TC. Work is governed by the OASIS policies and is not done under typical open source licensing. For more details, see the Contributions and Licensing sections below. 
 
-<p>OASIS TC GitHub repositories, as described in <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">GitHub Repositories for OASIS TC Members' Chartered Work</a>, are governed by the OASIS <a href="https://www.oasis-open.org/policies-guidelines/tc-process">TC Process</a>, <a href="https://www.oasis-open.org/policies-guidelines/ipr">IPR Policy</a>, and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc.  While they make use of public GitHub repositories, these TC GitHub repositories are distinct from <a href="https://www.oasis-open.org/resources/open-repositories">OASIS Open Repositories</a>, which are used for development of open source <a href="https://www.oasis-open.org/resources/open-repositories/licenses">licensed</a> content.</p>
-</div>
+## _Specification for Transfer of OpenC2 Messages Over MQTT_
 
+This specification provides guidance to the OpenC2 implementation community when utilizing MQTT for OpenC2 message transport.
 
-<div>
+### Repository Organization
+
+![branches](images/repo-branches.png)
+
+OpenC2 work product repositories are organized a bit differently than typical open source software project repositories:
+
+* The **Published** (default) branch represents the current, stable, approved version of the work product. If the product hasn't progressed past an OASIS Committee Specification Draft (CSD), this branch is essentially empty
+* The **Working** branch is where all work-in-progress content is captured, and is the place to go for the [current working version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md) of this work product
+
 <h3>Description</h3>
 
 <p>This GitHub repository supports development of content and change tracking for the OpenC2 MQTT transfer specification as new working draft level revisions are created and the associated CSDs mature. 
@@ -51,6 +58,12 @@ a complete version of the work product.
 
 <div>
 <h3>Further Description of this Repository</h3>
+
+<p>Members of the <a href="https://www.oasis-open.org/committees/openc2/">OASIS Open Command and Control (OpenC2) TC</a> create and manage technical content in this TC GitHub repository ( <a href="https://github.com/oasis-tcs/openc2-transf-mqtt">https://github.com/oasis-tcs/openc2-transf-mqtt</a> ) as part of the TC's chartered work (<i>i.e.</i>, the program of work and deliverables described in its <a href="https://www.oasis-open.org/committees/openc2/charter.php">charter</a>).</p>
+
+<p>OASIS TC GitHub repositories, as described in <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">GitHub Repositories for OASIS TC Members' Chartered Work</a>, are governed by the OASIS <a href="https://www.oasis-open.org/policies-guidelines/tc-process">TC Process</a>, <a href="https://www.oasis-open.org/policies-guidelines/ipr">IPR Policy</a>, and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc.  While they make use of public GitHub repositories, these TC GitHub repositories are distinct from <a href="https://www.oasis-open.org/resources/open-repositories">OASIS Open Repositories</a>, which are used for development of open source <a href="https://www.oasis-open.org/resources/open-repositories/licenses">licensed</a> content.</p>
+</div>
+
 
 <p>[Any narrative content may be provided here by the TC, for example, if the Members wish to provide an extended statement of purpose.]</p>
 </div>
