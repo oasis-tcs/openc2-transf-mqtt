@@ -1,3 +1,4 @@
+![OpenC2](images/openc2-logo_web.png?s=33)
 <div>
 <h2>README</h2>
 
