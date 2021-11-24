@@ -3,7 +3,7 @@
 
 Members of the OASIS Open Command and Control (OpenC2) Technical Committee use this GitHub repository as part of the TC's chartered work. Contributors must be Members of the TC. Work is governed by the OASIS policies and is not done under typical open source licensing. For more details, see the Contributions and Licensing sections below. 
 
-## _Specification for Transfer of OpenC2 Messages Over MQTT_
+## _Specification for Transfer of OpenC2 Messages Via MQTT_
 
 This specification provides guidance to the OpenC2 implementation community when utilizing MQTT for OpenC2 message transport.
 
