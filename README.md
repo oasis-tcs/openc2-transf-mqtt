@@ -1,20 +1,36 @@
 ![OpenC2](images/mqtt-logo-header.png)
 <h2>An OASIS Work Product Repository</h2>
 
-Members of the OASIS Open Command and Control (OpenC2) Technical Committee use this GitHub repository as part of the TC's chartered work. Contributors must be Members of the TC. Work is governed by the OASIS policies and is not done under typical open source licensing. For more details, see the Contributions and Licensing sections below. 
+Members of the OASIS [Open Command and Control (OpenC2) Technical
+Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2)
+use this GitHub repository as part of the [TC's chartered
+work](https://www.oasis-open.org/committees/openc2/charter.php).
+Contributors must be Members of the TC. Work is governed by the
+OASIS policies and is not done under typical open source
+licensing. For more details, see the Contributions and Licensing
+sections below. 
 
 ## _Specification for Transfer of OpenC2 Messages Via MQTT_
 
-This specification provides guidance to the OpenC2 implementation community when utilizing MQTT for OpenC2 message transport.
+This specification provides guidance to the OpenC2 implementation
+community when utilizing MQTT for OpenC2 message transport.
 
 ### Repository Organization
 
 ![branches](images/repo-branches.png)
 
-OpenC2 work product repositories are organized a bit differently than typical open source software project repositories:
+OpenC2 work product repositories are organized a bit differently
+than typical open source software project repositories:
 
-* The **Published** (default) branch represents the current, stable, approved version of the work product. If the product hasn't progressed past an [OASIS Committee Specification Draft (CSD)](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#committeeDraft), this branch is essentially empty
-* The **Working** branch is where all work-in-progress content is captured, and is the place to go for the [current working version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md) of this work product
+* The **Published** (default) branch represents the current,
+  stable, approved version of the work product. If the product
+  hasn't progressed past an [OASIS Committee Specification Draft
+  (CSD)](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#committeeDraft),
+  this branch is essentially empty
+* The **Working** branch is where all work-in-progress content is
+  captured, and is the place to go for the [current working
+  version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md)
+  of this work product
 
 <h3>Description</h3>
 
