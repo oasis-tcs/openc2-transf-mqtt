@@ -16,7 +16,7 @@ sections below.
 This specification provides guidance to the OpenC2 implementation
 community when utilizing MQTT for OpenC2 message transport.
 
-### Repository Organization
+### :twisted_rightwards_arrows: Repository Organization :twisted_rightwards_arrows:
 
 ![branches](images/repo-branches.png)
 
