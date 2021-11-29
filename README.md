@@ -33,35 +33,50 @@ than typical open source software project repositories:
   version](https://github.com/oasis-tcs/openc2-transf-mqtt/blob/working/transf-mqtt-v1.0.md)
   of this work product
 
-More information about the TC's repository organizing conventions can be found in our [Documentation Norms](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/Documentation-Norms.md#433-configure-repository).
+More information about the TC's repository organizing conventions
+can be found in our [Documentation
+Norms](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/Documentation-Norms.md#433-configure-repository).
 
 <h3>Description</h3>
 
 <p>This GitHub repository supports development of content and change tracking for the OpenC2 MQTT transfer specification as new working draft level revisions are created and the associated CSDs mature. 
 
-The repository is designed to support TC members' work on a formal specification that describes the use of Message Queuing Telemetry Transport (MQTT) as a transfer mechanism for OpenC2 messages. MQTT provides a lightweight publish/subscribe reliable messaging transport protocol suitable for communication in M2M/IoT contexts where a small code footprint is required and/or network bandwidth is at a premium.  This specification provides guidance to the OpenC2 implementation community when utilizing MQTT for OpenC2 message transport.
+The repository is designed to support TC members' work on a
+formal specification that describes the use of Message Queuing
+Telemetry Transport (MQTT) as a transfer mechanism for OpenC2
+messages. MQTT provides a lightweight publish/subscribe reliable
+messaging transport protocol suitable for communication in
+M2M/IoT contexts where a small code footprint is required and/or
+network bandwidth is at a premium.  This specification provides
+guidance to the OpenC2 implementation community when utilizing
+MQTT for OpenC2 message transport.
 
-The provisional Work Product title for the work is: "Specification for Transfer of OpenC2 Messages via MQTT, Version 1.0", edited by David Lemire (HII). The specification explains the transfer of OpenC2 command and response messages using MQTT.
+The provisional Work Product title for the work is:
+"Specification for Transfer of OpenC2 Messages via MQTT, Version
+1.0", edited by David Lemire (HII). The specification explains
+the transfer of OpenC2 command and response messages using MQTT.
 </div>
 
 ### Branching Strategy
 
 This repository is organized with two fundamental branches:
 
- * The *_Working_* branch contains work product 
- material that is actively being developed, and 
- subject to potentially frequent and significant 
- change. Contributors to the work product should 
- target their inputs to the Working branch.
+ * The *_Working_* branch contains work product material that is
+   actively being developed, and subject to potentially frequent
+   and significant change. Contributors to the work product
+   should target their inputs to the Working branch.
 
 
- * The *_Published_* branch contains TC-approved 
-[Committee Specification](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dCommitteeSpec) (CS) or [OASIS Standard](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dOASISstandard) 
-versions of the work product. Until the first CS 
-is approved, the Master branch will not contain 
-a complete version of the work product.
+ * The *_Published_* branch contains TC-approved [Committee
+   Specification](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dCommitteeSpec)
+   (CS) or [OASIS
+   Standard](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dOASISstandard)
+   versions of the work product. Until the first CS is approved,
+   the Master branch will not contain a complete version of the
+   work product.
 
-![Branching /  Versioning Strategy](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/images/versioning-concept.png)
+![Branching /  Versioning
+Strategy](https://github.com/oasis-tcs/openc2-tc-ops/blob/main/images/versioning-concept.png)
 
 <div>
 <h3>Contributions</h3>
