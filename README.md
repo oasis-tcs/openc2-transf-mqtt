@@ -1,5 +1,6 @@
 ![OpenC2](images/mqtt-logo-header.png)
-<h2>An OASIS Work Product Repository</h2>
+
+## An OASIS [Work Product](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dWorkProduct) Repository
 
 Members of the OASIS [Open Command and Control (OpenC2) Technical
 Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2)
