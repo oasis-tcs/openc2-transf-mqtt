@@ -376,7 +376,7 @@ The following values are recommended for `Subscription Options` for OpenC2 appli
 
 This section describes how OpenC2 messages are represented in MQTT PUBLISH control packets.
 
-### 2.4.1  Content Type and Serialization
+### 2.4.1 Content Type and Serialization
 
 OpenC2 messages are conveyed in the payload of MQTT PUBLISH control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT PUBLISH control packet properties to convey essential information about the message to the recipient:
 
@@ -534,7 +534,7 @@ OpenC2 client send an MQTT PINGREQ when 95% of the `Keep Alive`
 interval has expired without any other control packets being
 exchanged.
 
-## 2.8  Will Message
+## 2.8 Will Message
 
 The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
 Section 3.1, provides a `Will Message` feature that enables connected
@@ -1039,7 +1039,7 @@ specification:
 
 ![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
 
-## E.2  Example 2: Command / Response Exchange
+## E.2 Example 2: Command / Response Exchange
 
 This example illustrates the message flows that occur for a
 notional but common process of an OpenC2 Producer publishing an
@@ -1072,7 +1072,7 @@ This example illustrates the following aspects of the operating model:
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.2](#32-publish-control-packet)
 
 
 #### Figure E-3: Publish Request and Response
@@ -1279,7 +1279,7 @@ includes one Producer and one Consumer.
     to those illustrated in Example 2. This example only includes
     the PUBLISH control packets containing the OpenC2 request and
     response messages.
- 1. The `response_requested` aregument is omitted from the
+ 1. The `response_requested` argument is omitted from the
     `query` request message so the Consumers exhibit the default
     behavior of sending a complete response.
  
