@@ -1,21 +1,22 @@
 ![OASIS Logo](https://docs.oasis-open.org/templates/OASISLogo-v3.0.png)
+
 -------
 
 # Specification for Transfer of OpenC2 Messages via MQTT Version 1.0
-## Working Draft 10
-## 13 October 2021
+## Committee Specification 01
+## 19 November 2021
 
-
+&nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.md (Authoritative) \
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html \
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.pdf
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/cs01/transf-mqtt-v1.0-cs01.md (Authoritative) \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/cs01/transf-mqtt-v1.0-cs01.html \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/cs01/transf-mqtt-v1.0-cs01.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.md (Authoritative) \
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.html \
-https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd02/transf-mqtt-v1.0-csd02.pdf
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd04/transf-mqtt-v1.0-csd04.md (Authoritative) \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd04/transf-mqtt-v1.0-csd04.html \
+https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd04/transf-mqtt-v1.0-csd04.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.md (Authoritative) \
@@ -31,21 +32,21 @@ https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.pdf
 Duncan Sparrell (duncan@sfractal.com), [sFractal
   Consulting](http://www.sfractal.com/)
 
-#### Editors:
+#### Editor:
 David Lemire (david.lemire@hii-tsd.com), [National
   Security Agency](https://www.nsa.gov/)
 
 #### Related work:
 This specification is related to:
 
-*  _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. 24 November 2019. OASIS Committee Specification 02. https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
-*  _Open Command and Control (OpenC2) Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest version: http://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html.
+*  _Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest stage: https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
+*  _Open Command and Control (OpenC2) Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest stage: https://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html.
 
 #### Abstract:
-Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Message Queuing Telemetry Transport (MQTT) is a widely-used publish / subscribe (pub/sub) transfer protocol. This specification describes the use of MQTT version 5.0 as a transfer mechanism for OpenC2 messages.
+Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Message Queuing Telemetry Transport (MQTT) is a widely-used publish / subscribe (pub/sub) transfer protocol. This specification describes the use of MQTT Version 5.0 as a transfer mechanism for OpenC2 messages.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Command and Control (OpenC2) TC on the above date. The level of approval is also listed above. Check the "Latest version" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2#technical.
+This document was last revised or approved by the OASIS Open Command and Control (OpenC2) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2#technical.
 
 TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "Send A Comment" button on the TC's web page at https://www.oasis-open.org/committees/openc2/.
 
@@ -62,18 +63,16 @@ When referencing this specification the following citation format should be used
 **[OpenC2-MQTT-v1.0]**
 
 _Specification for Transfer of OpenC2 Messages via MQTT
-Version 1.0_. Edited by David Lemire. 5 August 2021. OASIS Committee Specification Draft 03. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/csd03/transf-mqtt-v1.0-csd03.html.  Latest stage:
+Version 1.0_. Edited by David Lemire. 19 November 2021. OASIS Committee Specification 01. https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/cs01/transf-mqtt-v1.0-cs01.html. Latest stage: https://docs.oasis-open.org/openc2/transf-mqtt/v1.0/transf-mqtt-v1.0.html
 
--------
+#### Notices
+Copyright &copy; OASIS Open 2021. All Rights Reserved.
 
-## Notices
-Copyright © OASIS Open 2021. All Rights Reserved.
-
-Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr).
+Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
 
-For complete copyright information please see the Notices section in the Appendix.
+For complete copyright information please see the Notices section in an Appendix below.
 
 
 -------
@@ -222,7 +221,7 @@ For the "key:value" example above, the encoding would be:
 ```
 
 
-
+-------
 
 # 2 Operating Model
 
@@ -376,7 +375,7 @@ The following values are recommended for `Subscription Options` for OpenC2 appli
 
 This section describes how OpenC2 messages are represented in MQTT PUBLISH control packets.
 
-### 2.4.1 Content Type and Serialization
+### 2.4.1  Content Type and Serialization
 
 OpenC2 messages are conveyed in the payload of MQTT PUBLISH control packets.  As described in the [MQTT-V5.0](#mqtt-v50) specification section 3.3.3: "the content and format of the data is application specific" and therefore meaningless to the Broker. OpenC2 uses the following MQTT PUBLISH control packet properties to convey essential information about the message to the recipient:
 
@@ -534,7 +533,7 @@ OpenC2 client send an MQTT PINGREQ when 95% of the `Keep Alive`
 interval has expired without any other control packets being
 exchanged.
 
-## 2.8 Will Message
+## 2.8  Will Message
 
 The CONNECT control packet, described in [MQTT-v5.0](#mqtt-v50),
 Section 3.1, provides a `Will Message` feature that enables connected
@@ -608,6 +607,8 @@ recommendations regarding appropriate values for either expiry
 interval. Implementers are encouraged to evaluate their use cases
 to define reasonable values for these properties. 
 
+
+-------
 
 # 3 Protocol Mapping
 
@@ -705,8 +706,6 @@ the following PUBLISH control packet properties:
  * `Topic Alias`
 
 
-
-
 ## 3.3 SUBSCRIBE Control Packet
 
 Producers and Consumers MUST use the SUBSCRIBE control packet, as
@@ -775,6 +774,8 @@ transmit or receive and process these control packets as
 specified in their respective sections of the
 [MQTTv5.0](#mqtt-v50) specification.
 
+-------
+
 # 4 Conformance
 
 An OpenC2 MQTT client conforms to this specification only if it satisfies all of the statements below:
@@ -785,7 +786,7 @@ An OpenC2 MQTT client conforms to this specification only if it satisfies all of
 
 -------
 
-# Appendix A: References
+# Appendix A. References
 
 This appendix contains the normative and informative references that are used in this document. Normative references are specific (identified by date of publication and/or edition number or version number) and Informative references are either specific or non-specific.
 
@@ -811,7 +812,7 @@ Bray, T., ed., "The JavaScript Object Notation (JSON) Data Interchange Format", 
 Rescorla, E., "The Transport Layer Security (TLS) Protocol Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018, <[http://www.rfc-editor.org/info/rfc8446](http://www.rfc-editor.org/info/rfc8446)>
 
 ###### [OpenC2-Lang-v1.0]
-_Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: http://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
+_Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest version: https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html.
 
 ###### [mqtt-v5.0]
 
@@ -834,8 +835,7 @@ Eclipse Foundation, "Sparkplug (TM) MQTT Topic & Payload Definition", Version 2.
 ###### [Paho]
 Eclipse Foundation Paho MQTT Client Library, https://www.eclipse.org/paho/
 
-
-
+-------
 
 # Appendix B. Safety, Security and Privacy Considerations
 
@@ -877,7 +877,7 @@ restricted to non-operational testing purposes.
 
 ------
 
-# Appendix C: Acknowledgments
+# Appendix C. Acknowledgments
 
 ## C.1 Special Thanks
 
@@ -928,7 +928,7 @@ or face-to-face meetings during the development of this specification:
 
 ---
 
-# Appendix D: Revision History
+# Appendix D. Revision History
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 | WD01 | 2020-05-14 | David Lemire | Initial working draft |
@@ -942,14 +942,14 @@ or face-to-face meetings during the development of this specification:
 | WD07 | 2021-02-08 | David Lemire | Revision History table and WD number updated. |
 | CSD03 | 2021-02-25 | David Lemire | Publication of CSD03 based on WD07. |
 | WD08 | 2021-04-15 | David Lemire | Restructured to new OASIS template;<br> Added "DENY" example;<br> Remove unncessary level of indenture in Section 3;<br> Move topic wildcard discussion to Section 2.2;<br> Numerous small edits  |
-| WD09 | 2021-08-13 | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C: Acknowledgements;<br> Numerous small edits and corrections  |
+| WD09 | 2021-08-13 | David Lemire | Simplified presentation of protocol requirements in Section 3;<br>Added paho python client example;<br>Removed operating model working questions;<br>Enhanced example graphics to highlight requirements from this specification;<br>Added conformance section;<br>Added prohibition against use of MQTT `Response Topic` feature;<br>Populated Appendix C. Acknowledgments;<br> Numerous small edits and corrections  |
 | WD10 | 2021-10-13 | David Lemire | Incorporates non-material changes based on public review comments for CSD04 (based on WD09). |
 
 
 
 ---
 
-# Appendix E: Examples
+# Appendix E. Examples
 
 
 _This appendix is non-normative in its entirety._
@@ -1039,7 +1039,7 @@ specification:
 
 ![SUBSCRIBE and SUBACK](./images/e1-pkt-sub-and-suback.png)
 
-## E.2 Example 2: Command / Response Exchange
+## E.2  Example 2: Command / Response Exchange
 
 This example illustrates the message flows that occur for a
 notional but common process of an OpenC2 Producer publishing an
@@ -1072,7 +1072,7 @@ This example illustrates the following aspects of the operating model:
 * Default topic structure, [Section 2.2](#22-default-topic-structure)
 * Properties to convey OpenC2 message type and serialization, [Section 2.4](#24-openc2-message-format)
 * Recommended use of QoS 1, [Section 2.5](#25-quality-of-service)
-* PUBLISH control packet flags, [Section 3.2](#32-publish-control-packet)
+* PUBLISH control packet flags, [Section 3.3](#33-publish-control-packet)
 
 
 #### Figure E-3: Publish Request and Response
@@ -1505,8 +1505,6 @@ client.loop_start()
 ```
 
 
-
-
 ### E.5.2 Subscribing
 
 This example provides supporting detail for the E.5.1 example
@@ -1599,12 +1597,12 @@ client.publish(
 
 ---
 
-# Appendix F: Notices
+# Appendix F. Notices
 
 
-Copyright © OASIS Open 2021. All Rights Reserved.
+Copyright &copy; OASIS Open 2021. All Rights Reserved.
 
-All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr) may be found at the OASIS website.
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
 This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
 
@@ -1620,4 +1618,4 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 
 \[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
 
-The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark for above guidance.
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
