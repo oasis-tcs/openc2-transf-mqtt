@@ -1,6 +1,6 @@
 ![OpenC2](images/mqtt-logo-header.png)
 
-## ![oasis-avatar](https://avatars.githubusercontent.com/u/47402065?s=48&v=4) An OASIS [Work Product](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dWorkProduct) Repository ![oasis-avatar](https://avatars.githubusercontent.com/u/47402065?s=48&v=4) 
+## ![oasis-avatar](https://avatars.githubusercontent.com/u/47402065?s=24&v=4) An OASIS [Work Product](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dWorkProduct) Repository ![oasis-avatar](https://avatars.githubusercontent.com/u/47402065?s=24&v=4) 
 
 Members of the OASIS [Open Command and Control (OpenC2) Technical
 Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=openc2)
